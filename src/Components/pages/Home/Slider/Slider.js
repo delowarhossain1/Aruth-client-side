@@ -3,7 +3,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
 import { Pagination } from "swiper";
-import sliderimg from "../../../Images/slider.jpg";
+import sliderimg from "../../../../Images/slider.jpg";
 
 const Slider = () => {
   const [sliderImages, setSliderImages] = useState([]);
@@ -19,12 +19,12 @@ const Slider = () => {
 
       {/* {sliderImages?.map((image) => (
         <SwiperSlide key={image._id}>
-            <img src={image.img} alt="slider" />
+            <img src={image.img} alt="slider" className='rounded' />
         </SwiperSlide>
       ))} */}
 
         <SwiperSlide>
-            <img src={sliderimg} alt="" />
+            <img src={sliderimg} className="rounded" alt="" />
         </SwiperSlide>
     </Swiper>
   );
