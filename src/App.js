@@ -1,11 +1,15 @@
-import './App.css';
-import Navbar from './Components/shared/Navbar/Navbar';
+import "./App.css";
+import Slider from "./Components/pages/Home/Slider";
+import Navbar from "./Components/shared/Navbar/Navbar";
 
 function App() {
   return (
-    <div className="">
-        <Navbar />
-    </div>
+    <>
+      <Navbar />
+      <div className="bg-gray-300">
+          <Slider />
+      </div>
+    </>
   );
 }
 
