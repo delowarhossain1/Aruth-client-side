@@ -61,27 +61,27 @@ const Navbar = () => {
             <div>
                 <Link to='/'>
                     <div className="relative">
-                        <span class="badge badge-sm indicator-item absolute top-0 left-[12px]">0</span>
+                        <span className="badge badge-sm indicator-item absolute top-0 left-[12px]">0</span>
                         <img src={shoppingCart} alt="shopping card" className="w-8" />
                     </div>
                 </Link>
             </div>
 
           <div className="ml-2">
-            <div class="dropdown dropdown-end ">
-              <label tabIndex="0" class="btn btn-ghost btn-circle avatar">
-                <div class="w-10 border-2 rounded-full">
+            <div className="dropdown dropdown-end ">
+              <label tabIndex="0" className="btn btn-ghost btn-circle avatar">
+                <div className="w-10 border-2 rounded-full">
                   <img src="https://placeimg.com/80/80/people" alt="profile"/>
                 </div>
               </label>
               <ul
                 tabIndex="0"
-                class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
+                className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
               >
                 <li>
-                  <Link to="/" class="justify-between">
+                  <Link to="/" className="justify-between">
                     Profile
-                    <span class="badge">New</span>
+                    <span className="badge">New</span>
                   </Link>
                 </li>
                 <li>
