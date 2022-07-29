@@ -1,6 +1,6 @@
 import React from 'react';
 
-const RatingsStar = (star) => {
+const RatingsStar = ({star = 0, styles = ''}) => {
     let totalStar = Number(star);
     let solidStarCount = 0;
     let halfStarCount = 0;
@@ -22,18 +22,18 @@ const RatingsStar = (star) => {
     return (
         <div className='flex items-center'>
             {
-                [...Array(solidStarCount)]?.map(star => (
-                    <i class="fa-solid fa-star text-yellow-500"></i>
+                [...Array(solidStarCount)]?.map((star, index) => (
+                    <i class={`fa-solid fa-star text-sm text-yellow-500 ${styles}`} key={index}></i>
                 ))
             }
             {
-                [...Array(halfStarCount)]?.map(star => (
-                    <i class="fa-solid fa-star-half-stroke text-yellow-500"></i>
+                [...Array(halfStarCount)]?.map((star, index) => (
+                    <i class={`fa-solid fa-star-half-stroke text-sm text-yellow-500 ${styles}`} key={index}></i>
                 ))
             }
             {
-                [...Array(blankStarCount)]?.map(star => (
-                    <i class="fa-solid fa-star text-gray-300"></i>
+                [...Array(blankStarCount)]?.map((star, index) => (
+                    <i class={`fa-solid fa-star text-sm text-gray-300 ${styles}`} key={index}></i>
                 ))
             }
         </div>
