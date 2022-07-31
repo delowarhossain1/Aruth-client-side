@@ -4,7 +4,7 @@ import RatingsStar from './../Ratings/RatingsStar';
 const ProductCart = ({product}) => {
     const {img, name, ratings, price, discount} = product;
     const productName = name?.length > 250 ? name.slice(0, 20) + "......" : name; 
-    console.log(product)
+
   return (
     <div className="bg-white cursor-pointer shadow rounded hover:shadow-lg">
       <img src={img} alt="product" />

@@ -1,0 +1,22 @@
+[
+    {
+        "_id" : 1,
+        "link" : "/",
+        "img" : "https://i.ibb.co/sbP1tb6/categori2.png"
+    },
+    {
+        "_id" : 2,
+        "link" : "/",
+        "img" : "https://i.ibb.co/X4P6m7w/categori.png"
+    },
+    {
+        "_id" : 3,
+        "link" : "/",
+        "img" : "https://i.ibb.co/6FVZ5LN/categori3.png"
+    },
+    {
+        "_id" : 4,
+        "link" : "/",
+        "img" : "https://i.ibb.co/kqSDqYy/categori4.png"
+    }
+]

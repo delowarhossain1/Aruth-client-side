@@ -12,8 +12,8 @@ const PopularProducts = () => {
   }, []);
 
   return (
-    <section className="py-3">
-      <h2 className="text-2xl uppercase mb-5">Popular products</h2>
+    <section className="py-5">
+      <h2 className="section-heading">Popular products</h2>
 
       <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5">
         {products?.map((product, index) => (

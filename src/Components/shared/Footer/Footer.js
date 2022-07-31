@@ -2,6 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 const Footer = () => {
+    const date = new Date();
+    
     return (
         <footer className='bg-[#1B1C20] py-6 text-white text-sm'>
             <div className=' w-[95%] mx-auto grid gap-5 md:gap-10 grid-cols-1 md:grid-cols-2 lg:grid-cols-4'>
@@ -43,18 +45,22 @@ const Footer = () => {
 
                     <div className='flex items-center space-x-5'>
                         <Link to='/'>
-                            <i class="fa-brands fa-facebook-f text-2xl hover:text-[#4267B2]"></i>
+                            <i className="fa-brands fa-facebook-f text-2xl hover:text-[#4267B2]"></i>
                         </Link>
 
                         <Link to='/'>
-                            <i class="fa-brands fa-twitter text-2xl hover:text-[#1DA1F2]"></i>
+                            <i className="fa-brands fa-twitter text-2xl hover:text-[#1DA1F2]"></i>
                         </Link>
 
                         <Link to='/'>
-                        <i class="fa-brands fa-square-instagram text-2xl hover:text-[#3f729b]"></i>
+                        <i className="fa-brands fa-square-instagram text-2xl hover:text-[#3f729b]"></i>
                         </Link>
                     </div>
                 </div>
+            </div>
+
+            <div className='pt-5 text-center'>
+                <p className='uppercase'>&copy;COPYRIGHT {date.getFullYear()} Aruth, ALL RIGHTS RESERVED</p>
             </div>
         </footer>
     );
