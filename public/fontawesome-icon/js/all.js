@@ -3425,12 +3425,12 @@
   var duotonePathRe = [/*#__PURE__*/_wrapRegExp(/path d="((?:(?!")[\s\S])+)".*path d="((?:(?!")[\s\S])+)"/, {
     d1: 1,
     d2: 2
-  }), /*#__PURE__*/_wrapRegExp(/path class="((?:(?!")[\s\S])+)".*d="((?:(?!")[\s\S])+)".*path class="((?:(?!")[\s\S])+)".*d="((?:(?!")[\s\S])+)"/, {
+  }), /*#__PURE__*/_wrapRegExp(/path className="((?:(?!")[\s\S])+)".*d="((?:(?!")[\s\S])+)".*path className="((?:(?!")[\s\S])+)".*d="((?:(?!")[\s\S])+)"/, {
     cls1: 1,
     d1: 2,
     cls2: 3,
     d2: 4
-  }), /*#__PURE__*/_wrapRegExp(/path class="((?:(?!")[\s\S])+)".*d="((?:(?!")[\s\S])+)"/, {
+  }), /*#__PURE__*/_wrapRegExp(/path className="((?:(?!")[\s\S])+)".*d="((?:(?!")[\s\S])+)"/, {
     cls1: 1,
     d1: 2
   })];

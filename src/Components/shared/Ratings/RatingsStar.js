@@ -23,17 +23,17 @@ const RatingsStar = ({star = 0, styles = ''}) => {
         <div className='flex items-center'>
             {
                 [...Array(solidStarCount)]?.map((star, index) => (
-                    <i class={`fa-solid fa-star text-sm text-yellow-500 ${styles}`} key={index}></i>
+                    <i className={`fa-solid fa-star text-sm text-yellow-500 ${styles}`} key={index}></i>
                 ))
             }
             {
                 [...Array(halfStarCount)]?.map((star, index) => (
-                    <i class={`fa-solid fa-star-half-stroke text-sm text-yellow-500 ${styles}`} key={index}></i>
+                    <i className={`fa-solid fa-star-half-stroke text-sm text-yellow-500 ${styles}`} key={index}></i>
                 ))
             }
             {
                 [...Array(blankStarCount)]?.map((star, index) => (
-                    <i class={`fa-solid fa-star text-sm text-gray-300 ${styles}`} key={index}></i>
+                    <i className={`fa-solid fa-star text-sm text-gray-300 ${styles}`} key={index}></i>
                 ))
             }
         </div>
