@@ -4,8 +4,13 @@ import { Link } from "react-router-dom";
 import maleIcon from "../../../Images/icon/male.png";
 import femaleIcon from "../../../Images/icon/woman.png";
 import shoppingCart from "../../../Images/icon/shopping.png";
+import {signOut} from "firebase/auth";
+import { useAuthState } from "react-firebase-hooks/auth";
+import auth from './../../../firebase.init';
+import Loading from "../Loading/Loading";
 
 const Navbar = () => {
+  const [user, loading] = useAuthState(auth);
   const [navItems, setNavItems] = useState([]);
 
   useEffect(() => {
@@ -17,6 +22,11 @@ const Navbar = () => {
   const menu = navItems?.map((item) => (
     <LinkWithLi key={item._id} menu={item} />
   ));
+
+
+  if(loading){
+    return <Loading />
+  }
 
   return (
     <nav className="bg-gray-100">
@@ -67,11 +77,11 @@ const Navbar = () => {
                 </Link>
             </div>
 
-          <div className="ml-2">
+          {user && <div className="ml-2">
             <div className="dropdown dropdown-end ">
               <label tabIndex="0" className="btn btn-ghost btn-circle avatar">
                 <div className="w-10 border-2 rounded-full">
-                  <img src="https://placeimg.com/80/80/people" alt="profile"/>
+                  <img src={maleIcon} alt="profile"/>
                 </div>
               </label>
               <ul
@@ -88,11 +98,11 @@ const Navbar = () => {
                   <Link to='/'>Settings</Link>
                 </li>
                 <li>
-                  <Link to='/'>Logout</Link>
+                  <span onClick={()=> signOut(auth)}>Logout</span>
                 </li>
               </ul>
             </div>
-          </div>
+          </div>}
         </div>
       </div>
     </nav>

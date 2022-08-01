@@ -1,12 +1,18 @@
 import React from "react";
 import loginPic from "../../../Images/login.jpg";
 import { useForm } from "react-hook-form";
+import {useSignInWithGoogle} from "react-firebase-hooks/auth";
 import "./inputBox.css";
+import auth from './../../../firebase.init';
 
 const Login = () => {
+    const [signInWithGoogle, googleUser, loading, googleError] = useSignInWithGoogle(auth);
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
+    const onSubmit = data => console.log(data);
 
-  const onSubmit = data => console.log(data);
+
+    // Sign in with
+    console.log(googleUser)
 
   return (
     <section className="py-10">
@@ -54,7 +60,7 @@ const Login = () => {
             <div class="divider my-5 max-w-xs mx-auto">Or continue with</div>
 
             <div className="flex items-center space-x-4 justify-center">
-                <button className="btn text-sm bg-[#DB4437] border-0">
+                <button className="btn text-sm bg-[#DB4437] border-0" onClick={()=> signInWithGoogle()}>
                     <i class="fa-brands fa-google mr-2"></i>
                     Google
                 </button>
