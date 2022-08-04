@@ -9,6 +9,127 @@
         "size" : ["M", "L", "XL"],
         "availableQuantity" : 20,
         "totalSells" : 1,
+        "interested" : {
+            "male" : true,
+            "female" : false,
+            "both" : false
+        }, 
+        "description" : {
+            "list" : ["100% Comfortable & Regular FIT T-Shirt.", "Life Time Print Guaranty.", "Fabric GSM 160.", "100% Export Quality & 100% Quality Control.", "Fabric Taiwan CVC Fabric."],
+            "text" : "This T-shirt for men’s comfortable and may be worn for regular use. it’s far an excellent put on for guys like you. you’ll like to put on this expensive and colorful t- shirt just for its flexible usability and diverse style experience. it is normally made from a light, brilliant quality Taiwan CVC fabrics and is simple to smooth.Full sleeve design with a everyday suit for men. it is very versatile "
+        },
+        "comments" : [
+            {
+                "id": 1,
+                "email" : "delowar500@gmail.com",
+                "name" : "Delowar",
+                "ratings" : 3,
+                "text" : "onak valo ekta products  mone chaile sobay nite paren"
+            }
+        ]
+    },
+    {
+        "img" : "https://static-01.daraz.com.bd/p/e7c22d8b523955351ed3b7529dd44843.jpg",
+        "name" : "Don't Quit full sleeve t-shirt for man",
+        "ratings" : 4.5,
+        "price" : 80,
+        "discount": 20,
+        "popular" : true,
+        "size" : ["M", "L", "XL"],
+        "availableQuantity" : 20,
+        "totalSells" : 1,
+        "interested" : {
+            "male" : true,
+            "female" : false,
+            "both" : false
+        }, 
+        "description" : {
+            "list" : ["100% Comfortable & Regular FIT T-Shirt.", "Life Time Print Guaranty.", "Fabric GSM 160.", "100% Export Quality & 100% Quality Control.", "Fabric Taiwan CVC Fabric."],
+            "text" : "This T-shirt for men’s comfortable and may be worn for regular use. it’s far an excellent put on for guys like you. you’ll like to put on this expensive and colorful t- shirt just for its flexible usability and diverse style experience. it is normally made from a light, brilliant quality Taiwan CVC fabrics and is simple to smooth.Full sleeve design with a everyday suit for men. it is very versatile "
+        },
+        "comments" : [
+            {
+                "id": 1,
+                "email" : "delowar500@gmail.com",
+                "name" : "Delowar",
+                "ratings" : 3,
+                "text" : "onak valo ekta products  mone chaile sobay nite paren"
+            }
+        ]
+    },
+    {
+        "img" : "https://static-01.daraz.com.bd/p/e7c22d8b523955351ed3b7529dd44843.jpg",
+        "name" : "Don't Quit full sleeve t-shirt for man",
+        "ratings" : 4.5,
+        "price" : 80,
+        "discount": 20,
+        "popular" : true,
+        "size" : ["M", "L", "XL"],
+        "availableQuantity" : 20,
+        "totalSells" : 1,
+        "interested" : {
+            "male" : true,
+            "female" : false,
+            "both" : false
+        }, 
+        "description" : {
+            "list" : ["100% Comfortable & Regular FIT T-Shirt.", "Life Time Print Guaranty.", "Fabric GSM 160.", "100% Export Quality & 100% Quality Control.", "Fabric Taiwan CVC Fabric."],
+            "text" : "This T-shirt for men’s comfortable and may be worn for regular use. it’s far an excellent put on for guys like you. you’ll like to put on this expensive and colorful t- shirt just for its flexible usability and diverse style experience. it is normally made from a light, brilliant quality Taiwan CVC fabrics and is simple to smooth.Full sleeve design with a everyday suit for men. it is very versatile "
+        },
+        "comments" : [
+            {
+                "id": 1,
+                "email" : "delowar500@gmail.com",
+                "name" : "Delowar",
+                "ratings" : 3,
+                "text" : "onak valo ekta products  mone chaile sobay nite paren"
+            }
+        ]
+    },
+    {
+        "img" : "https://static-01.daraz.com.bd/p/e7c22d8b523955351ed3b7529dd44843.jpg",
+        "name" : "Don't Quit full sleeve t-shirt for man",
+        "ratings" : 4.5,
+        "price" : 80,
+        "discount": 20,
+        "popular" : true,
+        "size" : ["M", "L", "XL"],
+        "availableQuantity" : 20,
+        "totalSells" : 1,
+        "interested" : {
+            "male" : true,
+            "female" : false,
+            "both" : false
+        }, 
+        "description" : {
+            "list" : ["100% Comfortable & Regular FIT T-Shirt.", "Life Time Print Guaranty.", "Fabric GSM 160.", "100% Export Quality & 100% Quality Control.", "Fabric Taiwan CVC Fabric."],
+            "text" : "This T-shirt for men’s comfortable and may be worn for regular use. it’s far an excellent put on for guys like you. you’ll like to put on this expensive and colorful t- shirt just for its flexible usability and diverse style experience. it is normally made from a light, brilliant quality Taiwan CVC fabrics and is simple to smooth.Full sleeve design with a everyday suit for men. it is very versatile "
+        },
+        "comments" : [
+            {
+                "id": 1,
+                "email" : "delowar500@gmail.com",
+                "name" : "Delowar",
+                "ratings" : 3,
+                "text" : "onak valo ekta products  mone chaile sobay nite paren"
+            }
+        ]
+    },
+    {
+        "img" : "https://static-01.daraz.com.bd/p/e7c22d8b523955351ed3b7529dd44843.jpg",
+        "name" : "Don't Quit full sleeve t-shirt for man",
+        "ratings" : 4.5,
+        "price" : 80,
+        "discount": 20,
+        "popular" : true,
+        "size" : ["M", "L", "XL"],
+        "availableQuantity" : 20,
+        "totalSells" : 1,
+        "interested" : {
+            "male" : false,
+            "female" : true,
+            "both" : false
+        }, 
         "description" : {
             "list" : ["100% Comfortable & Regular FIT T-Shirt.", "Life Time Print Guaranty.", "Fabric GSM 160.", "100% Export Quality & 100% Quality Control.", "Fabric Taiwan CVC Fabric."],
             "text" : "This T-shirt for men’s comfortable and may be worn for regular use. it’s far an excellent put on for guys like you. you’ll like to put on this expensive and colorful t- shirt just for its flexible usability and diverse style experience. it is normally made from a light, brilliant quality Taiwan CVC fabrics and is simple to smooth.Full sleeve design with a everyday suit for men. it is very versatile "

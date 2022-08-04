@@ -1,12 +1,14 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import RatingsStar from './../Ratings/RatingsStar';
 
 const ProductCart = ({product}) => {
-    const {img, name, ratings, price, discount} = product;
+    const {_id, img, name, ratings, price, discount} = product;
     const productName = name?.length > 250 ? name.slice(0, 20) + "......" : name; 
+    const navigate = useNavigate();
 
   return (
-    <div className="bg-white cursor-pointer shadow rounded hover:shadow-lg">
+    <div className="bg-white cursor-pointer shadow rounded hover:shadow-lg" onClick={()=> navigate(`/product-details/${_id}`)}>
       <img src={img} alt="product" />
 
       <div className="p-2 my-3">
