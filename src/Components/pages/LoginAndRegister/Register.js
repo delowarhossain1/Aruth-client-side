@@ -1,57 +1,46 @@
 import React, { useState } from "react";
 import signupImage from "../../../Images/signup.png";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
 import auth from "../../../firebase.init";
 import Loading from "../../shared/Loading/Loading";
-import useAlert from './../../../hooks/useAlert';
+import useAccessToken from "./../../../hooks/useAccessToken";
 
 const Register = () => {
-  const {simpleAlert} = useAlert();
-  const [incorrectConfirmPassword, setIncorrectConfirmPassword] = useState("");
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
   const [createUserWithEmailAndPassword, user, loading, registerError] =
-    useCreateUserWithEmailAndPassword(auth);
+  useCreateUserWithEmailAndPassword(auth);
+  const navigate = useNavigate();
+  const [incorrectConfirmPassword, setIncorrectConfirmPassword] = useState("");
+  const [userInfo, setUserInfo] = useState({});
+  const [accessToken] = useAccessToken(user, userInfo);
 
   const onSubmit = async (data) => {
     const password = data?.password;
     const confirmPassword = data?.confirmPassword;
     const email = data?.email;
+    const name = data?.name;
+
+    setUserInfo({email, name});
 
     if (password === confirmPassword) {
-      await createUserWithEmailAndPassword(email, password);
-
-      if (!registerError?.code === "auth/email-already-in-use") {
-        const url = `http://localhost:5000/register`;
-        fetch(url, {
-          method: "POST",
-          headers: {
-            "content-type": "application/json",
-          },
-          body: JSON.stringify(data),
-        })
-          .then((res) => res.json())
-          .then((data) => console.log(data));
-      }
-      else{
-        simpleAlert({
-          text : 'The email is already used. Try another email',
-          symbol : 'error',
-          title : 'Register error'
-        });
-      }
-    } 
-    else {
+      createUserWithEmailAndPassword(email, password);
+    } else {
       setIncorrectConfirmPassword("Password & confirm password not match.");
     }
   };
 
-  if (loading) {
+  // if access token available
+  if(accessToken){
+    navigate('/');
+  }
+
+  if (loading || accessToken) {
     return <Loading />;
   }
 
@@ -78,6 +67,14 @@ const Register = () => {
               <i className="fa-brands fa-linkedin-in text-2xl text-white"></i>
             </button>
           </div>
+
+        {/* Register error */}
+          {registerError && <p className=" mt-3 text-red-500 text-xl bg-slate-100 rounded-xl p-1 flex items-center justify-center">
+            <i class="fa-solid fa-circle-xmark mr-2"></i>
+            {registerError.code}
+          </p>}
+
+          {/* Register form */}
 
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="form-control w-full">
@@ -207,7 +204,6 @@ const Register = () => {
               <Link to="/login"> login</Link>
             </strong>
           </p>
-
         </div>
       </div>
     </section>
