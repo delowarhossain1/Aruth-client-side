@@ -2,35 +2,53 @@ import React, { useState } from "react";
 import signupImage from "../../../Images/signup.png";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
+import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
+import auth from "../../../firebase.init";
+import Loading from "../../shared/Loading/Loading";
 
 const Register = () => {
-  const [incorrectConfirmPassword, setIncorrectPassword] = useState('');
+  const [incorrectConfirmPassword, setIncorrectConfirmPassword] = useState("");
+  const [firebaseRegisterError, setFirebaseRegisterError] = useState("");
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
+  const [createUserWithEmailAndPassword, user, loading, registerError] =
+    useCreateUserWithEmailAndPassword(auth);
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     const password = data?.password;
     const confirmPassword = data?.confirmPassword;
+    const email = data?.email;
 
     if (password === confirmPassword) {
-      const url = `http://localhost:5000/register`;
-      fetch(url, {
-        method : "POST",
-        headers : {
-          'content-type' : 'application/json'
-        },
-        body : JSON.stringify(data)
-      })
-      .then(res => res.json())
-      .then(data => console.log(data));
-    }
-    else{
-      setIncorrectPassword('Password & confirm password not match.');
+      await createUserWithEmailAndPassword(email, password);
+
+      if (!registerError?.code === "auth/email-already-in-use") {
+        const url = `http://localhost:5000/register`;
+        fetch(url, {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(data),
+        })
+          .then((res) => res.json())
+          .then((data) => console.log(data));
+      }
+      else{
+        setFirebaseRegisterError('The email already used. Try another email')
+      }
+    } 
+    else {
+      setIncorrectConfirmPassword("Password & confirm password not match.");
     }
   };
+
+  if (loading) {
+    return <Loading />;
+  }
 
   return (
     <section className="py-12 flex items-center justify-center">
@@ -73,9 +91,13 @@ const Register = () => {
                   },
                 })}
               />
-              {errors?.name && <label className="label">
-                  <span className="label-text-alt text-red-600">{errors?.name?.message}</span>
-                </label>}
+              {errors?.name && (
+                <label className="label">
+                  <span className="label-text-alt text-red-600">
+                    {errors?.name?.message}
+                  </span>
+                </label>
+              )}
             </div>
 
             <div className="form-control w-full">
@@ -94,9 +116,13 @@ const Register = () => {
                   },
                 })}
               />
-              {errors?.email && <label className="label">
-                  <span className="label-text-alt text-red-600">{errors?.email?.message}</span>
-                </label>}
+              {errors?.email && (
+                <label className="label">
+                  <span className="label-text-alt text-red-600">
+                    {errors?.email?.message}
+                  </span>
+                </label>
+              )}
             </div>
 
             <div className="form-control w-full">
@@ -120,9 +146,13 @@ const Register = () => {
                 })}
               />
 
-              {errors?.password && <label className="label">
-                  <span className="label-text-alt text-red-600">{errors?.password?.message}</span>
-                </label>}
+              {errors?.password && (
+                <label className="label">
+                  <span className="label-text-alt text-red-600">
+                    {errors?.password?.message}
+                  </span>
+                </label>
+              )}
             </div>
             <div className="form-control w-full">
               <label className="label">
@@ -145,13 +175,22 @@ const Register = () => {
                 })}
               />
 
-              {errors?.confirmPassword && <label className="label">
-                  <span className="label-text-alt text-red-600">{errors?.confirmPassword?.message || incorrectConfirmPassword}</span>
-                </label>}
+              {errors?.confirmPassword && (
+                <label className="label">
+                  <span className="label-text-alt text-red-600">
+                    {errors?.confirmPassword?.message ||
+                      incorrectConfirmPassword}
+                  </span>
+                </label>
+              )}
 
-              {incorrectConfirmPassword && <label className="label">
-                  <span className="label-text-alt text-red-600">{incorrectConfirmPassword}</span>
-                </label>}
+              {incorrectConfirmPassword && (
+                <label className="label">
+                  <span className="label-text-alt text-red-600">
+                    {incorrectConfirmPassword}
+                  </span>
+                </label>
+              )}
             </div>
 
             <button className="form-btn w-full mt-3">Submit</button>
@@ -163,6 +202,8 @@ const Register = () => {
               <Link to="/login"> login</Link>
             </strong>
           </p>
+
+          <p>{firebaseRegisterError && firebaseRegisterError}</p>
         </div>
       </div>
     </section>
