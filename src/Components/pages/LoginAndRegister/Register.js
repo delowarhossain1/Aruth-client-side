@@ -5,10 +5,11 @@ import { Link } from "react-router-dom";
 import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
 import auth from "../../../firebase.init";
 import Loading from "../../shared/Loading/Loading";
+import useAlert from './../../../hooks/useAlert';
 
 const Register = () => {
+  const {simpleAlert} = useAlert();
   const [incorrectConfirmPassword, setIncorrectConfirmPassword] = useState("");
-  const [firebaseRegisterError, setFirebaseRegisterError] = useState("");
   const {
     register,
     handleSubmit,
@@ -38,7 +39,11 @@ const Register = () => {
           .then((data) => console.log(data));
       }
       else{
-        setFirebaseRegisterError('The email already used. Try another email')
+        simpleAlert({
+          text : 'The email is already used. Try another email',
+          symbol : 'error',
+          title : 'Register error'
+        });
       }
     } 
     else {
@@ -203,7 +208,6 @@ const Register = () => {
             </strong>
           </p>
 
-          <p>{firebaseRegisterError && firebaseRegisterError}</p>
         </div>
       </div>
     </section>
