@@ -1,0 +1,12 @@
+/* Dashboard side menu ====================*/
+.dashboard-main-menu{
+    padding: 5px 8px;
+    cursor: pointer;
+    transition: background .2s;
+    margin-bottom: 6px;
+    color: rgb(125, 119, 119);
+}
+.dashboard-main-menu:hover{
+    background-color: #5A76FD;
+    color: white;
+}

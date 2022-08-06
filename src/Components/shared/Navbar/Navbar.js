@@ -8,6 +8,7 @@ import {signOut} from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
 import auth from './../../../firebase.init';
 import Loading from "../Loading/Loading";
+import Login from "../../pages/LoginAndRegister/Login";
 
 const Navbar = () => {
   const [user, loading] = useAuthState(auth);
@@ -54,6 +55,8 @@ const Navbar = () => {
               className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
             >
               {menu}
+              {/* if user is logged in, then login menu will be hidden */}
+              {!user && <LinkWithLi menu={{link : '/login', text: 'login'}} />}
             </ul>
           </div>
 
@@ -65,7 +68,12 @@ const Navbar = () => {
         <div className="navbar-end flex items-center">
 
           <div className="hidden lg:flex">
-            <ul className="menu menu-horizontal p-0">{menu}</ul>
+            <ul className="menu menu-horizontal p-0">
+              {menu}
+              {/* if user is logged in, then login menu will be hidden */}
+
+              {!user && <LinkWithLi menu={{link : '/login', text: 'login'}} />}
+              </ul>
           </div>
 
             <div>
@@ -93,6 +101,9 @@ const Navbar = () => {
                     Profile
                     <span className="badge">New</span>
                   </Link>
+                </li>
+                <li>
+                  <Link to='/dashboard'>Dashboard</Link>
                 </li>
                 <li>
                   <Link to='/'>Settings</Link>

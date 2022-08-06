@@ -7,6 +7,7 @@ import Navbar from "./Components/shared/Navbar/Navbar";
 import Loading from './Components/shared/Loading/Loading';
 import ProductDetails from './Components/pages/ProductDetails/ProductDetails';
 import Register from './Components/pages/LoginAndRegister/Register';
+import Dashboard from "./Components/pages/Dashboard/Dashboard";
 
 function App() {
   return (
@@ -19,8 +20,13 @@ function App() {
                 <Route path="/" element={<Home />} />
                 <Route path='/login' element={<Login />} />
                 <Route path='/register' element={<Register />} />
-                <Route path='/products' element={<Loading />} />
                 <Route path='/product-details/:id' element={<ProductDetails />} />
+
+                <Route path="/dashboard" element={<Dashboard />}>
+
+                </Route>
+                
+                <Route path='/products' element={<Loading />} />
 
             </Routes>
           </div>
