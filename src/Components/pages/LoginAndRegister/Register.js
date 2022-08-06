@@ -70,7 +70,7 @@ const Register = () => {
 
         {/* Register error */}
           {registerError && <p className=" mt-3 text-red-500 text-xl bg-slate-100 rounded-xl p-1 flex items-center justify-center">
-            <i class="fa-solid fa-circle-xmark mr-2"></i>
+            <i className="fa-solid fa-circle-xmark mr-2"></i>
             {registerError.code}
           </p>}
 

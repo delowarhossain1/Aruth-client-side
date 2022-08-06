@@ -1,10 +1,24 @@
 import React from "react";
 import { useSignInWithGoogle } from "react-firebase-hooks/auth";
 import auth from "./../../../firebase.init";
+import { useNavigate } from 'react-router-dom';
+import useAccessToken from './../../../hooks/useAccessToken';
+import Loading from "../../shared/Loading/Loading";
 
 const ContinueWithSocialMedia = () => {
   const [signInWithGoogle, googleUser, loading, googleError] =
     useSignInWithGoogle(auth);
+  const navigate = useNavigate();
+  const [accessToken] = useAccessToken(googleUser);
+
+
+  if(accessToken){
+    navigate('/');
+  }
+
+  if(loading){
+    return <Loading />
+  }
 
   return (
     <div className="flex flex-col  items-center space-y-3 justify-center">

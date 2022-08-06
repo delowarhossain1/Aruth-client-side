@@ -1,9 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import loginPic from "../../../Images/login.jpg";
 import { useForm } from "react-hook-form";
 import "./inputBox.css";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import ContinueWithSocialMedia from "./ContinueWithSocialMedia";
+import { useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
+import auth from './../../../firebase.init';
+import useAccessToken from './../../../hooks/useAccessToken';
+import Loading from "../../shared/Loading/Loading";
 
 const Login = () => {
   const {
@@ -12,7 +16,28 @@ const Login = () => {
     watch,
     formState: { errors },
   } = useForm();
-  const onSubmit = (data) => console.log(data);
+  const [signInWithEmailAndPassword, user, loading, loginError] = useSignInWithEmailAndPassword(auth);
+  const [accessToken] = useAccessToken(user);
+
+  const onSubmit = (data) => {
+    const email = data?.email;
+    const password = data?.password;
+
+    signInWithEmailAndPassword(email, password);
+  };
+
+  const location = useLocation();
+  const navigate = useNavigate();
+  const from = location?.state?.from?.pathname || '/';
+
+  if(accessToken){
+    navigate(from);  
+  }
+  
+  // login loading 
+  if(loading){
+    return <Loading />
+  }
 
   return (
     <section className="py-10">
