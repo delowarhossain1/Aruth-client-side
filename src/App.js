@@ -8,6 +8,7 @@ import Loading from './Components/shared/Loading/Loading';
 import ProductDetails from './Components/pages/ProductDetails/ProductDetails';
 import Register from './Components/pages/LoginAndRegister/Register';
 import Dashboard from "./Components/pages/Dashboard/Dashboard";
+import Report from "./Components/pages/Dashboard/Report/Report";
 
 function App() {
   return (
@@ -23,7 +24,7 @@ function App() {
                 <Route path='/product-details/:id' element={<ProductDetails />} />
 
                 <Route path="/dashboard" element={<Dashboard />}>
-
+                    <Route index element={<Report />} />
                 </Route>
                 
                 <Route path='/products' element={<Loading />} />

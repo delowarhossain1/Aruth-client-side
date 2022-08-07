@@ -2,23 +2,25 @@ import React from "react";
 import profile from "../../../Images/icon/woman.png";
 import { useAuthState } from "react-firebase-hooks/auth";
 import auth from "./../../../firebase.init";
-import { Link } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 import "./Dashboard.css";
 
 const Dashboard = () => {
   const [user, loading, error] = useAuthState(auth);
 
   return (
-    <section className="">
+    <section className="py-6">
       <div class="drawer drawer-mobile">
         <input id="my-drawer-2" type="checkbox" class="drawer-toggle" />
-        <div class="drawer-content flex flex-col items-center justify-center">
+        <div class="drawer-content bg-white ml-0 lg:ml-5 p-3 rounded">
           <label
             for="my-drawer-2"
             class="btn btn-primary drawer-button lg:hidden"
           >
             Open drawer
           </label>
+
+          <Outlet />
         </div>
         <div class="drawer-side shadow-lg rounded">
           <label for="my-drawer-2" class="drawer-overlay"></label>

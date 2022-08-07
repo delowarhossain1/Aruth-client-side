@@ -10,3 +10,9 @@
     background-color: #5A76FD;
     color: white;
 }
+
+/* Dashboard title */
+.dashboard-title{
+    font-size: 25px;
+    color: rgb(125, 119, 119);
+}
