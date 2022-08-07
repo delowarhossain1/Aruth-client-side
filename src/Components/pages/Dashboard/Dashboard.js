@@ -12,7 +12,7 @@ const Dashboard = () => {
     <section className="py-6">
       <div class="drawer drawer-mobile">
         <input id="my-drawer-2" type="checkbox" class="drawer-toggle" />
-        <div class="drawer-content bg-white ml-0 lg:ml-5 p-3 rounded">
+        <div class="drawer-content bg-[#ffffff] ml-0 lg:ml-5 p-3 rounded shadow-lg">
           <label
             for="my-drawer-2"
             class="btn btn-primary drawer-button lg:hidden"
