@@ -76,6 +76,17 @@ const ProductDetails = () => {
               </button>
             </div>
           </div>
+
+          <div className=" flex items-center space-x-5 mt-5">
+            <button className="py-2 px-4 bg-blue-500 rounded text-white">
+              <i class="fa-solid fa-cart-plus mr-2"></i>
+                Add to Cart
+              </button>
+            <button className="py-2 px-4 bg-orange-500 rounded text-white">
+              <i class="fa-solid fa-bag-shopping mr-2"></i>
+              Buy Now
+            </button>
+          </div>
         </div>
       </div>
 
