@@ -1,5 +1,7 @@
 import React from "react";
+import Date from "./Date";
 import LineChartReport from "./LineChart";
+import PiChart from "./PiChart";
 
 const Report = () => {
     
@@ -50,10 +52,13 @@ const Report = () => {
         </div>
       </div>
 
-      {/* Chart  */}
+      {/* Todays report & calender  */}
 
-      <div className="flex flex-cold lg:flex-row py-5 space-y-5 lg:space-x-5">
-        <LineChartReport />
+      <div className="flex flex-cold justify-evenly lg:flex-row py-5 space-y-5 lg:space-x-5">
+
+            <Date />
+            <PiChart />
+
       </div>
     </div>
   );

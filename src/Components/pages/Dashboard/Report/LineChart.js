@@ -20,7 +20,7 @@ const LineChartReport = () => {
     <div className="p-2">
        <LineChart
             width={500}
-            height={200}
+            height={300}
             data={orders}
             margin={{
               top: 10,

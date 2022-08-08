@@ -24,7 +24,7 @@ const Dashboard = () => {
         </div>
         <div class="drawer-side shadow-lg rounded">
           <label for="my-drawer-2" class="drawer-overlay"></label>
-          <ul class="overflow-y-auto w-60 bg-base-100 text-base-content">
+          <ul class="w-60 bg-base-100 text-base-content">
             <div className="flex items-center flex-col gap-0 border-b-2 p-2 mb-2">
               <img
                 src={profile}
