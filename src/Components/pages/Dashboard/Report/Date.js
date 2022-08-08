@@ -12,7 +12,7 @@ const Date = () => {
   }
 
   return (
-    <div className="shadow-lg">
+    <div className="shadow-lg bg-white">
       <DayPicker
         mode="single"
         selected={selected}

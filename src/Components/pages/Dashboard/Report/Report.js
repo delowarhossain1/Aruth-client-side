@@ -1,15 +1,37 @@
-import React from "react";
+import React, { useState } from "react";
 import Date from "./Date";
-import LineChartReport from "./LineChart";
 import PiChart from "./PiChart";
+import ResentProductCart from "./ResentProductCart";
 
 const Report = () => {
-    
-    
+  const [openDate, setOpenDate] = useState(false);
+
   return (
     <div>
-      <h2 className="dashboard-title">Report</h2>
+      {/* Title & date */}
+      <div className="flex justify-between relative">
+        <h2 className="dashboard-title">Report</h2>
 
+        <button
+          className="p-2 bg-gray-100 rounded"
+          onClick={() => setOpenDate(!openDate)}
+        >
+          <span>12/87/92</span>
+          {openDate ? (
+            <i class="fa-solid fa-angle-down ml-2"></i>
+          ) : (
+            <i class="fa-solid fa-angle-up ml-2"></i>
+          )}
+        </button>
+
+        {openDate && (
+          <div className="absolute z-30 top-7 right-0">
+            <Date />
+          </div>
+        )}
+      </div>
+
+        {/* Report box */}
       <div className="py-5 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
         <div className="bg-[#5a76fd] p-4 rounded-lg flex items-center justify-between cursor-pointer">
           <div>
@@ -55,10 +77,28 @@ const Report = () => {
       {/* Todays report & calender  */}
 
       <div className="flex flex-cold justify-evenly lg:flex-row py-5 space-y-5 lg:space-x-5">
+        <PiChart />
+       
+      </div>
 
-            <Date />
-            <PiChart />
+      {/* Resent Orders & user */}
 
+      <div className="pt-5">
+        <div className="flex flex-col lg:flex-row justify-between space-y-5 space-x-0 lg:space-x-5 lg:space-y-0 ">
+          <div className="flex-1">
+            <h2 className="font-semibold text-lg mb-2">Resent orders</h2>
+            <ResentProductCart />
+            <ResentProductCart />
+            <ResentProductCart />
+            <ResentProductCart />
+            <ResentProductCart />
+          </div>
+
+          <div className="flex-1">
+            <h2 className="font-semibold text-lg mb-2">Resent customer</h2>
+            <ResentProductCart />
+          </div>
+        </div>
       </div>
     </div>
   );
