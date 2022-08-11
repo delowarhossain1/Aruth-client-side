@@ -94,12 +94,12 @@ const ProductDetails = () => {
           </div>
         </div>
 
-              {/* Orders summery */}
+        {/* Orders summery */}
 
         <div className="w-full md:w-4/12 p-3 bg-white shadow-md rounded">
           <h4 className="text-xl mb-3 text-center">Summery</h4>
 
-          <div className="flex items-center justify-between mb-4">
+          <div className="flex items-center justify-between mb-3">
             <div className="flex items-center">
               <i class="fa-solid fa-truck text-gray-500"></i>
               <div className="flex flex-col ml-5">
@@ -111,23 +111,37 @@ const ProductDetails = () => {
             <h4 className="text-lg text-orange-500">$12</h4>
           </div>
 
-          <div className="flex items-center mb-4">
+          <div className="flex items-center mb-3">
             <i class="fa-solid fa-money-bill-wave text-gray-500"></i>
             <div className="flex flex-col ml-5">
-                <span>Cash on Delivery </span>
-                <span className="text-sm text-gray-500">Available</span>
-              </div>
+              <span>Cash on Delivery </span>
+              <span className="text-sm text-gray-500">Available</span>
+            </div>
           </div>
 
           <div className="flex items-center">
             <i class="fa-solid fa-shield text-gray-500"></i>
             <h2 className="ml-5">Warranty not available</h2>
           </div>
+
+          <div className="border-t my-3 border-gray-200"></div>
+
+          <div>
+            <h2 className="mb-1 text-md">Quantity : 10 pice</h2>
+            <h2 className="mb-1 text-md">Shipping : $10</h2>
+            <h2 className="mb-1 text-md">Discount : $12</h2>
+            <h2 className="mb-1 text-md">Total : $102</h2>
+          </div>
+
+          <div className="mt-4 relative">
+            <input type="text" placeholder="COUPON CODE" className="w-full border-2 p-2 border-gray-200 outline-0 rounded-full"/>
+            <button className=" w-28 bg-orange-500 text-white p-2 absolute top-0 right-0 uppercase border-2 border-orange-500 rounded-full hover:bg-orange-400 duration-200">Get off</button>
+          </div>
         </div>
       </div>
 
-                {/* Product description & ratings */}
-                
+      {/* Product description & ratings */}
+
       <div className="bg-white p-3 mb-5">
         <h2 className="text-2xl mb-2">{name}</h2>
 
