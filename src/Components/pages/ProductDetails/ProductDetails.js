@@ -2,10 +2,14 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import RatingsStar from "../../shared/Ratings/RatingsStar";
 import CommentCart from "./CommentCart";
+import useAlert from './../../../hooks/useAlert';
 
 const ProductDetails = () => {
   const { id } = useParams();
+  const {successfulAlertWithAutoClose} = useAlert();
   const [productQuantity, setProductQuantity] = useState(1);
+  const [couponAmount, setCouponAmount] = useState(0);
+  const [couponBtnDisabled, setCouponBtnDisabled] = useState(false);
   const [product, setProduct] = useState({});
 
   useEffect(() => {
@@ -24,6 +28,9 @@ const ProductDetails = () => {
     availableQuantity,
     description,
     comments,
+    deliveryWithin,
+    cashOnDelivery,
+    couponCode
   } = product;
 
   const updateProductQuantity = (btn) => {
@@ -35,6 +42,35 @@ const ProductDetails = () => {
       }
     }
   };
+
+  const handleCouponCode = (event) => {
+    event.preventDefault();
+    const code = event.target.couponCode.value;
+
+    if(couponCode){
+      // Checking coupon code
+      if(couponCode?.code === code){
+        setCouponAmount(couponCode?.amount);
+        successfulAlertWithAutoClose(`Congratulation, You got $${couponCode?.amount} discount.`);
+        setCouponBtnDisabled(true);
+      }
+      else{
+        setCouponAmount(0);
+        successfulAlertWithAutoClose('The coupon code is not valid.', 'error')
+      }
+    }
+
+  }
+
+  // Calculate the product price;
+  const deliveryCharge = parseInt(deliveryWithin?.charge);
+  const productPrice = price;
+  const quantity = productQuantity;
+  const shippingCharge = deliveryCharge * quantity || 0;
+  const subTotalPrice = quantity * productPrice || 0;
+  const subTotal = shippingCharge + subTotalPrice;
+  const couponDiscount = quantity * couponAmount;
+  const total = subTotal - couponDiscount ;
 
   return (
     <section>
@@ -50,7 +86,7 @@ const ProductDetails = () => {
             <h2 className="my-3 text-5xl text-orange-500">${price}</h2>
             <h4 className="mt-2">Brand : No brand</h4>
             <h4 className="mt-2">Available : {availableQuantity} pice</h4>
-
+            {/* Product size */}
             <div className="flex items-center mt-3">
               <span className="mr-3 font-semibold text-lg">Size</span>
               {size?.map((s, i) => (
@@ -62,7 +98,7 @@ const ProductDetails = () => {
                 </span>
               ))}
             </div>
-
+              {/* Update product order quantity */}
             <div className="mt-5 flex items-center">
               <span className="mr-5">Quantity </span>
               <div className="flex items-center space-x-3">
@@ -94,7 +130,7 @@ const ProductDetails = () => {
           </div>
         </div>
 
-        {/* Orders summery */}
+        {/* Orders summery ======================*/}
 
         <div className="w-full md:w-4/12 p-3 bg-white shadow-md rounded">
           <h4 className="text-xl mb-3 text-center">Summery</h4>
@@ -104,18 +140,18 @@ const ProductDetails = () => {
               <i class="fa-solid fa-truck text-gray-500"></i>
               <div className="flex flex-col ml-5">
                 <span>Standard Delivery</span>
-                <span className="text-sm text-gray-500">5 - 9 day(s)</span>
+                <span className="text-sm text-gray-500">{deliveryWithin?.days} day(s)</span>
               </div>
             </div>
 
-            <h4 className="text-lg text-orange-500">$12</h4>
+            <h4 className="text-lg text-orange-500">${deliveryWithin?.charge}</h4>
           </div>
 
           <div className="flex items-center mb-3">
             <i class="fa-solid fa-money-bill-wave text-gray-500"></i>
             <div className="flex flex-col ml-5">
               <span>Cash on Delivery </span>
-              <span className="text-sm text-gray-500">Available</span>
+              <span className="text-sm text-gray-500">{cashOnDelivery}</span>
             </div>
           </div>
 
@@ -127,20 +163,25 @@ const ProductDetails = () => {
           <div className="border-t my-3 border-gray-200"></div>
 
           <div>
-            <h2 className="mb-1 text-md">Quantity : 10 pice</h2>
-            <h2 className="mb-1 text-md">Shipping : $10</h2>
-            <h2 className="mb-1 text-md">Discount : $12</h2>
-            <h2 className="mb-1 text-md">Total : $102</h2>
+            <h2 className="mb-1 text-md">Price : ${price}</h2>  
+            <h2 className="mb-1 text-md">Quantity : {quantity} pice</h2>
+            <h2 className="mb-1 text-md">Shipping : ${shippingCharge}</h2>
+            <h2 className="mb-1 text-md">Sub Total : ${subTotal}</h2>
+            <h2 className="mb-1 text-md">Discount : ${couponDiscount}</h2>
+            <h2 className="mb-1 text-md">Total : ${total}</h2>
           </div>
 
-          <div className="mt-4 relative">
-            <input type="text" placeholder="COUPON CODE" className="w-full border-2 p-2 border-gray-200 outline-0 rounded-full"/>
-            <button className=" w-28 bg-orange-500 text-white p-2 absolute top-0 right-0 uppercase border-2 border-orange-500 rounded-full hover:bg-orange-400 duration-200">Get off</button>
-          </div>
+                {/* Coupon code */}
+          <form className="mt-4 relative" onSubmit={handleCouponCode}>
+            <input type="text" name='couponCode' placeholder="COUPON CODE" className="w-full border-2 p-2 border-gray-200 outline-0 rounded-full"/>
+
+            <button className= {`w-28 bg-orange-500 text-white p-2 absolute top-0 right-0 uppercase border-2 border-orange-500 rounded-full hover:bg-orange-400 duration-200 ${couponBtnDisabled && ' cursor-not-allowed'}`} disabled={couponBtnDisabled}>Get off</button>
+          </form>
+
         </div>
       </div>
 
-      {/* Product description & ratings */}
+      {/* Product description & ratings ========================*/}
 
       <div className="bg-white p-3 mb-5">
         <h2 className="text-2xl mb-2">{name}</h2>
@@ -169,8 +210,8 @@ const ProductDetails = () => {
         </div>
 
         <div>
-          {comments?.map((comment) => (
-            <CommentCart key={comment._id} comment={comment} />
+          {comments?.map((comment, index) => (
+            <CommentCart key={index * Math.random()} comment={comment} />
           ))}
         </div>
       </div>
