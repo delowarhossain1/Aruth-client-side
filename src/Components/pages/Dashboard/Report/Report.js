@@ -18,9 +18,9 @@ const Report = () => {
         >
           <span>12/87/92</span>
           {openDate ? (
-            <i class="fa-solid fa-angle-down ml-2"></i>
+            <i className="fa-solid fa-angle-down ml-2"></i>
           ) : (
-            <i class="fa-solid fa-angle-up ml-2"></i>
+            <i className="fa-solid fa-angle-up ml-2"></i>
           )}
         </button>
 
@@ -39,7 +39,7 @@ const Report = () => {
             <h5 className="text-white mt-2">Complete Orders</h5>
           </div>
           <div>
-            <i class="fa-solid fa-cart-shopping text-3xl text-white"></i>
+            <i className="fa-solid fa-cart-shopping text-3xl text-white"></i>
           </div>
         </div>
 
@@ -49,7 +49,7 @@ const Report = () => {
             <h5 className="text-white mt-2">Registered Users</h5>
           </div>
           <div>
-            <i class="fa-solid fa-user-check text-3xl text-white"></i>
+            <i className="fa-solid fa-user-check text-3xl text-white"></i>
           </div>
         </div>
 
@@ -59,7 +59,7 @@ const Report = () => {
             <h5 className="text-white mt-2">Products</h5>
           </div>
           <div>
-            <i class="fa-solid fa-bag-shopping text-3xl text-white"></i>
+            <i className="fa-solid fa-bag-shopping text-3xl text-white"></i>
           </div>
         </div>
 
@@ -69,7 +69,7 @@ const Report = () => {
             <h5 className="text-white mt-2">Pending orders</h5>
           </div>
           <div>
-            <i class="fa-solid fa-spinner text-3xl text-white"></i>
+            <i className="fa-solid fa-spinner text-3xl text-white"></i>
           </div>
         </div>
       </div>

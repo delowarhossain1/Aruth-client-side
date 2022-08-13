@@ -19,7 +19,7 @@ const CommentCart = ({ comment }) => {
             {email.slice(email.length - 6, email.length)}
           </h2>
           <h5 className="text-xs">
-            <i class="fa-solid fa-circle-check text-xs text-green-500 mr-1"></i>
+            <i className="fa-solid fa-circle-check text-xs text-green-500 mr-1"></i>
             Verified Purchase
           </h5>
         </div>

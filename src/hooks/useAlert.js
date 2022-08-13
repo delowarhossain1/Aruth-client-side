@@ -8,6 +8,7 @@ const useAlert = () => {
     Swal.fire(`${title}`, `${text}`, `${symbol}`);
   };
 
+  
   const successfulAlertWithAutoClose = (text, icon = 'success') => {
     Swal.fire({
         position: "center",

@@ -8,6 +8,7 @@ const ProductDetails = () => {
   const { id } = useParams();
   const {successfulAlertWithAutoClose} = useAlert();
   const [productQuantity, setProductQuantity] = useState(1);
+  const [selectedSize, setSelectedSize] = useState('');
   const [couponAmount, setCouponAmount] = useState(0);
   const [couponBtnDisabled, setCouponBtnDisabled] = useState(false);
   const [product, setProduct] = useState({});
@@ -24,6 +25,7 @@ const ProductDetails = () => {
     ratings,
     price,
     discount,
+    brand,
     size,
     availableQuantity,
     description,
@@ -43,6 +45,7 @@ const ProductDetails = () => {
     }
   };
 
+  // Handle coupon code ------------
   const handleCouponCode = (event) => {
     event.preventDefault();
     const code = event.target.couponCode.value;
@@ -58,6 +61,10 @@ const ProductDetails = () => {
         setCouponAmount(0);
         successfulAlertWithAutoClose('The coupon code is not valid.', 'error')
       }
+    }
+    else{
+      successfulAlertWithAutoClose('Coupon code is not available for this product.', 'error');
+      setCouponBtnDisabled(true);
     }
 
   }
@@ -84,21 +91,25 @@ const ProductDetails = () => {
             <h2 className="text-xl font-semibold mb-2">{name}</h2>
             <RatingsStar star={ratings} />
             <h2 className="my-3 text-5xl text-orange-500">${price}</h2>
-            <h4 className="mt-2">Brand : No brand</h4>
+            <h4 className="mt-2">Brand : {brand}</h4>
             <h4 className="mt-2">Available : {availableQuantity} pice</h4>
-            {/* Product size */}
+
+            {/* Product size ------------------- */}
             <div className="flex items-center mt-3">
               <span className="mr-3 font-semibold text-lg">Size</span>
               {size?.map((s, i) => (
                 <span
                   key={i * Math.random()}
                   className=" w-8 border border-orange-500 rounded flex justify-center items-center cursor-pointer mr-3"
+                  onClick={()=> setSelectedSize(s)}
                 >
                   {s}
                 </span>
               ))}
             </div>
-              {/* Update product order quantity */}
+
+              {/* Update product order quantity -----------*/}
+
             <div className="mt-5 flex items-center">
               <span className="mr-5">Quantity </span>
               <div className="flex items-center space-x-3">
@@ -106,24 +117,24 @@ const ProductDetails = () => {
                   onClick={() => updateProductQuantity("minus")}
                   disabled={productQuantity === 1}
                 >
-                  <i class="fa-solid fa-minus text-xl cursor-pointer"></i>
+                  <i className="fa-solid fa-minus text-xl cursor-pointer"></i>
                 </button>
                 <span className="text-xl bg-gray-100 p-2">
                   {productQuantity}
                 </span>
                 <button onClick={() => updateProductQuantity("plus")}>
-                  <i class="fa-solid fa-plus text-xl cursor-pointer"></i>
+                  <i className="fa-solid fa-plus text-xl cursor-pointer"></i>
                 </button>
               </div>
             </div>
 
             <div className=" flex items-center space-x-5 mt-5">
               <button className="py-2 px-4 bg-blue-500 rounded text-white">
-                <i class="fa-solid fa-cart-plus mr-2"></i>
+                <i className="fa-solid fa-cart-plus mr-2"></i>
                 Add to Cart
               </button>
               <button className="py-2 px-4 bg-orange-500 rounded text-white">
-                <i class="fa-solid fa-bag-shopping mr-2"></i>
+                <i className="fa-solid fa-bag-shopping mr-2"></i>
                 Buy Now
               </button>
             </div>
@@ -137,7 +148,7 @@ const ProductDetails = () => {
 
           <div className="flex items-center justify-between mb-3">
             <div className="flex items-center">
-              <i class="fa-solid fa-truck text-gray-500"></i>
+              <i className="fa-solid fa-truck text-gray-500"></i>
               <div className="flex flex-col ml-5">
                 <span>Standard Delivery</span>
                 <span className="text-sm text-gray-500">{deliveryWithin?.days} day(s)</span>
@@ -148,7 +159,7 @@ const ProductDetails = () => {
           </div>
 
           <div className="flex items-center mb-3">
-            <i class="fa-solid fa-money-bill-wave text-gray-500"></i>
+            <i className="fa-solid fa-money-bill-wave text-gray-500"></i>
             <div className="flex flex-col ml-5">
               <span>Cash on Delivery </span>
               <span className="text-sm text-gray-500">{cashOnDelivery}</span>
@@ -156,13 +167,14 @@ const ProductDetails = () => {
           </div>
 
           <div className="flex items-center">
-            <i class="fa-solid fa-shield text-gray-500"></i>
+            <i className="fa-solid fa-shield text-gray-500"></i>
             <h2 className="ml-5">Warranty not available</h2>
           </div>
 
           <div className="border-t my-3 border-gray-200"></div>
 
           <div>
+            {size && <h2 className="mb-1 text-md font-bold">Size : {selectedSize || size[0]}</h2>}  
             <h2 className="mb-1 text-md">Price : ${price}</h2>  
             <h2 className="mb-1 text-md">Quantity : {quantity} pice</h2>
             <h2 className="mb-1 text-md">Shipping : ${shippingCharge}</h2>
@@ -211,7 +223,7 @@ const ProductDetails = () => {
 
         <div>
           {comments?.map((comment, index) => (
-            <CommentCart key={index * Math.random()} comment={comment} />
+            <CommentCart key={comment._id} comment={comment} />
           ))}
         </div>
       </div>
