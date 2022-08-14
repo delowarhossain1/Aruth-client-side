@@ -1,6 +1,7 @@
 import React from 'react';
 
 const RatingsStar = ({star = 0, styles = ''}) => {
+    console.log(star)
     let totalStar = Number(star);
     let solidStarCount = 0;
     let halfStarCount = 0;
@@ -18,7 +19,7 @@ const RatingsStar = ({star = 0, styles = ''}) => {
         blankStarCount = blankStar;
         halfStarCount = 1;
     }
-
+    console.log([...Array(solidStarCount)])
     return (
         <div className='flex items-center'>
             {

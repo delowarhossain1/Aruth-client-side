@@ -2,19 +2,23 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import RatingsStar from "../../shared/Ratings/RatingsStar";
 import CommentCart from "./CommentCart";
-import useAlert from './../../../hooks/useAlert';
+import useAlert from "./../../../hooks/useAlert";
 
 const ProductDetails = () => {
   const { id } = useParams();
-  const {successfulAlertWithAutoClose} = useAlert();
+  const { successfulAlertWithAutoClose } = useAlert();
   const [productQuantity, setProductQuantity] = useState(1);
-  const [selectedSize, setSelectedSize] = useState('');
+  const [selectedSize, setSelectedSize] = useState("");
   const [couponAmount, setCouponAmount] = useState(0);
   const [couponBtnDisabled, setCouponBtnDisabled] = useState(false);
   const [product, setProduct] = useState({});
 
   useEffect(() => {
-    fetch(`http://localhost:5000/product-details/${id}`)
+    fetch(`http://localhost:5000/product-details/${id}`, {
+      headers: {
+        "content-type": "application/json",
+      },
+    })
       .then((res) => res.json())
       .then((data) => setProduct(data));
   }, [id]);
@@ -32,7 +36,7 @@ const ProductDetails = () => {
     comments,
     deliveryWithin,
     cashOnDelivery,
-    couponCode
+    couponCode,
   } = product;
 
   const updateProductQuantity = (btn) => {
@@ -50,24 +54,26 @@ const ProductDetails = () => {
     event.preventDefault();
     const code = event.target.couponCode.value;
 
-    if(couponCode){
+    if (couponCode) {
       // Checking coupon code
-      if(couponCode?.code === code){
+      if (couponCode?.code === code) {
         setCouponAmount(couponCode?.amount);
-        successfulAlertWithAutoClose(`Congratulation, You got $${couponCode?.amount} discount.`);
+        successfulAlertWithAutoClose(
+          `Congratulation, You got $${couponCode?.amount} discount.`
+        );
         setCouponBtnDisabled(true);
-      }
-      else{
+      } else {
         setCouponAmount(0);
-        successfulAlertWithAutoClose('The coupon code is not valid.', 'error')
+        successfulAlertWithAutoClose("The coupon code is not valid.", "error");
       }
-    }
-    else{
-      successfulAlertWithAutoClose('Coupon code is not available for this product.', 'error');
+    } else {
+      successfulAlertWithAutoClose(
+        "Coupon code is not available for this product.",
+        "error"
+      );
       setCouponBtnDisabled(true);
     }
-
-  }
+  };
 
   // Calculate the product price;
   const deliveryCharge = parseInt(deliveryWithin?.charge);
@@ -77,7 +83,7 @@ const ProductDetails = () => {
   const subTotalPrice = quantity * productPrice || 0;
   const subTotal = shippingCharge + subTotalPrice;
   const couponDiscount = quantity * couponAmount;
-  const total = subTotal - couponDiscount ;
+  const total = subTotal - couponDiscount;
 
   return (
     <section>
@@ -101,14 +107,14 @@ const ProductDetails = () => {
                 <span
                   key={i * Math.random()}
                   className=" w-8 border border-orange-500 rounded flex justify-center items-center cursor-pointer mr-3"
-                  onClick={()=> setSelectedSize(s)}
+                  onClick={() => setSelectedSize(s)}
                 >
                   {s}
                 </span>
               ))}
             </div>
 
-              {/* Update product order quantity -----------*/}
+            {/* Update product order quantity -----------*/}
 
             <div className="mt-5 flex items-center">
               <span className="mr-5">Quantity </span>
@@ -119,7 +125,7 @@ const ProductDetails = () => {
                 >
                   <i className="fa-solid fa-minus text-xl cursor-pointer"></i>
                 </button>
-                <span className="text-xl bg-gray-100 p-2">
+                <span className="text-xl p-2">
                   {productQuantity}
                 </span>
                 <button onClick={() => updateProductQuantity("plus")}>
@@ -151,11 +157,15 @@ const ProductDetails = () => {
               <i className="fa-solid fa-truck text-gray-500"></i>
               <div className="flex flex-col ml-5">
                 <span>Standard Delivery</span>
-                <span className="text-sm text-gray-500">{deliveryWithin?.days} day(s)</span>
+                <span className="text-sm text-gray-500">
+                  {deliveryWithin?.days} day(s)
+                </span>
               </div>
             </div>
 
-            <h4 className="text-lg text-orange-500">${deliveryWithin?.charge}</h4>
+            <h4 className="text-lg text-orange-500">
+              ${deliveryWithin?.charge}
+            </h4>
           </div>
 
           <div className="flex items-center mb-3">
@@ -174,8 +184,12 @@ const ProductDetails = () => {
           <div className="border-t my-3 border-gray-200"></div>
 
           <div>
-            {size && <h2 className="mb-1 text-md font-bold">Size : {selectedSize || size[0]}</h2>}  
-            <h2 className="mb-1 text-md">Price : ${price}</h2>  
+            {size && (
+              <h2 className="mb-1 text-md font-bold">
+                Size : {selectedSize || size[0]}
+              </h2>
+            )}
+            <h2 className="mb-1 text-md">Price : ${price}</h2>
             <h2 className="mb-1 text-md">Quantity : {quantity} pice</h2>
             <h2 className="mb-1 text-md">Shipping : ${shippingCharge}</h2>
             <h2 className="mb-1 text-md">Sub Total : ${subTotal}</h2>
@@ -183,13 +197,25 @@ const ProductDetails = () => {
             <h2 className="mb-1 text-md">Total : ${total}</h2>
           </div>
 
-                {/* Coupon code */}
+          {/* Coupon code */}
           <form className="mt-4 relative" onSubmit={handleCouponCode}>
-            <input type="text" name='couponCode' placeholder="COUPON CODE" className="w-full border-2 p-2 border-gray-200 outline-0 rounded-full"/>
+            <input
+              type="text"
+              name="couponCode"
+              placeholder="COUPON CODE"
+              className="w-full border-2 p-2 border-gray-200 outline-0 rounded-full"
+            />
 
-            <button className= {`w-28 bg-orange-500 text-white p-2 absolute top-0 right-0 uppercase border-2 border-orange-500 rounded-full hover:bg-orange-400 duration-200 ${couponBtnDisabled && ' cursor-not-allowed'}`} disabled={couponBtnDisabled}>Get off</button>
+            <button
+              className={`w-28 bg-orange-500 text-white p-2 absolute top-0 right-0 uppercase border-2 border-orange-500 rounded-full hover:bg-orange-400 duration-200 ${
+                couponBtnDisabled && " cursor-not-allowed"
+              }`}
+              disabled={couponBtnDisabled}
+            >
+              <i class="fa-solid fa-gift mr-2"></i>
+              Get off
+            </button>
           </form>
-
         </div>
       </div>
 
@@ -218,7 +244,7 @@ const ProductDetails = () => {
 
           <RatingsStar star={ratings} styles="text-xl lg:text-2xl" />
 
-          <h4 className="text-sm text-gray-500">21 Ratings</h4>
+          <h4 className="text-sm text-gray-500">{comments?.length} Ratings</h4>
         </div>
 
         <div>

@@ -18,7 +18,7 @@ const Navbar = () => {
     fetch("data/navbarItems.json")
       .then((res) => res.json())
       .then((items) => setNavItems(items));
-  }, []);
+  }, [user]);
 
   const menu = navItems?.map((item) => (
     <LinkWithLi key={item._id} menu={item} />
