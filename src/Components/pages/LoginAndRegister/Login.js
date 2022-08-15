@@ -5,8 +5,8 @@ import "./inputBox.css";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import ContinueWithSocialMedia from "./ContinueWithSocialMedia";
 import { useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
-import auth from './../../../firebase.init';
-import useAccessToken from './../../../hooks/useAccessToken';
+import auth from "./../../../firebase.init";
+import useAccessToken from "./../../../hooks/useAccessToken";
 import Loading from "../../shared/Loading/Loading";
 
 const Login = () => {
@@ -16,7 +16,8 @@ const Login = () => {
     watch,
     formState: { errors },
   } = useForm();
-  const [signInWithEmailAndPassword, user, loading, loginError] = useSignInWithEmailAndPassword(auth);
+  const [signInWithEmailAndPassword, user, loading, loginError] =
+    useSignInWithEmailAndPassword(auth);
   const [accessToken] = useAccessToken(user);
 
   const onSubmit = (data) => {
@@ -26,17 +27,18 @@ const Login = () => {
     signInWithEmailAndPassword(email, password);
   };
 
+  // After login 
   const location = useLocation();
   const navigate = useNavigate();
-  const from = location?.state?.from?.pathname || '/';
+  let from = location.state?.from?.pathname || "/";
 
-  if(accessToken){
-    navigate(from);  
+  if (accessToken) {
+    navigate(from);
   }
-  
-  // login loading 
-  if(loading){
-    return <Loading />
+
+  // login loading
+  if (loading) {
+    return <Loading />;
   }
 
   return (
@@ -50,7 +52,7 @@ const Login = () => {
 
           <div className="text-center">
             <h2 className="text-2xl  text-[#007bff9d] mb-5 font-bold">
-             Log in to your account
+              Log in to your account
             </h2>
 
             <form onSubmit={handleSubmit(onSubmit)}>
@@ -70,9 +72,13 @@ const Login = () => {
                     },
                   })}
                 />
-                {/* <label className="label">
-                  <span className="label-text-alt hidden">Alt label</span>
-                </label> */}
+                {errors && (
+                  <label className="label">
+                    <span className="label-text-alt hidden">
+                      {errors?.email?.message}
+                    </span>
+                  </label>
+                )}
               </div>
 
               <div className="form-control w-full">
@@ -96,9 +102,13 @@ const Login = () => {
                   })}
                 />
 
-                {/* <label className="label">
-                  <span className="label-text-alt hidden">Alt label</span>
-                </label> */}
+                {errors && (
+                  <label className="label">
+                    <span className="label-text-alt hidden">
+                      {errors?.password?.message}
+                    </span>
+                  </label>
+                )}
               </div>
 
               <button className="form-btn w-full mt-3">Login</button>

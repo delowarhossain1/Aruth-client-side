@@ -4,16 +4,18 @@ import auth from "./../../../firebase.init";
 import { useNavigate } from 'react-router-dom';
 import useAccessToken from './../../../hooks/useAccessToken';
 import Loading from "../../shared/Loading/Loading";
+import { useLocation } from 'react-router-dom';
 
 const ContinueWithSocialMedia = () => {
   const [signInWithGoogle, googleUser, loading, googleError] =
     useSignInWithGoogle(auth);
   const navigate = useNavigate();
   const [accessToken] = useAccessToken(googleUser);
-
+  const location = useLocation();
+  const from = location?.state?.from?.pathname || '/';
 
   if(accessToken){
-    navigate('/');
+    navigate(from);
   }
 
   if(loading){

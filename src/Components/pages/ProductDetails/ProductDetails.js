@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import RatingsStar from "../../shared/Ratings/RatingsStar";
 import CommentCart from "./CommentCart";
 import useAlert from "./../../../hooks/useAlert";
 
-const ProductDetails = () => {
+const ProductDetails = ({ handleCheckoutInfo }) => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const { successfulAlertWithAutoClose } = useAlert();
   const [productQuantity, setProductQuantity] = useState(1);
   const [selectedSize, setSelectedSize] = useState("");
@@ -39,6 +40,7 @@ const ProductDetails = () => {
     couponCode,
   } = product;
 
+  // update product quantity
   const updateProductQuantity = (btn) => {
     if (btn === "plus" && productQuantity < availableQuantity) {
       setProductQuantity(productQuantity + 1);
@@ -58,12 +60,15 @@ const ProductDetails = () => {
       // Checking coupon code
       if (couponCode?.code === code) {
         setCouponAmount(couponCode?.amount);
+        // successful alert
         successfulAlertWithAutoClose(
           `Congratulation, You got $${couponCode?.amount} discount.`
         );
+        // disable coupon code button
         setCouponBtnDisabled(true);
       } else {
         setCouponAmount(0);
+        // error message
         successfulAlertWithAutoClose("The coupon code is not valid.", "error");
       }
     } else {
@@ -84,6 +89,27 @@ const ProductDetails = () => {
   const subTotal = shippingCharge + subTotalPrice;
   const couponDiscount = quantity * couponAmount;
   const total = subTotal - couponDiscount;
+
+  // final data for (proceed to pay);
+
+  const sentDataToCheckout = (btn) => {
+    // send data to (proceed to pay).
+    handleCheckoutInfo([
+      {
+        img,
+        name,
+        quantity,
+        total,
+      },
+    ]);
+
+    if(btn === 'buyNow'){
+      navigate('/checkout');
+    }
+    else if(btn === 'addToCart'){
+      navigate('/addToCart');
+    }
+  };
 
   return (
     <section>
@@ -125,21 +151,26 @@ const ProductDetails = () => {
                 >
                   <i className="fa-solid fa-minus text-xl cursor-pointer"></i>
                 </button>
-                <span className="text-xl p-2">
-                  {productQuantity}
-                </span>
+                <span className="text-xl p-2">{productQuantity}</span>
                 <button onClick={() => updateProductQuantity("plus")}>
                   <i className="fa-solid fa-plus text-xl cursor-pointer"></i>
                 </button>
               </div>
             </div>
-
+                {/* -----------  Add to cart & buy now button -------- */}
             <div className=" flex items-center space-x-5 mt-5">
-              <button className="py-2 px-4 bg-blue-500 rounded text-white">
+              <button
+                className="py-2 px-4 bg-blue-500 rounded text-white"
+                onClick={()=> sentDataToCheckout('addToCart')}
+              >
                 <i className="fa-solid fa-cart-plus mr-2"></i>
                 Add to Cart
               </button>
-              <button className="py-2 px-4 bg-orange-500 rounded text-white">
+
+              <button
+                className="py-2 px-4 bg-orange-500 rounded text-white"
+                onClick={()=> sentDataToCheckout('buyNow')}
+              >
                 <i className="fa-solid fa-bag-shopping mr-2"></i>
                 Buy Now
               </button>
