@@ -4,8 +4,11 @@ import RatingsStar from './../Ratings/RatingsStar';
 
 const ProductCart = ({product}) => {
     const {_id, img, name, ratings, price, discount} = product;
-    const productName = name?.length > 250 ? name.slice(0, 20) + "......" : name; 
     const navigate = useNavigate();
+
+    console.log(product);
+    // Product name;
+    const productName = name?.length > 250 ? name.slice(0, 20) + "......" : name; 
 
   return (
     <div className="bg-white cursor-pointer shadow rounded hover:shadow-lg" onClick={()=> navigate(`/product-details/${_id}`)}>
