@@ -15,7 +15,7 @@
             "days" : "5-7",
             "charge" : "55"
         },
-        "cashOnDelivery" : "Available",
+        "cashOnDelivery" : true,
         "couponCode" : {
             "code" : "abc123",
             "amount" : "10"
@@ -50,7 +50,7 @@
             "days" : "5-7",
             "charge" : "55"
         },
-        "cashOnDelivery" : "Available",
+        "cashOnDelivery" : false,
         "couponCode" : false,  
         "description" : {
             "list" : ["100% Comfortable & Regular FIT T-Shirt.", "Life Time Print Guaranty.", "Fabric GSM 160.", "100% Export Quality & 100% Quality Control.", "Fabric Taiwan CVC Fabric."],

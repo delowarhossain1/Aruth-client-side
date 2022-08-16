@@ -12,14 +12,17 @@ import Report from "./Components/pages/Dashboard/Report/Report";
 import RequireAuth from "./Components/shared/RequireAuth/RequireAuth";
 import Checkout from "./Components/pages/Checkout/Checkout";
 import { useState } from "react";
+import ProceedToPay from "./Components/pages/Checkout/ProceedToPay";
 
 function App() {
   // proceed to pay (info)
   const [checkoutInfo, setCheckoutInfo] = useState([]);
+
   // proceed to pay info handle
   const handleCheckoutInfo = (info) => {
     setCheckoutInfo(info);
   }
+  // 
 
   return (
     <>
@@ -31,11 +34,16 @@ function App() {
                 <Route path="/" element={<Home />} />
                 <Route path='/login' element={<Login />} />
                 <Route path='/register' element={<Register />} />
+                <Route path='/products' element={<Loading />} />
                 <Route path='/product-details/:id' element={<ProductDetails handleCheckoutInfo={handleCheckoutInfo} />} />
 
                 {/* Required authentication */}
                 <Route path='/checkout' element={<RequireAuth>
-                    <Checkout checkoutInfo={checkoutInfo}/>
+                    <Checkout checkoutInfo={checkoutInfo} proceedToPayInfo={handleCheckoutInfo}/>
+                </RequireAuth>} />
+
+                <Route path='/payment' element={<RequireAuth>
+                    <ProceedToPay/>
                 </RequireAuth>} />
 
                 {/* Dashboard routes */}
@@ -43,9 +51,6 @@ function App() {
                     <Route index element={<Report />} />
                 </Route>
 
-
-                
-                <Route path='/products' element={<Loading />} />
 
             </Routes>
           </div>

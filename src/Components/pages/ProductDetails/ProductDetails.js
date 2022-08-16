@@ -91,17 +91,17 @@ const ProductDetails = ({ handleCheckoutInfo }) => {
   const total = subTotal - couponDiscount;
 
   // final data for (proceed to pay);
-
   const sentDataToCheckout = (btn) => {
     // send data to (proceed to pay).
-    handleCheckoutInfo([
+    handleCheckoutInfo(
       {
         img,
         name,
         quantity,
         total,
+        cashOnDelivery
       },
-    ]);
+    );
 
     if(btn === 'buyNow'){
       navigate('/checkout');
@@ -203,7 +203,7 @@ const ProductDetails = ({ handleCheckoutInfo }) => {
             <i className="fa-solid fa-money-bill-wave text-gray-500"></i>
             <div className="flex flex-col ml-5">
               <span>Cash on Delivery </span>
-              <span className="text-sm text-gray-500">{cashOnDelivery}</span>
+              <span className="text-sm text-gray-500">{cashOnDelivery ? 'Available' : 'Not Available'}</span>
             </div>
           </div>
 

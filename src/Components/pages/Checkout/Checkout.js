@@ -4,26 +4,69 @@ import auth from "../../../firebase.init";
 import { useForm } from "react-hook-form";
 import Loading from "../../shared/Loading/Loading";
 import CheckoutProductCart from "./CheckoutProductCart";
+import { useNavigate } from 'react-router-dom';
+import useAlert from './../../../hooks/useAlert';
 
 const Checkout = ({ checkoutInfo }) => {
   const [user, loading] = useAuthState(auth);
+  const navigate = useNavigate();
+  const {simpleAlert} = useAlert();
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => {};
+  const onSubmit = (data) => {
 
-  //   calculate total quantity & price
-  let totalQuantity = 0;
-  let totalPrice = 0;
+    const orderSummery = {
+      customer : user?.displayName,
+      email : user?.email,
+      mob : data.mob,
+      address : data.address,
+      zipCode : data?.zipCode || '0000000',
+      productImg : checkoutInfo?.img,
+      productName : checkoutInfo?.name,
+      productQuantity : checkoutInfo?.quantity,
+      status : 'Pending',
+      date : new Date().toDateString(),
+      paid : true,
+      paymentStatue : 'cash',
+      transactionId : '00000000abc',
+    }
 
-  for (let item of checkoutInfo) {
-    console.log(item);
-    totalPrice += item.total;
-    totalQuantity += item.quantity;
-  }
+    // Place order
+    fetch(`http://localhost:5000/place-order?email=${user?.email}`, {
+      method : 'POST',
+      headers : {
+        'content-type' : 'application/json',
+        auth : `Bearer ${localStorage.getItem('accessToken')}`
+      },
+      body : JSON.stringify(orderSummery)
+    })
+    .then(res => res.json())
+    .then(data => {
+      // Order success message
+        if(data?.insertedId){
+          simpleAlert({
+            symbol : 'success',
+            text : 'Your order has been completed.',
+            title : 'Successful'
+          });
+
+          navigate('/products')
+        }
+        else{
+          simpleAlert({
+            symbol : 'error',
+            text : 'Sorry your order was not successful. Try agin',
+            title : 'Sorry'
+          })
+        }
+    });
+  };
+
 
   //   If loading
   if (loading) {
@@ -158,14 +201,13 @@ const Checkout = ({ checkoutInfo }) => {
 
         <div className="flex-1">
           <div>
-            {checkoutInfo?.map((item, index) => (
-              <CheckoutProductCart key={Math.random * index} item={item} />
-            ))}
+              <CheckoutProductCart item={checkoutInfo} />
           </div>
 
           <div className="mt-10 bg-gray-200 p-2 rounded shadow-md">
-            <h3 className="text-lg mb-1">Quantity : {totalQuantity}</h3>
-            <h3 className="text-lg mb-1">Total : ${totalPrice}</h3>
+            <h2 className="text-xl mb-2">Summary </h2>
+            <h3 className="text-md mb-1">Quantity : {checkoutInfo?.quantity}</h3>
+            <h3 className="text-md mb-1">Total : ${checkoutInfo?.total}</h3>
             <h5 className="text-xs">( Shipping fee & discount included )</h5>
           </div>
         </div>
