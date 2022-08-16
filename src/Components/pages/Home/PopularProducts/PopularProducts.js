@@ -1,15 +1,19 @@
 import React, { useEffect, useState } from "react";
+import { useQuery } from "react-query";
 import ProductCart from "../../../shared/Cart/ProductCart";
+import Loading from "../../../shared/Loading/Loading";
 
 const PopularProducts = () => {
-  // I have to load data using react query;
-  const [products, setProducts] = useState([]);
-
-  useEffect(() => {
+  // popular product loaded by react query;
+  const { data: products, loading } = useQuery("popularProducts", ()=>(
     fetch("http://localhost:5000/popular-products")
-      .then((res) => res.json())
-      .then((data) => setProducts(data));
-  }, []);
+    .then(res => res.json())
+  ));
+
+
+  if(loading){
+    return <Loading />
+  }
 
   return (
     <section className="py-5">

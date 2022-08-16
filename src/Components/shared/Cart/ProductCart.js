@@ -6,7 +6,6 @@ const ProductCart = ({product}) => {
     const {_id, img, name, ratings, price, discount} = product;
     const navigate = useNavigate();
 
-    console.log(product);
     // Product name;
     const productName = name?.length > 250 ? name.slice(0, 20) + "......" : name; 
 
