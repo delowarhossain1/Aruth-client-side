@@ -13,6 +13,7 @@
 
 /* Dashboard title */
 .dashboard-title{
-    font-size: 25px;
-    color: rgb(125, 119, 119);
+    font-size: 20px;
+    color: rgb(174, 132, 132);
+    margin-bottom: 10px;
 }

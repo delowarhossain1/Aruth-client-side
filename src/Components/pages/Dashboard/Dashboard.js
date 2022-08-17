@@ -14,7 +14,7 @@ const Dashboard = () => {
         <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
         <div className="drawer-content bg-[#ffffff] ml-0 lg:ml-5 p-3 rounded shadow-lg">
           <label
-            for="my-drawer-2"
+            htmlFor="my-drawer-2"
             className="btn btn-primary drawer-button lg:hidden"
           >
             Open drawer
@@ -23,7 +23,7 @@ const Dashboard = () => {
           <Outlet />
         </div>
         <div className="drawer-side shadow-lg rounded">
-          <label for="my-drawer-2" className="drawer-overlay"></label>
+          <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
           <ul className="w-60 bg-base-100 text-base-content">
             <div className="flex items-center flex-col gap-0 border-b-2 p-2 mb-2">
               <img
@@ -48,7 +48,7 @@ const Dashboard = () => {
             </li>
 
             <li className="dashboard-main-menu">
-              <Link to="/" className="block">
+              <Link to="/dashboard/orders" className="block">
                 <i className="fa-solid fa-cart-shopping mr-2"></i>
                 Orders
               </Link>

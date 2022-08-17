@@ -4,15 +4,16 @@ import Home from "./Components/pages/Home/Home";
 import Login from "./Components/pages/LoginAndRegister/Login";
 import Footer from "./Components/shared/Footer/Footer";
 import Navbar from "./Components/shared/Navbar/Navbar";
-import Loading from './Components/shared/Loading/Loading';
 import ProductDetails from './Components/pages/ProductDetails/ProductDetails';
 import Register from './Components/pages/LoginAndRegister/Register';
 import Dashboard from "./Components/pages/Dashboard/Dashboard";
-import Report from "./Components/pages/Dashboard/Report/Report";
-import RequireAuth from "./Components/shared/RequireAuth/RequireAuth";
+import Report from "./Components/pages/Dashboard/Admin/Report/Report";
+import RequireAuth from "./Components/shared/Required/RequireAuth";
 import Checkout from "./Components/pages/Checkout/Checkout";
 import { useState } from "react";
 import ProceedToPay from "./Components/pages/Checkout/ProceedToPay";
+import GetAllProducts from './Components/GetAllProducts/GetAllProducts';
+import Orders from "./Components/pages/Dashboard/Admin/Orders/Orders";
 
 function App() {
   // proceed to pay (info)
@@ -34,10 +35,11 @@ function App() {
                 <Route path="/" element={<Home />} />
                 <Route path='/login' element={<Login />} />
                 <Route path='/register' element={<Register />} />
-                <Route path='/products' element={<Loading />} />
+                <Route path='/products' element={<GetAllProducts />} />
                 <Route path='/product-details/:id' element={<ProductDetails handleCheckoutInfo={handleCheckoutInfo} />} />
 
-                {/* Required authentication */}
+                {/********** Required authentication ********/}
+
                 <Route path='/checkout' element={<RequireAuth>
                     <Checkout checkoutInfo={checkoutInfo} proceedToPayInfo={handleCheckoutInfo}/>
                 </RequireAuth>} />
@@ -46,9 +48,14 @@ function App() {
                     <ProceedToPay/>
                 </RequireAuth>} />
 
-                {/* Dashboard routes */}
-                <Route path="/dashboard" element={<Dashboard />}>
-                    <Route index element={<Report />} />
+                {/********* Dashboard routes ********/}
+                <Route path="/dashboard" element={<RequireAuth>
+                  <Dashboard />
+                </RequireAuth>}>
+
+                  <Route index element={<Report />} />
+                  <Route path='orders' element={<Orders />} />
+
                 </Route>
 
 
