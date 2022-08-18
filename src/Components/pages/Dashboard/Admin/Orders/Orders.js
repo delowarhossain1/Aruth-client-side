@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Loading from "../../../../shared/Loading/Loading";
 import { useAuthState } from 'react-firebase-hooks/auth';
 import auth from "../../../../../firebase.init";
+import OrderCart from "./OrderCart";
 
 const Orders = () => {
   const [user, loading] = useAuthState(auth);
@@ -15,19 +16,41 @@ const Orders = () => {
       })
       .then(res => res.json())
       .then(data => setOrdersInfo(data));
-  }, [user])
+  }, [user]);
 
   if (loading) {
     return <Loading />;
   }
 
   return (
-    <section className="">
-      <h2 className="dashboard-title">Orders</h2>
+    <section>
+      <div className="flex flex-col lg:flex-row items-center justify-between mb-5">
+        <h2 className="dashboard-title flex-1"><i className="fa-solid fa-cart-shopping"></i> Orders</h2>
+        {/* Search order by id */}
+
+        <div className="flex-1 flex justify-center relative">
+            <input type="text" placeholder="#A30504" className="border border-gray-400 w-full py-2 px-2 outline-none rounded-full" />
+            <button className="bg-orange-500 absolute top-0 border right-0 py-2  text-white rounded-full w-28 text-md">
+              <i className="fa-solid fa-magnifying-glass mr-2"></i>
+              Search
+            </button>
+        </div>
+
+        <div className="flex-1 flex justify-end">
+            {/* <select name="" id="" className="border border-orange-300 p-1 rounded outline-none" defaultValue>
+              <option value="" selected>All</option>
+              <option value="">Todays</option>
+              <option value="">Pending</option>
+              <option value="">Shipped</option>
+              <option value="">delivered</option> */}
+            {/* </select> */}
+        </div>
+
+      </div>
 
       <div>
-        <div class="overflow-x-auto">
-          <table class="table w-full text-center">
+        <div className="overflow-x-auto">
+          <table className="table w-full text-center">
             <thead>
               <tr>
                 <th># No.</th>
@@ -42,31 +65,10 @@ const Orders = () => {
 
             <tbody>
               {ordersInfo?.map((order, index) => (
-                <tr key={order?._id}>
-                  <th>{index + 1}</th>
-
-                  <td>
-                      <img src={order?.productImg} alt="product" className=" w-10 h-10" />
-                  </td>
-                  <td>
-                    {order?.productName?.length > 20
-                      ? order?.productName.slice(0, 10) + "..."
-                      : order?.productName}
-                  </td>
-                  <td className="text-md">{order?.productQuantity}</td>
-                  <td className="text-md">{order?.status}</td>
-                  <td className="text-md">{order?.date}</td>
-                  <td>
-                    <select>
-                      <option selected>Action</option>
-                      <option>Details</option>
-                      <option>Delete</option>
-
-                    </select>
-                  </td>
-                </tr>
+                 <OrderCart key={order?._id} order={order} index={index}/>
               ))}
             </tbody>
+
           </table>
         </div>
       </div>

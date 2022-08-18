@@ -15,6 +15,7 @@ import ProceedToPay from "./Components/pages/Checkout/ProceedToPay";
 import GetAllProducts from './Components/GetAllProducts/GetAllProducts';
 import Orders from "./Components/pages/Dashboard/Admin/Orders/Orders";
 import RequiredAdmin from './Components/shared/Required/RequiredAdmin';
+import OrderDetails from "./Components/pages/Dashboard/Admin/Orders/OrderDetails";
 
 function App() {
   // proceed to pay (info)
@@ -61,6 +62,10 @@ function App() {
 
                   <Route path='orders' element={<RequiredAdmin>
                     <Orders />
+                  </RequiredAdmin>} />
+
+                  <Route path='order-details/:id' element={<RequiredAdmin>
+                    <OrderDetails />
                   </RequiredAdmin>} />
 
                 </Route>
