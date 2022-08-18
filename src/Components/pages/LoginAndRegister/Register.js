@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import signupImage from "../../../Images/signup.png";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
-import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
+import { useCreateUserWithEmailAndPassword, useUpdateProfile } from "react-firebase-hooks/auth";
 import auth from "../../../firebase.init";
 import Loading from "../../shared/Loading/Loading";
 import useAccessToken from "./../../../hooks/useAccessToken";
@@ -15,10 +15,11 @@ const Register = () => {
   } = useForm();
   const [createUserWithEmailAndPassword, user, loading, registerError] =
   useCreateUserWithEmailAndPassword(auth);
+  const [updateProfile, updating] = useUpdateProfile(auth);
   const navigate = useNavigate();
   const [incorrectConfirmPassword, setIncorrectConfirmPassword] = useState("");
-  const [userInfo, setUserInfo] = useState({});
-  const [accessToken] = useAccessToken(user, userInfo);
+  const [accessToken] = useAccessToken(user);
+
 
   const onSubmit = async (data) => {
     const password = data?.password;
@@ -26,10 +27,10 @@ const Register = () => {
     const email = data?.email;
     const name = data?.name;
 
-    setUserInfo({email, name});
-
     if (password === confirmPassword) {
-      createUserWithEmailAndPassword(email, password);
+      await createUserWithEmailAndPassword(email, password);
+      await updateProfile({displayName : name});
+
     } else {
       setIncorrectConfirmPassword("Password & confirm password not match.");
     }
@@ -40,7 +41,7 @@ const Register = () => {
     navigate('/');
   }
 
-  if (loading || accessToken) {
+  if (loading || accessToken || updating) {
     return <Loading />;
   }
 

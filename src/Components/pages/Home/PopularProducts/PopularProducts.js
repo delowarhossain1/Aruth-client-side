@@ -5,13 +5,13 @@ import Loading from "../../../shared/Loading/Loading";
 
 const PopularProducts = () => {
   // popular product loaded by react query;
-  const { data: products, loading } = useQuery("popularProducts", ()=>(
+  const { data: products, isLoading } = useQuery("popularProducts", ()=>(
     fetch("http://localhost:5000/popular-products")
     .then(res => res.json())
   ));
 
 
-  if(loading){
+  if(isLoading){
     return <Loading />
   }
 

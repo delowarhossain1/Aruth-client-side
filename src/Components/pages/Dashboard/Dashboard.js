@@ -33,8 +33,8 @@ const Dashboard = () => {
               />
               <div className="text-center ">
                 <h2 className="text-md">
-                  {user?.displayName.length > 15
-                    ? user?.displayName.slice(0, 15) + "..."
+                  {user?.displayName?.length > 15
+                    ? user?.displayName?.slice(0, 15) + "..."
                     : user?.displayName}
                 </h2>
               </div>

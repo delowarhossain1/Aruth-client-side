@@ -14,6 +14,7 @@ import { useState } from "react";
 import ProceedToPay from "./Components/pages/Checkout/ProceedToPay";
 import GetAllProducts from './Components/GetAllProducts/GetAllProducts';
 import Orders from "./Components/pages/Dashboard/Admin/Orders/Orders";
+import RequiredAdmin from './Components/shared/Required/RequiredAdmin';
 
 function App() {
   // proceed to pay (info)
@@ -49,12 +50,18 @@ function App() {
                 </RequireAuth>} />
 
                 {/********* Dashboard routes ********/}
+
                 <Route path="/dashboard" element={<RequireAuth>
                   <Dashboard />
                 </RequireAuth>}>
 
-                  <Route index element={<Report />} />
-                  <Route path='orders' element={<Orders />} />
+                  <Route index element={<RequiredAdmin>
+                    <Report />
+                  </RequiredAdmin>} />
+
+                  <Route path='orders' element={<RequiredAdmin>
+                    <Orders />
+                  </RequiredAdmin>} />
 
                 </Route>
 

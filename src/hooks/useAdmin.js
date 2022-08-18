@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const useAdmin = (user) => {
     const [admin, setAdmin] = useState(false);
@@ -10,7 +10,10 @@ const useAdmin = (user) => {
 
             fetch(`http://localhost:5000/is-admin/${email}`)
             .then(res => res.json())
-            .then(data => console.log(data))
+            .then(adminInfo =>{
+                setAdmin(adminInfo?.isAdmin);
+                setLoading(false);
+            })
         }
     }, [user]);
 

@@ -18,6 +18,7 @@ const RequiredAdmin = ({children}) => {
     if(! admin){
         signOut(auth);
         navigate('/login');
+        return;
     }
 
     return children;
