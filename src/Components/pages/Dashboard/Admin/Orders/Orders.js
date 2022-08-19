@@ -25,12 +25,12 @@ const Orders = () => {
   return (
     <section>
       <div className="flex flex-col lg:flex-row items-center justify-between mb-5">
-        <h2 className="dashboard-title flex-1"><i className="fa-solid fa-cart-shopping"></i> Orders</h2>
+        <h2 className="dashboard-title flex-1"><i className="fa-solid fa-cart-shopping text-green-300"></i> Orders</h2>
         {/* Search order by id */}
 
         <div className="flex-1 flex justify-center relative">
-            <input type="text" placeholder="#A30504" className="border border-gray-400 w-full py-2 px-2 outline-none rounded-full" />
-            <button className="bg-orange-500 absolute top-0 border right-0 py-2  text-white rounded-full w-28 text-md">
+            <input type="text" placeholder="Order No. #A30504" className="border border-green-400 w-full py-2 px-2 outline-none rounded-full" />
+            <button className="bg-green-300 absolute top-0 border right-0 py-2  rounded-full w-28 text-md">
               <i className="fa-solid fa-magnifying-glass mr-2"></i>
               Search
             </button>

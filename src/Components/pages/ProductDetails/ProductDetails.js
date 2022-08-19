@@ -243,7 +243,7 @@ const ProductDetails = ({ handleCheckoutInfo }) => {
               }`}
               disabled={couponBtnDisabled}
             >
-              <i class="fa-solid fa-gift mr-2"></i>
+              <i className="fa-solid fa-gift mr-2"></i>
               Get off
             </button>
           </form>
