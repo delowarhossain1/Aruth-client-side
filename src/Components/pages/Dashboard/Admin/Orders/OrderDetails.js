@@ -4,10 +4,14 @@ import { useParams } from "react-router-dom";
 import { useAuthState } from "react-firebase-hooks/auth";
 import auth from "../../../../../firebase.init";
 import Loading from "../../../../shared/Loading/Loading";
+import useAlert from './../../../../../hooks/useAlert';
 
 const OrderDetails = () => {
   const { id } = useParams();
   const [user, loading] = useAuthState(auth);
+  const [newOrderStatus, setNewOrderStatus] = useState("");
+  const [updatedOrderStatus, setUpdatedOrderStatus] = useState("");
+  const {successfulAlertWithAutoClose} = useAlert();
   const [orderInfo, setOrderInfo] = useState({});
 
   useEffect(() => {
@@ -20,6 +24,7 @@ const OrderDetails = () => {
       .then((data) => setOrderInfo(data));
   }, [id, user]);
 
+  //   execute loading status
   if (loading) {
     return <Loading />;
   }
@@ -38,6 +43,31 @@ const OrderDetails = () => {
     paid,
     transactionId,
   } = orderInfo;
+
+  const updateOrderStatus = () => {
+    const URL = `http://localhost:5000/update-order-info/${id}?email=${user?.email}`;
+
+    if(newOrderStatus && newOrderStatus !== status){
+        fetch(URL, {
+            method : 'PATCH',
+            headers: {
+                'content-type' : 'application/json',
+                auth : `Bearer ${localStorage.getItem('accessToken')}`
+            },
+            body : JSON.stringify({
+                status : newOrderStatus
+            })
+        })
+        .then(res => res.json())
+        .then(isUpdate =>{
+            if(isUpdate?.modifiedCount){
+                successfulAlertWithAutoClose('Order status updated');
+                setUpdatedOrderStatus(newOrderStatus);
+            }
+        });
+    }
+  };
+
 
   return (
     <section>
@@ -58,7 +88,7 @@ const OrderDetails = () => {
           <p className="text-sm">Payment status : {paid ? "Paid" : "Unpaid"}</p>
           <p className="text-sm">Total Paid : {paid ? "Paid" : "Unpaid"}</p>
           <p className="text-sm">Transition ID : {transactionId}</p>
-          <p className="text-sm">Order status : {status}</p>
+          <p className="text-sm">Order status : {updatedOrderStatus || status}</p>
           <p className="text-sm">Order No. : {transactionId}</p>
           <p className="text-sm">Placed on : {date}</p>
           <p className="text-sm">Customer : {customer}</p>
@@ -81,23 +111,31 @@ const OrderDetails = () => {
         <div className="flex-1 bg-gray-100 p-2 rounded">
           <h2 className="font-semibold mb-2">Take Action</h2>
 
-          <select className="select w-full" defaultValue='title'>
-            <option disabled value='title'>
+          <select
+            className="select w-full outline-none border border-green-300"
+            defaultValue="title"
+            onChange={(e) => setNewOrderStatus(e?.target?.value)}
+          >
+            <option disabled value="title">
               Set Order Status
             </option>
-            <option value="pending">Pending</option>
-            <option value="shipped">Shipped</option>
-            <option value="delivered">Delivered</option>
-            <option value="cancel">Cancel</option>
+            <option value="Pending">Pending</option>
+            <option value="Shipped">Shipped</option>
+            <option value="Delivered">Delivered</option>
+            <option value="Cancel">Cancel</option>
           </select>
 
           <div className="flex items-center justify-around">
             <button className="bg-[#fb5200] p-2  rounded text-white mt-8 float-right">
-                <i className="fa-solid fa-trash-can mr-2"></i>
-                Delete order
+              <i className="fa-solid fa-trash-can mr-2"></i>
+              Delete order
             </button>
 
-            <button className="bg-[#3B82F6] p-2  rounded text-white mt-8 float-right">
+            <button
+              className={`bg-[#3B82F6] p-2  rounded text-white mt-8 float-right ${newOrderStatus ? '' : 'cursor-not-allowed'}`}
+              disabled={newOrderStatus ? false : true}
+              onClick={updateOrderStatus}
+            >
               <i className="fa-solid fa-bolt mr-2"></i>
               Save changes
             </button>
