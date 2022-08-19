@@ -44,6 +44,7 @@ const OrderDetails = () => {
     transactionId,
   } = orderInfo;
 
+//   Update order status
   const updateOrderStatus = () => {
     const URL = `http://localhost:5000/update-order-info/${id}?email=${user?.email}`;
 
@@ -68,6 +69,10 @@ const OrderDetails = () => {
     }
   };
 
+//   Delete order
+  const deleteOrder = () =>{
+    
+  }
 
   return (
     <section>
