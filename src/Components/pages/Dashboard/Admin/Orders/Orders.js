@@ -70,6 +70,11 @@ const Orders = () => {
             </tbody>
 
           </table>
+          
+              {/* if orders not available */}
+              {
+                ordersInfo?.length === 0 && <div className="flex h-48 w-full justify-center items-center text-lg">No order received.</div>
+              }
         </div>
       </div>
     </section>

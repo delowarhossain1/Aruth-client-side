@@ -43,6 +43,8 @@ const OrderDetails = () => {
     date,
     paid,
     transactionId,
+    size,
+    total
   } = orderInfo;
 
   //   Update order status
@@ -90,7 +92,7 @@ const OrderDetails = () => {
         })
     });
   };
-  
+
 
   return (
     <section>
@@ -109,12 +111,13 @@ const OrderDetails = () => {
           </p>
           <p className="text-sm">Quantity : {productQuantity}</p>
           <p className="text-sm">Payment status : {paid ? "Paid" : "Unpaid"}</p>
-          <p className="text-sm">Total Paid : {paid ? "Paid" : "Unpaid"}</p>
+          <p className="text-sm">Total Paid : {total}</p>
           <p className="text-sm">Transition ID : {transactionId}</p>
           <p className="text-sm">
             Order status : {updatedOrderStatus || status}
           </p>
           <p className="text-sm">Order No. : {transactionId}</p>
+          <p className="text-sm">Size. : {size}</p>
           <p className="text-sm">Placed on : {date}</p>
           <p className="text-sm">Customer : {customer}</p>
           <p className="text-sm">Mobile : {mob}</p>

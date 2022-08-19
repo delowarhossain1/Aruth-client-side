@@ -1,7 +1,7 @@
 import React from 'react';
 
 const CheckoutProductCart = ({item}) => {
-    const { img, quantity, total, name} = item;
+    const { img, quantity, total, name, size} = item;
 
     return (
         <div className='shadow-md rounded p-2 mb-3 flex items-center justify-between'>
@@ -11,7 +11,8 @@ const CheckoutProductCart = ({item}) => {
             </div>
 
             <div>
-                <h2 className='text-sm'>Quantity : {quantity}</h2>
+                <h2 className='text-sm mb-1'>Quantity : {quantity}</h2>
+                <h2 className='text-sm'>Size : {size}</h2>
             </div>
 
             <div>
