@@ -21,7 +21,7 @@ const useAlert = () => {
   }
 
   // Alert : 3
-  const deleteModal = (cb, ) =>{
+  const deleteModal = (cb) => {
     Swal.fire({
       title: 'Are you sure?',
       text: "You won't be able to revert this!",
@@ -32,16 +32,13 @@ const useAlert = () => {
       confirmButtonText: 'Yes, delete it!'
     }).then((result) => {
       if (result.isConfirmed) {
-        Swal.fire(
-          'Deleted!',
-          'Your file has been deleted.',
-          'success'
-        )
+        // Call the cb function
+        cb();
       }
     })
   }
 
-  return { simpleAlert, successfulAlertWithAutoClose };
+  return { simpleAlert, successfulAlertWithAutoClose, deleteModal };
 };
 
 export default useAlert;

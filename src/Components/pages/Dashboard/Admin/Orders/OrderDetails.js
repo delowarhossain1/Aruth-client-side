@@ -1,18 +1,19 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useAuthState } from "react-firebase-hooks/auth";
 import auth from "../../../../../firebase.init";
 import Loading from "../../../../shared/Loading/Loading";
-import useAlert from './../../../../../hooks/useAlert';
+import useAlert from "./../../../../../hooks/useAlert";
 
 const OrderDetails = () => {
   const { id } = useParams();
   const [user, loading] = useAuthState(auth);
   const [newOrderStatus, setNewOrderStatus] = useState("");
   const [updatedOrderStatus, setUpdatedOrderStatus] = useState("");
-  const {successfulAlertWithAutoClose} = useAlert();
+  const { successfulAlertWithAutoClose, deleteModal } = useAlert();
   const [orderInfo, setOrderInfo] = useState({});
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetch(`http://localhost:5000/order-details/${id}?email=${user?.email}`, {
@@ -44,35 +45,52 @@ const OrderDetails = () => {
     transactionId,
   } = orderInfo;
 
-//   Update order status
+  //   Update order status
   const updateOrderStatus = () => {
     const URL = `http://localhost:5000/update-order-info/${id}?email=${user?.email}`;
 
-    if(newOrderStatus && newOrderStatus !== status){
-        fetch(URL, {
-            method : 'PATCH',
-            headers: {
-                'content-type' : 'application/json',
-                auth : `Bearer ${localStorage.getItem('accessToken')}`
-            },
-            body : JSON.stringify({
-                status : newOrderStatus
-            })
-        })
-        .then(res => res.json())
-        .then(isUpdate =>{
-            if(isUpdate?.modifiedCount){
-                successfulAlertWithAutoClose('Order status updated');
-                setUpdatedOrderStatus(newOrderStatus);
-            }
+    if (newOrderStatus && newOrderStatus !== status) {
+      fetch(URL, {
+        method: "PATCH",
+        headers: {
+          "content-type": "application/json",
+          auth: `Bearer ${localStorage.getItem("accessToken")}`,
+        },
+        body: JSON.stringify({
+          status: newOrderStatus,
+        }),
+      })
+        .then((res) => res.json())
+        .then((isUpdate) => {
+          if (isUpdate?.modifiedCount) {
+            successfulAlertWithAutoClose("Order status updated");
+            setUpdatedOrderStatus(newOrderStatus);
+          }
         });
     }
   };
 
-//   Delete order
-  const deleteOrder = () =>{
-    
-  }
+  //   Delete order
+  const deleteOrder = () => {
+    deleteModal(() =>{
+        const URL = `http://localhost:5000/order-delete/${id}?email=${user?.email}`;
+        fetch(URL, {
+            method : "DELETE",
+            headers : {
+                'content-type' : 'application/json',
+                auth : `Bearer ${localStorage.getItem('accessToken')}`
+            }
+        })
+        .then(res => res.json())
+        .then(isDelete => {
+            if(isDelete?.deletedCount){
+                successfulAlertWithAutoClose('The order has been delete successfully.');
+                navigate('/dashboard/orders');
+            }
+        })
+    });
+  };
+  
 
   return (
     <section>
@@ -93,7 +111,9 @@ const OrderDetails = () => {
           <p className="text-sm">Payment status : {paid ? "Paid" : "Unpaid"}</p>
           <p className="text-sm">Total Paid : {paid ? "Paid" : "Unpaid"}</p>
           <p className="text-sm">Transition ID : {transactionId}</p>
-          <p className="text-sm">Order status : {updatedOrderStatus || status}</p>
+          <p className="text-sm">
+            Order status : {updatedOrderStatus || status}
+          </p>
           <p className="text-sm">Order No. : {transactionId}</p>
           <p className="text-sm">Placed on : {date}</p>
           <p className="text-sm">Customer : {customer}</p>
@@ -131,13 +151,18 @@ const OrderDetails = () => {
           </select>
 
           <div className="flex items-center justify-around">
-            <button className="bg-[#fb5200] p-2  rounded text-white mt-8 float-right">
+            <button
+              className="bg-[#fb5200] p-2  rounded text-white mt-8 float-right"
+              onClick={deleteOrder}
+            >
               <i className="fa-solid fa-trash-can mr-2"></i>
               Delete order
             </button>
 
             <button
-              className={`bg-[#3B82F6] p-2  rounded text-white mt-8 float-right ${newOrderStatus ? '' : 'cursor-not-allowed'}`}
+              className={`bg-[#3B82F6] p-2  rounded text-white mt-8 float-right ${
+                newOrderStatus ? "" : "cursor-not-allowed"
+              }`}
               disabled={newOrderStatus ? false : true}
               onClick={updateOrderStatus}
             >
