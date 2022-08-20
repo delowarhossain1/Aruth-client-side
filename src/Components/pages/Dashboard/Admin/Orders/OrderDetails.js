@@ -44,7 +44,8 @@ const OrderDetails = () => {
     paid,
     transactionId,
     size,
-    total
+    total,
+    orderNum
   } = orderInfo;
 
   //   Update order status
@@ -116,7 +117,7 @@ const OrderDetails = () => {
           <p className="text-sm">
             Order status : {updatedOrderStatus || status}
           </p>
-          <p className="text-sm">Order No. : {transactionId}</p>
+          <p className="text-sm">Order No. : #{orderNum}</p>
           <p className="text-sm">Size. : {size}</p>
           <p className="text-sm">Placed on : {date}</p>
           <p className="text-sm">Customer : {customer}</p>

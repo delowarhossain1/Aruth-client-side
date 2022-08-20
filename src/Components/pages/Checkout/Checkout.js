@@ -35,7 +35,8 @@ const Checkout = ({ checkoutInfo }) => {
       paymentStatue : 'cash',
       transactionId : '00000000abc',
       size : checkoutInfo?.size,
-      total : checkoutInfo?.total
+      total : checkoutInfo?.total,
+      orderNum : 10000,
     }
 
     // Place order
