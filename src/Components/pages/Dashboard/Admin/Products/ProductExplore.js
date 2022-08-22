@@ -4,6 +4,8 @@ import { useParams } from "react-router-dom";
 import { useAuthState } from "react-firebase-hooks/auth";
 import auth from "./../../../../../firebase.init";
 import Loading from "../../../../shared/Loading/Loading";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const ProductExplore = () => {
   const { id } = useParams();
@@ -42,7 +44,6 @@ const ProductExplore = () => {
     comments,
   } = product;
 
-
   // update product description
   const updateProductDescription = (event) => {
     const updatedText = event.target.value;
@@ -60,10 +61,9 @@ const ProductExplore = () => {
     setProduct(newAttributes);
   };
 
+  /* ___________________________________ Update product info _________________________*/
 
-  /* ___________________________________ Update product info _________________________*/ 
-
-  const handleProductInfo = event => {
+  const handleProductInfo = (event) => {
     event.preventDefault();
 
     const updatedTitle = event.target.title.value || name;
@@ -71,54 +71,71 @@ const ProductExplore = () => {
     const updatedPrice = event.target.price.value || price;
     const updatedAvailable = event.target.available.value || availableQuantity;
     const updatedTotalSell = event.target.totalSell.value || totalSells;
-    const updatedDeliveryDays = event.target.deliveryDays.value || deliveryWithin?.days;
-    const updatedDeliveryCharge = event.target.deliveryCharge.value || deliveryWithin?.charge;
-    const updatedSize = event.target.size.value || size || '';
+    const updatedDeliveryDays =
+      event.target.deliveryDays.value || deliveryWithin?.days;
+    const updatedDeliveryCharge =
+      event.target.deliveryCharge.value || deliveryWithin?.charge;
+    const updatedSize = event.target.size.value || size || "";
     const updatedType = event.target.type.value || popular;
-    const updatedCashOnDelivery = event.target.cashOnDelivery.value || cashOnDelivery;
+    const updatedCashOnDelivery =
+      event.target.cashOnDelivery.value || cashOnDelivery;
     const updatedCategory = event.target.category.value || categories;
     const updatedDiscount = event.target.discount.value || discount;
     const updatedBrandName = event.target.brandName.value || brand;
     const updatedCouponCode = event.target.couponCode.value || couponCode?.code;
-    const updatedCouponAmount = event.target.couponAmount.value || couponCode?.amount;
+    const updatedCouponAmount =
+      event.target.couponAmount.value || couponCode?.amount;
     const updatedRatings = event.target.ratings.value || ratings;
-    const updatedList = event.target.list.value || description?.list || '';
-    const updatedDescription = event.target.list.value || description?.text || '';
+    const updatedList = event.target.list.value || description?.list || "";
+    const updatedDescription =
+      event.target.list.value || description?.text || "";
 
-
-
-    // Data model 
+    // Data model
     const updatedInfo = {
-      img : updatedIMG,
-      name : updatedTitle,
-      ratings : updatedRatings,
-      price : updatedPrice,
-      discount : updatedDiscount,
-      brand : updatedBrandName,
-      popular : updatedType,
-      size : Array.isArray(updatedSize) ? updatedSize : updatedSize.split(','),
-      availableQuantity : updatedAvailable,
-      totalSells : updatedTotalSell,
-      categories : updatedCategory,
-      deliveryWithin : {
-        days : updatedDeliveryDays,
-        charge : updatedDeliveryCharge
+      img: updatedIMG,
+      name: updatedTitle,
+      ratings: updatedRatings,
+      price: updatedPrice,
+      discount: updatedDiscount,
+      brand: updatedBrandName,
+      popular: updatedType,
+      size: Array.isArray(updatedSize) ? updatedSize : updatedSize.split(","),
+      availableQuantity: updatedAvailable,
+      totalSells: updatedTotalSell,
+      categories: updatedCategory,
+      deliveryWithin: {
+        days: updatedDeliveryDays,
+        charge: updatedDeliveryCharge,
       },
-      cashOnDelivery : updatedCashOnDelivery,
-      couponCode : {
-        code : updatedCouponCode,
-        amount : updatedCouponAmount
+      cashOnDelivery: updatedCashOnDelivery,
+      couponCode: {
+        code: updatedCouponCode,
+        amount: updatedCouponAmount,
       },
-      description :{
-        list : Array.isArray(updatedList) ? updatedList : updatedList.split(','),
-        text : updatedDescription
+      description: {
+        list: Array.isArray(updatedList) ? updatedList : updatedList.split(","),
+        text: updatedDescription,
       },
       comments,
-    }
+    };
 
-   
+    //  update the document in the database
+    const URL = `http://localhost:5000/update-product-info/${id}?email=${user?.email}`;
+    fetch(URL, {
+      method : "PATCH",
+      headers : {
+        'content-type' : 'application/json',
+        auth : `Bearer ${localStorage.getItem('accessToken')}`
+      },
+      body : JSON.stringify(updatedInfo)
+    })
+    .then(res => res.json())
+    .then(res => {
+      if(res?.modifiedCount){
 
-  }
+      }
+    })
+  };
 
   if (loading) {
     return <Loading />;
@@ -204,7 +221,7 @@ const ProductExplore = () => {
 
                   <input
                     type="text"
-                    name='price'
+                    name="price"
                     placeholder="Change price"
                     className="input input-bordered border-black input-sm w-32 mt-2"
                     disabled={isWantToEdit}
@@ -220,7 +237,7 @@ const ProductExplore = () => {
 
                   <input
                     type="text"
-                    name='available'
+                    name="available"
                     placeholder="Change Quantity"
                     className="input input-bordered border-black input-sm w-32 mt-2"
                     disabled={isWantToEdit}
@@ -236,7 +253,7 @@ const ProductExplore = () => {
 
                   <input
                     type="text"
-                    name='totalSell'
+                    name="totalSell"
                     placeholder="Change sells"
                     className="input input-bordered border-black input-sm w-32 mt-2"
                     disabled
@@ -254,7 +271,7 @@ const ProductExplore = () => {
 
                   <input
                     type="text"
-                    name='deliveryDays'
+                    name="deliveryDays"
                     placeholder="Change date"
                     className="input input-bordered border-black input-sm w-32 mt-2"
                     disabled={isWantToEdit}
@@ -270,7 +287,7 @@ const ProductExplore = () => {
 
                   <input
                     type="text"
-                    name='deliveryCharge'
+                    name="deliveryCharge"
                     placeholder="Change charge"
                     className="input input-bordered border-black input-sm w-32 mt-2"
                     disabled={isWantToEdit}
@@ -286,7 +303,7 @@ const ProductExplore = () => {
 
                   <input
                     type="text"
-                    name='size'
+                    name="size"
                     placeholder="Change size"
                     className="input input-bordered border-black input-sm w-32 mt-2"
                     disabled={isWantToEdit}
@@ -305,8 +322,8 @@ const ProductExplore = () => {
                   <select
                     className="select select-bordered mt-2 border-black select-sm w-full max-w-xs"
                     disabled={isWantToEdit}
-                    name='type'
-                    defaultValue='false'
+                    name="type"
+                    defaultValue="false"
                   >
                     <option value="false">Regular</option>
                     <option value="true">Popular</option>
@@ -323,8 +340,8 @@ const ProductExplore = () => {
                   <select
                     className="select select-bordered mt-2 border-black select-sm w-full max-w-xs"
                     disabled={isWantToEdit}
-                    name='cashOnDelivery'
-                    defaultValue='false'
+                    name="cashOnDelivery"
+                    defaultValue="false"
                   >
                     <option value="false">Not Available</option>
                     <option value="true">Available</option>
@@ -340,8 +357,8 @@ const ProductExplore = () => {
                   <select
                     className="select select-bordered mt-2 border-black select-sm w-full max-w-xs"
                     disabled={isWantToEdit}
-                    name='category'
-                    defaultValue='false'
+                    name="category"
+                    defaultValue="false"
                   >
                     <option value="false">Not Available</option>
                     <option value="true">Available</option>
@@ -375,7 +392,7 @@ const ProductExplore = () => {
 
               <input
                 type="text"
-                name='brandName'
+                name="brandName"
                 placeholder="Change brand name"
                 className="input input-bordered border-black input-sm w-32 mt-2"
                 disabled={isWantToEdit}
@@ -391,7 +408,7 @@ const ProductExplore = () => {
 
               <input
                 type="text"
-                name='couponCode'
+                name="couponCode"
                 placeholder="Change code"
                 className="input input-bordered border-black input-sm w-32 mt-2"
                 disabled={isWantToEdit}
@@ -409,7 +426,7 @@ const ProductExplore = () => {
 
               <input
                 type="text"
-                name='couponAmount'
+                name="couponAmount"
                 placeholder="Change amount"
                 className="input input-bordered border-black input-sm w-32 mt-2"
                 disabled={isWantToEdit}
@@ -423,7 +440,7 @@ const ProductExplore = () => {
 
               <input
                 type="text"
-                name='ratings'
+                name="ratings"
                 placeholder="Change ratings"
                 className="input input-bordered border-black input-sm w-32 mt-2"
                 disabled
@@ -464,9 +481,7 @@ const ProductExplore = () => {
       <div className="mt-5 bg-gray-100 p-3 rounded">
         <h2 className="text-xl mb-3">Comments</h2>
 
-        <div>
-                  
-        </div>
+        <div></div>
       </div>
     </section>
   );
