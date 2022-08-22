@@ -16,6 +16,8 @@ import GetAllProducts from './Components/GetAllProducts/GetAllProducts';
 import Orders from "./Components/pages/Dashboard/Admin/Orders/Orders";
 import RequiredAdmin from './Components/shared/Required/RequiredAdmin';
 import OrderDetails from "./Components/pages/Dashboard/Admin/Orders/OrderDetails";
+import Products from "./Components/pages/Dashboard/Admin/Products/Products";
+import ProductExplore from "./Components/pages/Dashboard/Admin/Products/ProductExplore";
 
 function App() {
   // proceed to pay (info)
@@ -66,6 +68,14 @@ function App() {
 
                   <Route path='order-details/:id' element={<RequiredAdmin>
                     <OrderDetails />
+                  </RequiredAdmin>} />
+
+                  <Route path='products' element={<RequiredAdmin>
+                    <Products />
+                  </RequiredAdmin>} />
+
+                  <Route path='products/explore/:id' element={<RequiredAdmin>
+                    <ProductExplore />
                   </RequiredAdmin>} />
 
                 </Route>

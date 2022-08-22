@@ -55,14 +55,14 @@ const Dashboard = () => {
             </li>
             
             <li className="dashboard-main-menu">
-              <Link to="/" className="block">
+              <Link to="/dashboard/products" className="block">
               <i className="fa-solid fa-store mr-2"></i>
                 Products
               </Link>
             </li>
 
             <li className="dashboard-main-menu">
-              <Link to="/" className="block">
+              <Link to="/dashboard/" className="block">
               <i className="fa-solid fa-square-plus mr-2"></i>
               Add product
               </Link>

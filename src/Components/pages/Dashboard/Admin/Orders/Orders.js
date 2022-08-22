@@ -95,10 +95,10 @@ const Orders = () => {
             <option value="all" selected>
               All
             </option>
-            <option value="">Todays</option>
-            <option value="">Pending</option>
-            <option value="">Shipped</option>
-            <option value="">delivered</option>
+            <option value="todays">Todays</option>
+            <option value="pending">Pending</option>
+            <option value="shipped">Shipped</option>
+            <option value="delivered">Delivered</option>
           </select>
         </div>
       </div>
