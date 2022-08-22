@@ -1,8 +1,8 @@
 import Swal from "sweetalert2";
+import { toast } from "react-toastify";
 
 const useAlert = () => {
-
-  // Alert : 1  
+  // Alert : 1
   const simpleAlert = (info) => {
     const { text = "Have a problem", symbol = "error", title = "error" } = info;
 
@@ -10,35 +10,53 @@ const useAlert = () => {
   };
 
   // Alert : 2
-  const successfulAlertWithAutoClose = (text, icon = 'success') => {
+  const successfulAlertWithAutoClose = (text, icon = "success") => {
     Swal.fire({
-        position: "center",
-        icon: `${icon}`,
-        title: `${text}`,
-        showConfirmButton: false,
-        timer: 3000,
-      });
-  }
+      position: "center",
+      icon: `${icon}`,
+      title: `${text}`,
+      showConfirmButton: false,
+      timer: 3000,
+    });
+  };
 
   // Alert : 3
   const deleteModal = (cb) => {
     Swal.fire({
-      title: 'Are you sure?',
+      title: "Are you sure?",
       text: "You won't be able to revert this!",
-      icon: 'warning',
+      icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: '#fb5200',
-      cancelButtonColor: '#3B82F6',
-      confirmButtonText: 'Yes, delete it!'
+      confirmButtonColor: "#fb5200",
+      cancelButtonColor: "#3B82F6",
+      confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
         // Call the cb function
         cb();
       }
-    })
+    });
+  };
+
+  // Toast-1 : success toast
+  function successToast(text = "🦄 Wow so easy!") {
+    toast.success(`${text}`, {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
   }
 
-  return { simpleAlert, successfulAlertWithAutoClose, deleteModal };
+  return {
+    simpleAlert,
+    successfulAlertWithAutoClose,
+    deleteModal,
+    successToast,
+  };
 };
 
 export default useAlert;
