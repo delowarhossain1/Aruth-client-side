@@ -100,7 +100,7 @@ const ProductDetails = ({ handleCheckoutInfo }) => {
         quantity,
         total,
         cashOnDelivery,
-        size : selectedSize || 'Empty'
+        size : selectedSize || 'Not selected'
       },
     );
 

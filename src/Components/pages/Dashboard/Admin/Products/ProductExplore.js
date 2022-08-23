@@ -4,11 +4,13 @@ import { useParams } from "react-router-dom";
 import { useAuthState } from "react-firebase-hooks/auth";
 import auth from "./../../../../../firebase.init";
 import Loading from "../../../../shared/Loading/Loading";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import useAlert from "./../../../../../hooks/useAlert";
 
 const ProductExplore = () => {
   const { id } = useParams();
+  const { successToast } = useAlert();
   const [user, loading] = useAuthState(auth);
   const [isWantToEdit, setIsWantToEdit] = useState(true);
   const [product, setProduct] = useState({});
@@ -65,30 +67,26 @@ const ProductExplore = () => {
 
   const handleProductInfo = (event) => {
     event.preventDefault();
+    const t = event.target;
 
-    const updatedTitle = event.target.title.value || name;
-    const updatedIMG = event.target.img.value || img;
-    const updatedPrice = event.target.price.value || price;
-    const updatedAvailable = event.target.available.value || availableQuantity;
-    const updatedTotalSell = event.target.totalSell.value || totalSells;
-    const updatedDeliveryDays =
-      event.target.deliveryDays.value || deliveryWithin?.days;
-    const updatedDeliveryCharge =
-      event.target.deliveryCharge.value || deliveryWithin?.charge;
-    const updatedSize = event.target.size.value || size || "";
-    const updatedType = event.target.type.value || popular;
-    const updatedCashOnDelivery =
-      event.target.cashOnDelivery.value || cashOnDelivery;
-    const updatedCategory = event.target.category.value || categories;
-    const updatedDiscount = event.target.discount.value || discount;
-    const updatedBrandName = event.target.brandName.value || brand;
-    const updatedCouponCode = event.target.couponCode.value || couponCode?.code;
-    const updatedCouponAmount =
-      event.target.couponAmount.value || couponCode?.amount;
-    const updatedRatings = event.target.ratings.value || ratings;
-    const updatedList = event.target.list.value || description?.list || "";
-    const updatedDescription =
-      event.target.list.value || description?.text || "";
+    const updatedTitle = t.title.value || name;
+    const updatedIMG = t.img.value || img;
+    const updatedPrice = t.price.value || price;
+    const updatedAvailable = t.available.value || availableQuantity;
+    const updatedTotalSell = t.totalSell.value || totalSells;
+    const updatedDeliveryDays = t.deliveryDays.value || deliveryWithin?.days;
+    const updatedDeliveryCharge = t.deliveryCharge.value || deliveryWithin?.charge;
+    const updatedSize = t.size.value || size || "";
+    const updatedType = t.type.value || popular;
+    const updatedCashOnDelivery = t.cashOnDelivery.value || cashOnDelivery;
+    const updatedCategory = t.category.value || categories;
+    const updatedDiscount = t.discount.value || discount;
+    const updatedBrandName = t.brandName.value || brand;
+    const updatedCouponCode = t.couponCode.value || couponCode?.code;
+    const updatedCouponAmount = t.couponAmount.value || couponCode?.amount;
+    const updatedRatings = t.ratings.value || ratings;
+    const updatedList = t.list.value || description?.list || "";
+    const updatedDescription = t.list.value || description?.text || "";
 
     // Data model
     const updatedInfo = {
@@ -98,7 +96,7 @@ const ProductExplore = () => {
       price: updatedPrice,
       discount: updatedDiscount,
       brand: updatedBrandName,
-      popular: updatedType,
+      popular: (updatedType === 'true'),
       size: Array.isArray(updatedSize) ? updatedSize : updatedSize.split(","),
       availableQuantity: updatedAvailable,
       totalSells: updatedTotalSell,
@@ -107,7 +105,7 @@ const ProductExplore = () => {
         days: updatedDeliveryDays,
         charge: updatedDeliveryCharge,
       },
-      cashOnDelivery: updatedCashOnDelivery,
+      cashOnDelivery: (updatedCashOnDelivery === 'true'),
       couponCode: {
         code: updatedCouponCode,
         amount: updatedCouponAmount,
@@ -119,22 +117,25 @@ const ProductExplore = () => {
       comments,
     };
 
+    console.log(updatedInfo);
+
     //  update the document in the database
     const URL = `http://localhost:5000/update-product-info/${id}?email=${user?.email}`;
     fetch(URL, {
-      method : "PATCH",
-      headers : {
-        'content-type' : 'application/json',
-        auth : `Bearer ${localStorage.getItem('accessToken')}`
+      method: "PATCH",
+      headers: {
+        "content-type": "application/json",
+        auth: `Bearer ${localStorage.getItem("accessToken")}`,
       },
-      body : JSON.stringify(updatedInfo)
+      body: JSON.stringify(updatedInfo),
     })
-    .then(res => res.json())
-    .then(res => {
-      if(res?.modifiedCount){
-
-      }
-    })
+      .then((res) => res.json())
+      .then((res) => {
+        if (res?.modifiedCount) {
+          successToast("Product information updated");
+          isWantToEdit(true);
+        }
+      });
   };
 
   if (loading) {
@@ -323,10 +324,10 @@ const ProductExplore = () => {
                     className="select select-bordered mt-2 border-black select-sm w-full max-w-xs"
                     disabled={isWantToEdit}
                     name="type"
-                    defaultValue="false"
+                    defaultValue={popular}
                   >
-                    <option value="false">Regular</option>
-                    <option value="true">Popular</option>
+                    <option value={false}>Regular</option>
+                    <option value={true}>Popular</option>
                   </select>
                 </div>
 
@@ -341,10 +342,10 @@ const ProductExplore = () => {
                     className="select select-bordered mt-2 border-black select-sm w-full max-w-xs"
                     disabled={isWantToEdit}
                     name="cashOnDelivery"
-                    defaultValue="false"
+                    defaultValue={cashOnDelivery}
                   >
-                    <option value="false">Not Available</option>
-                    <option value="true">Available</option>
+                    <option value={false}>Not Available</option>
+                    <option value={true}>Available</option>
                   </select>
                 </div>
 
@@ -358,10 +359,10 @@ const ProductExplore = () => {
                     className="select select-bordered mt-2 border-black select-sm w-full max-w-xs"
                     disabled={isWantToEdit}
                     name="category"
-                    defaultValue="false"
+                    defaultValue={categories}
                   >
-                    <option value="false">Not Available</option>
-                    <option value="true">Available</option>
+                    <option value={false}>Not Available</option>
+                    <option value={true}>Available</option>
                   </select>
                 </div>
               </div>

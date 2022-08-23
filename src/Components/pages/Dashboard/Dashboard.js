@@ -4,9 +4,14 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import auth from "./../../../firebase.init";
 import { Link, Outlet } from "react-router-dom";
 import "./Dashboard.css";
+import Loading from "../../shared/Loading/Loading";
 
 const Dashboard = () => {
-  const [user, loading, error] = useAuthState(auth);
+  const [user, loading] = useAuthState(auth);
+
+  if (loading) {
+    return <Loading />;
+  }
 
   return (
     <section className="py-6">
@@ -48,55 +53,46 @@ const Dashboard = () => {
             </li>
 
             <li className="dashboard-main-menu">
-              <Link to="/dashboard/orders" className="block">
+              <Link to="orders" className="block">
                 <i className="fa-solid fa-cart-shopping mr-2"></i>
                 Orders
               </Link>
             </li>
-            
+
             <li className="dashboard-main-menu">
-              <Link to="/dashboard/products" className="block">
-              <i className="fa-solid fa-store mr-2"></i>
+              <Link to="products" className="block">
+                <i className="fa-solid fa-store mr-2"></i>
                 Products
               </Link>
             </li>
 
             <li className="dashboard-main-menu">
-              <Link to="/dashboard/" className="block">
-              <i className="fa-solid fa-square-plus mr-2"></i>
-              Add product
+              <Link to="add-new-product" className="block">
+                <i className="fa-solid fa-square-plus mr-2"></i>
+                Add product
               </Link>
             </li>
 
             <li className="dashboard-main-menu">
-              <Link to="/" className="block">
-              <i className="fa-solid fa-bars mr-2"></i>
-                Menu
-              </Link>
-            </li>
-
-            <li className="dashboard-main-menu">
-              <Link to="/" className="block">
-              <i className="fa-solid fa-dolly mr-2"></i>
+              <Link to="categories" className="block">
+                <i className="fa-solid fa-dolly mr-2"></i>
                 Categories
               </Link>
             </li>
 
             <li className="dashboard-main-menu">
-              <Link to="/" className="block">
-              <i className="fa-solid fa-user-check mr-2"></i>
+              <Link to="admins" className="block">
+                <i className="fa-solid fa-user-check mr-2"></i>
                 Admins
               </Link>
             </li>
 
             <li className="dashboard-main-menu">
-              <Link to="/" className="block">
-              <i className="fa-solid fa-users mr-2"></i>
+              <Link to="users" className="block">
+                <i className="fa-solid fa-users mr-2"></i>
                 Users
               </Link>
             </li>
-
-
           </ul>
         </div>
       </div>

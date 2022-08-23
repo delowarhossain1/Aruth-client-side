@@ -19,6 +19,10 @@ import OrderDetails from "./Components/pages/Dashboard/Admin/Orders/OrderDetails
 import Products from "./Components/pages/Dashboard/Admin/Products/Products";
 import ProductExplore from "./Components/pages/Dashboard/Admin/Products/ProductExplore";
 import { ToastContainer } from 'react-toastify';
+import AddNewProduct from './Components/pages/Dashboard/Admin/Products/AddNewProduct';
+import ManageCategories from "./Components/pages/Dashboard/Admin/Categories/ManageCategories";
+import Admins from './Components/pages/Dashboard/Admin/Admins/Admins';
+import Users from './Components/pages/Dashboard/Admin/Users/Users';
 
 function App() {
   // proceed to pay (info)
@@ -121,6 +125,42 @@ function App() {
                 element={
                   <RequiredAdmin>
                     <ProductExplore />
+                  </RequiredAdmin>
+                }
+              />
+
+              <Route
+                path="add-new-product"
+                element={
+                  <RequiredAdmin>
+                    <AddNewProduct />
+                  </RequiredAdmin>
+                }
+              />
+
+              <Route
+                path="categories"
+                element={
+                  <RequiredAdmin>
+                    <ManageCategories />
+                  </RequiredAdmin>
+                }
+              />
+
+              <Route
+                path="admins"
+                element={
+                  <RequiredAdmin>
+                    <Admins />
+                  </RequiredAdmin>
+                }
+              />
+
+              <Route
+                path="users"
+                element={
+                  <RequiredAdmin>
+                    <Users />
                   </RequiredAdmin>
                 }
               />
