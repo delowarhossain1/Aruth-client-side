@@ -38,6 +38,24 @@ const useAlert = () => {
     });
   };
 
+
+  /*--------------------------- Input box ---------------------------------*/ 
+const inputBox1 = async({type= 'text', label="Input", placeholder ='Type here...'}) => {
+
+  const { value } = await Swal.fire({
+    title: `Enter your ${label}`,
+    input: `${type}`,
+    inputLabel: `${label}`,
+    inputPlaceholder: `${placeholder}`,
+    inputAttributes: {
+      autocapitalize: 'off',
+      autocorrect: 'off'
+    }
+  })
+
+  return value;
+}
+
   // Toast-1 : success toast
   function successToast(text = "🦄 Wow so easy!") {
     toast.success(`${text}`, {
@@ -56,6 +74,8 @@ const useAlert = () => {
     successfulAlertWithAutoClose,
     deleteModal,
     successToast,
+    inputBox1,
+
   };
 };
 
