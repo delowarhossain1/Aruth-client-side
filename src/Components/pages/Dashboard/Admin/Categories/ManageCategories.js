@@ -3,16 +3,19 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import Loading from "../../../../shared/Loading/Loading";
 import auth from "./../../../../../firebase.init";
 import { useNavigate } from "react-router-dom";
+import useAlert from './../../../../../hooks/useAlert';
 
 const ManageCategories = () => {
   const navigate = useNavigate();
+  const {deleteModal, successfulAlertWithAutoClose} = useAlert();
   const [user, loading] = useAuthState(auth);
   const [categories, setCategories] = useState([]);
   const [dataLoading, setDataLoading] = useState(true);
+  const [reload, setReload] = useState(false);
 
   useEffect(() => {
     if (user?.email) {
-      const URL = `http://localhost:5000/categories?email=${user?.email}`;
+      const URL = `http://localhost:5000/categories`;
       fetch(URL, {
         headers: {
           auth: `Bearer ${localStorage.getItem("accessToken")}`,
@@ -24,11 +27,31 @@ const ManageCategories = () => {
           setCategories(data);
         });
     }
-  }, [user]);
+  }, [user, reload]);
 
-  // if(loading || dataLoading){
-  //     return <Loading />
-  // }
+  if(loading || dataLoading){
+      return <Loading />
+  }
+
+  const handleCategoryDelete = (id) => {
+    deleteModal(()=>{
+      const URL = `http://localhost:5000/delete-category/${id}?email=${user?.email}`;
+      fetch(URL, {
+        method : "DELETE",
+        headers : {
+          auth : `Bearer ${localStorage.getItem('accessToken')}`
+        }
+      })
+      .then(res => res.json())
+      .then(res => {
+          if(res?.deletedCount){
+            successfulAlertWithAutoClose('The category has been deleted');
+            // Reload after  delete
+            setReload(! reload);
+          }
+      });
+    })
+  }
 
   return (
     <section>
@@ -68,7 +91,7 @@ const ManageCategories = () => {
                   <td>{category?.text}</td>
                   <td>{category?.link && category.link.slice(9, category.link.length)}</td>
                   <td>
-                    <button className="p-2 bg-green-500 rounded text-white">Remove</button>
+                    <button className="p-2 bg-green-500 rounded text-white" onClick={()=> handleCategoryDelete(category?._id)}>Remove</button>
                   </td>
                 </tr>
               ))}
