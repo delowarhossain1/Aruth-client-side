@@ -34,14 +34,14 @@ const Products = () => {
   return (
     <section>
       {/* Section title */}
-      <h2 className="dashboard-title flex-1">
+      <h2 className="dashboard-title">
         <i className="fa-solid fa-store mr-2"></i> Products
       </h2>
 
       <div>
         {/* Product table */}
-        <div class="overflow-x-auto">
-          <table class="table w-full text-center">
+        <div className="overflow-x-auto">
+          <table className="table w-full text-center">
             <thead>
               <tr>
                 <th>#No</th>

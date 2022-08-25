@@ -85,7 +85,7 @@ const Orders = () => {
 
         <div className="flex-1 flex justify-around">
           <button onClick={() => setReset(! reset)} className='p-2'>
-            <i class="fa-solid fa-arrows-rotate text-xl"></i>
+            <i className="fa-solid fa-arrows-rotate text-xl"></i>
           </button>
 
           <select
