@@ -46,9 +46,10 @@ const AddNewCategory = () => {
       .then((res) => res.json())
       .then((res) => {
         setUploading(false);
-        
+
         if(res?.insertedId){
             successToast("The category has been added.");
+            navigate('/dashboard/categories/');
         }
       });
   };

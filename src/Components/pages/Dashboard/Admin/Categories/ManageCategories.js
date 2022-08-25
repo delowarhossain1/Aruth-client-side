@@ -1,35 +1,35 @@
 import React, { useEffect, useState } from "react";
-import { useAuthState } from 'react-firebase-hooks/auth';
+import { useAuthState } from "react-firebase-hooks/auth";
 import Loading from "../../../../shared/Loading/Loading";
-import auth from './../../../../../firebase.init';
-import { useNavigate } from 'react-router-dom';
+import auth from "./../../../../../firebase.init";
+import { useNavigate } from "react-router-dom";
 
 const ManageCategories = () => {
-    const navigate = useNavigate();
-    const [user, loading] = useAuthState(auth);
-    const [categories, setCategories] = useState([]);
-    const [dataLoading, setDataLoading] = useState(true);
+  const navigate = useNavigate();
+  const [user, loading] = useAuthState(auth);
+  const [categories, setCategories] = useState([]);
+  const [dataLoading, setDataLoading] = useState(true);
 
-    useEffect(()=>{
-        const URL = ``;
-        fetch(URL, {
-            headers : {
-                auth : `Bearer ${localStorage.getItem('accessToken')}`
-            }
-        })
-        .then(res => res.json())
-        .then(data =>{
-            setDataLoading(false);
-            setCategories(data)
-        })
+  useEffect(() => {
+    if (user?.email) {
+      const URL = `http://localhost:5000/categories?email=${user?.email}`;
+      fetch(URL, {
+        headers: {
+          auth: `Bearer ${localStorage.getItem("accessToken")}`,
+        },
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          setDataLoading(false);
+          setCategories(data);
+        });
+    }
+  }, [user]);
 
-    }, [user]);
+  // if(loading || dataLoading){
+  //     return <Loading />
+  // }
 
-
-    // if(loading || dataLoading){
-    //     return <Loading />
-    // }
-    
   return (
     <section>
       <div className="flex items-center justify-between">
@@ -38,7 +38,12 @@ const ManageCategories = () => {
           <i className="fa-solid fa-dolly mr-2"></i> Categories
         </h2>
 
-        <button className="bg-[#5a76fd] p-2 rounded text-white" onClick={()=> navigate('add-new')}>Add New</button>
+        <button
+          className="bg-[#5a76fd] p-2 rounded text-white"
+          onClick={() => navigate("add-new")}
+        >
+          Add New
+        </button>
       </div>
 
       <div className="mt-5">
@@ -54,12 +59,19 @@ const ManageCategories = () => {
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <th>1</th>
-                <td>Cy Ganderton</td>
-                <td>Quality Control Specialist</td>
-                <td>Blue</td>
-              </tr>
+              {categories?.map((category, index) => (
+                <tr key={category?._id}>
+                  <th>{index + 1}</th>
+                  <td>
+                    <img src={category?.img} alt="category" className="w-14" />
+                  </td>
+                  <td>{category?.text}</td>
+                  <td>{category?.link && category.link.slice(9, category.link.length)}</td>
+                  <td>
+                    <button className="p-2 bg-green-500 rounded text-white">Remove</button>
+                  </td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>
