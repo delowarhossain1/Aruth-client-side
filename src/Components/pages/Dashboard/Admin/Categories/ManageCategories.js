@@ -2,8 +2,10 @@ import React, { useEffect, useState } from "react";
 import { useAuthState } from 'react-firebase-hooks/auth';
 import Loading from "../../../../shared/Loading/Loading";
 import auth from './../../../../../firebase.init';
+import { useNavigate } from 'react-router-dom';
 
 const ManageCategories = () => {
+    const navigate = useNavigate();
     const [user, loading] = useAuthState(auth);
     const [categories, setCategories] = useState([]);
     const [dataLoading, setDataLoading] = useState(true);
@@ -24,9 +26,9 @@ const ManageCategories = () => {
     }, [user]);
 
 
-    if(loading || dataLoading){
-        return <Loading />
-    }
+    // if(loading || dataLoading){
+    //     return <Loading />
+    // }
     
   return (
     <section>
@@ -36,7 +38,7 @@ const ManageCategories = () => {
           <i className="fa-solid fa-dolly mr-2"></i> Categories
         </h2>
 
-        <button className="bg-[#5a76fd] p-2 rounded text-white">Add New</button>
+        <button className="bg-[#5a76fd] p-2 rounded text-white" onClick={()=> navigate('add-new')}>Add New</button>
       </div>
 
       <div className="mt-5">

@@ -23,6 +23,7 @@ import AddNewProduct from './Components/pages/Dashboard/Admin/Products/AddNewPro
 import ManageCategories from "./Components/pages/Dashboard/Admin/Categories/ManageCategories";
 import Admins from './Components/pages/Dashboard/Admin/Admins/Admins';
 import Users from './Components/pages/Dashboard/Admin/Users/Users';
+import AddNewCategory from "./Components/pages/Dashboard/Admin/Categories/AddNewCategory";
 
 function App() {
   // proceed to pay (info)
@@ -143,6 +144,15 @@ function App() {
                 element={
                   <RequiredAdmin>
                     <ManageCategories />
+                  </RequiredAdmin>
+                }
+              />
+
+              <Route
+                path="categories/add-new"
+                element={
+                  <RequiredAdmin>
+                    <AddNewCategory />
                   </RequiredAdmin>
                 }
               />
