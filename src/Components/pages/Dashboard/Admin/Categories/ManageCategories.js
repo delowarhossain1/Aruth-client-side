@@ -77,7 +77,6 @@ const ManageCategories = () => {
                 <th>#No</th>
                 <th>IMG</th>
                 <th>Name</th>
-                <th>Path</th>
                 <th>Explore</th>
               </tr>
             </thead>
@@ -89,7 +88,6 @@ const ManageCategories = () => {
                     <img src={category?.img} alt="category" className="w-14" />
                   </td>
                   <td>{category?.text}</td>
-                  <td>{category?.link && category.link.slice(9, category.link.length)}</td>
                   <td>
                     <button className="p-2 bg-green-500 rounded text-white" onClick={()=> handleCategoryDelete(category?._id)}>Remove</button>
                   </td>

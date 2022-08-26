@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import auth from "./../../../../../firebase.init";
 import useAlert from "./../../../../../hooks/useAlert";
@@ -7,6 +7,20 @@ import SelectOption from "../../../../shared/SelectOption/SelectOption";
 
 const AddNewProduct = () => {
   const [user, loading] = useAuthState(auth);
+  const [categoriesTitle, setCategoriesTitle] = useState([]);
+
+  useEffect(() => {
+    if (user?.email) {
+      const URL = `http://localhost:5000/category-title?email=${user?.email}`;
+      fetch(URL, {
+        headers: {
+          auth: `Bearer ${localStorage.getItem("accessToken")}`,
+        },
+      })
+        .then((res) => res.json())
+        .then((res) => setCategoriesTitle(res));
+    }
+  }, [user]);
 
   const handleAddProductInfo = (event) => {
     event.preventDefault();
@@ -209,11 +223,8 @@ const AddNewProduct = () => {
           <SelectOption
             value={{
               title: "Category",
-              styles : 'disabled',
-              options: [
-                { value: true, text: "Available" },
-                { value: false, text: "Not Available" },
-              ],
+              styles: "disabled",
+              options: categoriesTitle,
             }}
           />
         </div>
