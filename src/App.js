@@ -24,6 +24,9 @@ import ManageCategories from "./Components/pages/Dashboard/Admin/Categories/Mana
 import Admins from './Components/pages/Dashboard/Admin/Admins/Admins';
 import Users from './Components/pages/Dashboard/Admin/Users/Users';
 import AddNewCategory from "./Components/pages/Dashboard/Admin/Categories/AddNewCategory";
+import Slider from "./Components/pages/Home/Slider/Slider";
+import ManageSliders from "./Components/pages/Dashboard/Admin/ManageSliders/ManageSliders";
+import AddNewSliders from './Components/pages/Dashboard/Admin/ManageSliders/AddNewSliders';
 
 function App() {
   // proceed to pay (info)
@@ -153,6 +156,24 @@ function App() {
                 element={
                   <RequiredAdmin>
                     <AddNewCategory />
+                  </RequiredAdmin>
+                }
+              />
+
+              <Route
+                path="sliders"
+                element={
+                  <RequiredAdmin>
+                    <ManageSliders />
+                  </RequiredAdmin>
+                }
+              />
+
+              <Route
+                path="sliders/add-new"
+                element={
+                  <RequiredAdmin>
+                    <AddNewSliders />
                   </RequiredAdmin>
                 }
               />

@@ -12,17 +12,11 @@ import Login from "../../pages/LoginAndRegister/Login";
 
 const Navbar = () => {
   const [user, loading] = useAuthState(auth);
-  const [navItems, setNavItems] = useState([]);
 
-  useEffect(() => {
-    fetch("data/navbarItems.json")
-      .then((res) => res.json())
-      .then((items) => setNavItems(items));
-  }, [user]);
-
-  const menu = navItems?.map((item) => (
-    <LinkWithLi key={item._id} menu={item} />
-  ));
+  const menu = <>
+    <LinkWithLi menu={{link : '/', text : 'Home'}} />
+    <LinkWithLi menu={{link : '/products', text : 'Products'}} />
+  </>
 
 
   return (
@@ -57,7 +51,7 @@ const Navbar = () => {
           </div>
 
           <Link to="/" className="text-xl uppercase">
-            Aruth
+            Aruot
           </Link>
         </div>
 
@@ -100,9 +94,6 @@ const Navbar = () => {
                 </li>
                 <li>
                   <Link to='/dashboard'>Dashboard</Link>
-                </li>
-                <li>
-                  <Link to='/'>Settings</Link>
                 </li>
                 <li>
                   <span onClick={()=> signOut(auth)}>Logout</span>

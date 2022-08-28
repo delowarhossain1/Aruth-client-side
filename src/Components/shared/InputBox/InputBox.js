@@ -16,7 +16,7 @@ const InputBox = ({value = {}}) => {
         id={`${name}`}
         placeholder={`${placeholder}`}
         required = {required}
-        autoComplete='false'
+        autoComplete='off'
         className={`p-2 w-full rounded outline-none border border-black ${styles}`}
       />
     </div>

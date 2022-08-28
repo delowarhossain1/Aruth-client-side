@@ -1,12 +1,12 @@
 [
     {
-        "_id" : 1,
+        
         "img" : "https://icms-image.slatic.net/images/ims-web/961d523a-8b82-485a-b1b6-16fddbc54fff.jpg",
-        "link" : "/"
+        "link" : "/product"
     },
     {
-        "_id" : 2,
+        
         "img" : "https://icms-image.slatic.net/images/ims-web/adc8d396-fc09-413c-9243-e4b69016a574.jpg",
-        "link" : "/"
+        "link" : "/product"
     }
 ]
