@@ -7,8 +7,9 @@ import SelectOption from "../../../../shared/SelectOption/SelectOption";
 
 const AddNewProduct = () => {
   const [user, loading] = useAuthState(auth);
-  const [selectedCategory, setSelectedCategory] = useState('');
+  const [isCouponAvailable, setIsCouponAvailable] = useState(false);
   const [categoriesTitle, setCategoriesTitle] = useState([]);
+  const {successToast} = useAlert();
 
   useEffect(() => {
     if (user?.email) {
@@ -21,25 +22,25 @@ const AddNewProduct = () => {
         .then((res) => res.json())
         .then((res) => setCategoriesTitle(res));
     }
-  }, []);
+  }, [user]);
 
   const handleAddProductInfo = (event) => {
     event.preventDefault();
     const t = event.target;
-
-    const name = t.title.value;
-    const img = t.thumbnail.value;
-    const brand = t.brand.value;
-    const price = t.price.value;
-    const availableQuantity = t.available.value;
-    const discount = t.discount.value;
-    const deliveryCharge = t.deliveryCharge.value;
-    const deliveryTime = t.deliveryTime.value;
+    
+    const name = t.title.value || 'Product Title here...';
+    const img = t.thumbnail.value || '';
+    const brand = t.brand.value || 'No brand';
+    const price = t.price.value || 1;
+    const availableQuantity = t.available.value || 1;
+    const discount = t.discount.value || 0;
+    const deliveryCharge = t.deliveryCharge.value || 0;
+    const deliveryTime = t.deliveryTime.value || '1-2';
     const size = t.size.value || '';
-    const couponCode = t.couponCode.value;
-    const CouponAmount = t.CouponAmount.value;
-    const list = t.list.value;
-    const aboutProduct = t.aboutProduct.value;
+    const couponCode = null;
+    const couponAmount = null;
+    const list = t.list.value || '';
+    const aboutProduct = t.aboutProduct.value || '';
     const category = t.category.value || categoriesTitle[0]?.text;
     const coupon = t.coupon.value || false;
     const cashOnDelivery = t.cashOnDelivery.value || false;
@@ -63,7 +64,7 @@ const AddNewProduct = () => {
       cashOnDelivery,
       couponCode : {
         code : couponCode,
-        amount : CouponAmount
+        amount : couponAmount
       },
       description : {
         list : list?.length ? list.split(',') : [],
@@ -72,9 +73,25 @@ const AddNewProduct = () => {
       comments : [],
     }
 
-    console.log(productInfo)
+  //  database action
+    const URL = `http://localhost:5000/insert-product?email=${user?.email}`;
 
+    fetch(URL, {
+      method : 'POSt',
+      headers : {
+        'content-type' : 'application/json',
+        auth : `Bearer ${localStorage.getItem('accessToken')}`
+      },
+      body : JSON.stringify(productInfo)
+    })
+    .then(res => res.json())
+    .then(res => {
+      if(res?.insertedId){
+        successToast('The product has been published.');
+      }
+    })
   };
+
 
   return (
     <section className="relative">
@@ -216,7 +233,8 @@ const AddNewProduct = () => {
               />
             </div>
 
-            <div className="flex items-center space-x-3">
+            {/* Coupon code available */}
+            {isCouponAvailable && <div className="flex items-center space-x-3">
               <InputBox
                 value={{
                   name: "couponCode",
@@ -228,12 +246,12 @@ const AddNewProduct = () => {
 
               <InputBox
                 value={{
-                  name: "CouponAmount",
+                  name: "couponAmount",
                   placeholder: "$50",
                   label: "Coupon Amount",
                 }}
               />
-            </div>
+            </div>}
           </div>
         </div>
 
@@ -260,7 +278,9 @@ const AddNewProduct = () => {
               ],
             }}
           />
+
           <SelectOption
+            // onChange={(e)=> setIsCouponAvailable(e.target.value)}
             value={{
               title: "Coupon",
               name : 'coupon',

@@ -56,7 +56,7 @@ const ProductDetails = ({ handleCheckoutInfo }) => {
     event.preventDefault();
     const code = event.target.couponCode.value;
 
-    if (couponCode) {
+    if (couponCode?.amount && couponCode?.code) {
       // Checking coupon code
       if (couponCode?.code === code) {
         setCouponAmount(couponCode?.amount);
@@ -115,7 +115,7 @@ const ProductDetails = ({ handleCheckoutInfo }) => {
   return (
     <section>
       <div className="py-5 flex flex-col lg:flex-row space-x-0 lg:space-x-5 space-y-5 lg:space-y-0">
-        <div className="grid grid-cols-1 md:grid-cols-2 bg-white w-full md:w-8/12 rounded p-2">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 bg-white w-full md:w-8/12 rounded p-2">
           <div>
             <img src={img} alt="product" />
           </div>
@@ -133,7 +133,7 @@ const ProductDetails = ({ handleCheckoutInfo }) => {
               {size?.map((s, i) => (
                 <span
                   key={i * Math.random()}
-                  className=" w-8 border border-orange-500 rounded flex justify-center items-center cursor-pointer mr-3"
+                  className="p-1 border border-orange-500 rounded flex justify-center items-center cursor-pointer mr-3"
                   onClick={() => setSelectedSize(s)}
                 >
                   {s}

@@ -25,10 +25,6 @@ const Navbar = () => {
   ));
 
 
-  if(loading){
-    return <Loading />
-  }
-
   return (
     <nav className="bg-gray-100">
       <div className="navbar w-[95%] mx-auto">
