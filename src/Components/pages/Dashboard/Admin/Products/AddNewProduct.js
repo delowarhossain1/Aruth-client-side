@@ -4,12 +4,13 @@ import auth from "./../../../../../firebase.init";
 import useAlert from "./../../../../../hooks/useAlert";
 import InputBox from "../../../../shared/InputBox/InputBox";
 import SelectOption from "../../../../shared/SelectOption/SelectOption";
+import Loading from "../../../../shared/Loading/Loading";
 
 const AddNewProduct = () => {
   const [user, loading] = useAuthState(auth);
   const [isCouponAvailable, setIsCouponAvailable] = useState(false);
   const [categoriesTitle, setCategoriesTitle] = useState([]);
-  const {successToast} = useAlert();
+  const { successToast } = useAlert();
 
   useEffect(() => {
     if (user?.email) {
@@ -27,71 +28,73 @@ const AddNewProduct = () => {
   const handleAddProductInfo = (event) => {
     event.preventDefault();
     const t = event.target;
-    
-    const name = t.title.value || 'Product Title here...';
-    const img = t.thumbnail.value || '';
-    const brand = t.brand.value || 'No brand';
+
+    const name = t.title.value || "Product Title here...";
+    const img = t.thumbnail.value || "";
+    const brand = t.brand.value || "No brand";
     const price = t.price.value || 1;
     const availableQuantity = t.available.value || 1;
     const discount = t.discount.value || 0;
     const deliveryCharge = t.deliveryCharge.value || 0;
-    const deliveryTime = t.deliveryTime.value || '1-2';
-    const size = t.size.value || '';
-    const couponCode = null;
-    const couponAmount = null;
-    const list = t.list.value || '';
-    const aboutProduct = t.aboutProduct.value || '';
+    const deliveryTime = t.deliveryTime.value || "1-2";
+    const size = t.size.value || "";
+    const couponCode = t?.couponCode?.value || null;
+    const couponAmount = t?.couponAmount?.value || null;
+    const list = t.list.value || "";
+    const aboutProduct = t.aboutProduct.value || "";
     const category = t.category.value || categoriesTitle[0]?.text;
-    const coupon = t.coupon.value || false;
     const cashOnDelivery = t.cashOnDelivery.value || false;
     const type = t.type.value || false;
 
     const productInfo = {
       img,
       name,
-      ratings : 0,
-      price,
-      discount,
       brand,
-      popular : type,
-      size : size.length ? size.split(',') : [],
-      availableQuantity,
-      categories : category,
-      deliveryWithin : {
-        days : deliveryTime,
-        charge : deliveryCharge
+      ratings: 0,
+      categories: category,
+      discount : Number(discount),
+      price : Number(price),
+      popular: (type === "true"),
+      size: size.length ? size.split(", ") : [],
+      cashOnDelivery : (cashOnDelivery === 'true'),
+      availableQuantity : Number(availableQuantity),
+      deliveryWithin: {
+        days: deliveryTime,
+        charge: Number(deliveryCharge),
       },
-      cashOnDelivery,
-      couponCode : {
-        code : couponCode,
-        amount : couponAmount
+      couponCode: {
+        code: couponCode,
+        amount: Number(couponAmount),
       },
-      description : {
-        list : list?.length ? list.split(',') : [],
-        text : aboutProduct
+      description: {
+        list: list?.length ? list.split(",") : [],
+        text: aboutProduct,
       },
-      comments : [],
-    }
+      comments: [],
+    };
 
-  //  database action
+    //  database action
     const URL = `http://localhost:5000/insert-product?email=${user?.email}`;
 
     fetch(URL, {
-      method : 'POSt',
-      headers : {
-        'content-type' : 'application/json',
-        auth : `Bearer ${localStorage.getItem('accessToken')}`
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+        auth: `Bearer ${localStorage.getItem("accessToken")}`,
       },
-      body : JSON.stringify(productInfo)
+      body: JSON.stringify(productInfo),
     })
-    .then(res => res.json())
-    .then(res => {
-      if(res?.insertedId){
-        successToast('The product has been published.');
-      }
-    })
+      .then((res) => res.json())
+      .then((res) => {
+        if (res?.insertedId) {
+          successToast("The product has been published.");
+        }
+      });
   };
 
+  if(loading){
+    return <Loading />
+  }
 
   return (
     <section className="relative">
@@ -222,46 +225,40 @@ const AddNewProduct = () => {
                   type: "text",
                 }}
               />
-
-              <InputBox
-                value={{
-                  name: "",
-                  placeholder: "Enter The Daily Time",
-                  label: "Delivery Time***",
-                  required: true,
-                }}
-              />
             </div>
 
             {/* Coupon code available */}
-            {isCouponAvailable && <div className="flex items-center space-x-3">
-              <InputBox
-                value={{
-                  name: "couponCode",
-                  label: "Coupon code",
-                  placeholder: "AR50",
-                  type: "text",
-                }}
-              />
+            {isCouponAvailable && (
+              <div className="flex items-center space-x-3">
+                <InputBox
+                  value={{
+                    name: "couponCode",
+                    label: "Coupon code",
+                    placeholder: "AR50",
+                    type: "text",
+                    required: true
+                  }}
+                />
 
-              <InputBox
-                value={{
-                  name: "couponAmount",
-                  placeholder: "$50",
-                  label: "Coupon Amount",
-                }}
-              />
-            </div>}
+                <InputBox
+                  value={{
+                    name: "couponAmount",
+                    placeholder: "$50",
+                    label: "Coupon Amount",
+                    required: true
+                  }}
+                />
+              </div>
+            )}
           </div>
         </div>
 
         {/* Select & option */}
         <div className="bg-gray-100 p-3 rounded flex flex-col lg:flex-row justify-between items-center mt-3">
           <SelectOption
-          
             value={{
               title: "Type",
-              name : 'type',
+              name: "type",
               options: [
                 { value: true, text: "Popular Product" },
                 { value: false, text: "Regular Product" },
@@ -271,19 +268,19 @@ const AddNewProduct = () => {
           <SelectOption
             value={{
               title: "Cash on delivery",
-              name : "cashOnDelivery",
+              name: "cashOnDelivery",
               options: [
                 { value: true, text: "Available" },
-                { value: false, text: "N Available" },
+                { value: false, text: "Not Available" },
               ],
             }}
           />
 
           <SelectOption
-            // onChange={(e)=> setIsCouponAvailable(e.target.value)}
+            onChange={(e) => setIsCouponAvailable(e.target.value === 'true')}
             value={{
               title: "Coupon",
-              name : 'coupon',
+              name: "coupon",
               options: [
                 { value: true, text: "Available" },
                 { value: false, text: "Not Available" },
@@ -293,9 +290,9 @@ const AddNewProduct = () => {
 
           <SelectOption
             value={{
-              name : 'category',
+              name: "category",
               title: "Category",
-              required : true,
+              required: true,
               styles: "disabled",
               options: categoriesTitle,
             }}
