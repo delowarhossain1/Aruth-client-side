@@ -7,6 +7,7 @@ import SelectOption from "../../../../shared/SelectOption/SelectOption";
 
 const AddNewProduct = () => {
   const [user, loading] = useAuthState(auth);
+  const [selectedCategory, setSelectedCategory] = useState('');
   const [categoriesTitle, setCategoriesTitle] = useState([]);
 
   useEffect(() => {
@@ -20,13 +21,59 @@ const AddNewProduct = () => {
         .then((res) => res.json())
         .then((res) => setCategoriesTitle(res));
     }
-  }, [user]);
+  }, []);
 
   const handleAddProductInfo = (event) => {
     event.preventDefault();
     const t = event.target;
 
-    console.log(t.hello);
+    const name = t.title.value;
+    const img = t.thumbnail.value;
+    const brand = t.brand.value;
+    const price = t.price.value;
+    const availableQuantity = t.available.value;
+    const discount = t.discount.value;
+    const deliveryCharge = t.deliveryCharge.value;
+    const deliveryTime = t.deliveryTime.value;
+    const size = t.size.value || '';
+    const couponCode = t.couponCode.value;
+    const CouponAmount = t.CouponAmount.value;
+    const list = t.list.value;
+    const aboutProduct = t.aboutProduct.value;
+    const category = t.category.value || categoriesTitle[0]?.text;
+    const coupon = t.coupon.value || false;
+    const cashOnDelivery = t.cashOnDelivery.value || false;
+    const type = t.type.value || false;
+
+    const productInfo = {
+      img,
+      name,
+      ratings : 0,
+      price,
+      discount,
+      brand,
+      popular : type,
+      size : size.length ? size.split(',') : [],
+      availableQuantity,
+      categories : category,
+      deliveryWithin : {
+        days : deliveryTime,
+        charge : deliveryCharge
+      },
+      cashOnDelivery,
+      couponCode : {
+        code : couponCode,
+        amount : CouponAmount
+      },
+      description : {
+        list : list?.length ? list.split(',') : [],
+        text : aboutProduct
+      },
+      comments : [],
+    }
+
+    console.log(productInfo)
+
   };
 
   return (
@@ -54,7 +101,7 @@ const AddNewProduct = () => {
               <InputBox
                 value={{
                   label: "Thumbnail",
-                  name: "title",
+                  name: "thumbnail",
                   placeholder: "Enter The URL https://www",
                   required: true,
                   type: "url",
@@ -155,15 +202,15 @@ const AddNewProduct = () => {
                   label: "Size",
                   placeholder: "M, L, XL, XXL",
                   required: true,
-                  type: "number",
+                  type: "text",
                 }}
               />
 
               <InputBox
                 value={{
-                  name: "deliveryTime",
+                  name: "",
                   placeholder: "Enter The Daily Time",
-                  label: "Delivery Time",
+                  label: "Delivery Time***",
                   required: true,
                 }}
               />
@@ -175,7 +222,7 @@ const AddNewProduct = () => {
                   name: "couponCode",
                   label: "Coupon code",
                   placeholder: "AR50",
-                  type: "number",
+                  type: "text",
                 }}
               />
 
@@ -193,8 +240,10 @@ const AddNewProduct = () => {
         {/* Select & option */}
         <div className="bg-gray-100 p-3 rounded flex flex-col lg:flex-row justify-between items-center mt-3">
           <SelectOption
+          
             value={{
               title: "Type",
+              name : 'type',
               options: [
                 { value: true, text: "Popular Product" },
                 { value: false, text: "Regular Product" },
@@ -204,15 +253,17 @@ const AddNewProduct = () => {
           <SelectOption
             value={{
               title: "Cash on delivery",
+              name : "cashOnDelivery",
               options: [
                 { value: true, text: "Available" },
-                { value: false, text: "Not Available" },
+                { value: false, text: "N Available" },
               ],
             }}
           />
           <SelectOption
             value={{
               title: "Coupon",
+              name : 'coupon',
               options: [
                 { value: true, text: "Available" },
                 { value: false, text: "Not Available" },
@@ -222,7 +273,9 @@ const AddNewProduct = () => {
 
           <SelectOption
             value={{
+              name : 'category',
               title: "Category",
+              required : true,
               styles: "disabled",
               options: categoriesTitle,
             }}
@@ -236,7 +289,7 @@ const AddNewProduct = () => {
               Attribute List
             </label>
             <textarea
-              name=""
+              name="list"
               className=" min-w-full min-h-[250px] rounded p-3 outline-none border border-black"
               placeholder="High Quality T-shirt, Stylish Design,  Material: Cotton"
               id="list"
@@ -248,7 +301,7 @@ const AddNewProduct = () => {
               Description
             </label>
             <textarea
-              name=""
+              name="aboutProduct"
               id="description"
               className=" min-w-full min-h-[250px] rounded p-3 outline-none border border-black"
               placeholder="Write something about the product."

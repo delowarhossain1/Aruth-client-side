@@ -1,19 +1,22 @@
 import React from "react";
 
-const SelectOption = ({ value = {} }) => {
-  const { title = "Title here", options = [] } = value;
+const SelectOption = ({ value = {}, ...rest }) => {
+  const { title = "Title here", options = [], required = false, name="" } = value;
 
   return (
     <select
       className=" min-w-[200px] p-2 border border-black rounded cursor-pointer outline-none"
       defaultValue="title"
+      required = {required}
+      name={name}
+      {...rest}
     >
       <option disabled value="title">
-        {title}{" "}
+        {title}
       </option>
       {options?.map((option, index) => (
         <option
-          value={option?.value ? option?.value : option?.text}
+          value={option?.value}
           key={Math.random() * index}
         >
           {option?.text}
