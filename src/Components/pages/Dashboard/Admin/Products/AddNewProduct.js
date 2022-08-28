@@ -5,12 +5,14 @@ import useAlert from "./../../../../../hooks/useAlert";
 import InputBox from "../../../../shared/InputBox/InputBox";
 import SelectOption from "../../../../shared/SelectOption/SelectOption";
 import Loading from "../../../../shared/Loading/Loading";
+import { useNavigate } from 'react-router-dom';
 
 const AddNewProduct = () => {
   const [user, loading] = useAuthState(auth);
   const [isCouponAvailable, setIsCouponAvailable] = useState(false);
   const [categoriesTitle, setCategoriesTitle] = useState([]);
   const { successToast } = useAlert();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (user?.email) {
@@ -88,6 +90,7 @@ const AddNewProduct = () => {
       .then((res) => {
         if (res?.insertedId) {
           successToast("The product has been published.");
+          navigate('/dashboard/products')
         }
       });
   };
