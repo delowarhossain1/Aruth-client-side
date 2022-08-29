@@ -27,6 +27,7 @@ import AddNewCategory from "./Components/pages/Dashboard/Admin/Categories/AddNew
 import Slider from "./Components/pages/Home/Slider/Slider";
 import ManageSliders from "./Components/pages/Dashboard/Admin/ManageSliders/ManageSliders";
 import AddNewSliders from './Components/pages/Dashboard/Admin/ManageSliders/AddNewSliders';
+import CategoryProduct from './Components/pages/CategoryProduct/CategoryProduct';
 
 function App() {
   // proceed to pay (info)
@@ -48,6 +49,7 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/products" element={<GetAllProducts />} />
+            <Route path="/category/:id" element={<CategoryProduct />} />
             <Route
               path="/product-details/:id"
               element={

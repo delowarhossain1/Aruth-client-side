@@ -24,12 +24,11 @@ const AddNewCategory = () => {
     const t = event.target;
     const img = t.img.value;
     const text = t.text.value;
-    const path = t.path.value;
 
     const category = {
       img,
       text,
-      link: `/category/${path}`,
+      link: `/category/${text}`
     };
 
     // store in db
@@ -96,16 +95,6 @@ const AddNewCategory = () => {
               type: "text",
               placeholder: "T Shirt",
               name: "text",
-            }}
-          />
-
-          <InputBox
-            value={{
-              required: true,
-              label: "Category Path",
-              type: "text",
-              placeholder: "t-shirt (space not allow)",
-              name: "path",
             }}
           />
 

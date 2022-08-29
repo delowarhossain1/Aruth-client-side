@@ -1,15 +1,18 @@
-import React, { useState } from "react";
-import { useEffect } from "react";
+import React from "react";
 import CategoriesCart from "./CategoriesCart";
+import { useQuery } from 'react-query';
+import Loading from './../../../shared/Loading/Loading';
 
 const Categories = () => {
-  const [categories, setCategories] = useState([]);
 
-  useEffect(() => {
+  const {data:categories, isLoading} = useQuery(['category-list-display'], ()=>(
     fetch("http://localhost:5000/latest-category")
       .then((res) => res.json())
-      .then((data) => setCategories(data));
-  }, []);
+  ));
+
+  if(isLoading){
+    return <Loading />
+  }
 
   return (
     <section className="py-5">
