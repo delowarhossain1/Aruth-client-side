@@ -13,6 +13,7 @@ const ProductDetails = ({ handleCheckoutInfo }) => {
   const [couponAmount, setCouponAmount] = useState(0);
   const [couponBtnDisabled, setCouponBtnDisabled] = useState(false);
   const [product, setProduct] = useState({});
+  const [selectedImg, setSelectedImg] = useState("");
 
   useEffect(() => {
     fetch(`http://localhost:5000/product-details/${id}`, {
@@ -38,6 +39,7 @@ const ProductDetails = ({ handleCheckoutInfo }) => {
     deliveryWithin,
     cashOnDelivery,
     couponCode,
+    galleryImg,
   } = product;
 
   // update product quantity
@@ -93,23 +95,25 @@ const ProductDetails = ({ handleCheckoutInfo }) => {
   // final data for (proceed to pay);
   const sentDataToCheckout = (btn) => {
     // send data to (proceed to pay).
-    handleCheckoutInfo(
-      {
-        img,
-        name,
-        quantity,
-        total,
-        cashOnDelivery,
-        size : selectedSize || 'Not selected'
-      },
-    );
+    handleCheckoutInfo({
+      img,
+      name,
+      quantity,
+      total,
+      cashOnDelivery,
+      size: selectedSize || "Not selected",
+    });
 
-    if(btn === 'buyNow'){
-      navigate('/checkout');
+    if (btn === "buyNow") {
+      navigate("/checkout");
+    } else if (btn === "addToCart") {
+      navigate("/addToCart");
     }
-    else if(btn === 'addToCart'){
-      navigate('/addToCart');
-    }
+  };
+
+  // Change gallery img
+  const changeGalleryImg = (url) => {
+    setSelectedImg(url)
   };
 
   return (
@@ -117,7 +121,19 @@ const ProductDetails = ({ handleCheckoutInfo }) => {
       <div className="py-5 flex flex-col lg:flex-row space-x-0 lg:space-x-5 space-y-5 lg:space-y-0">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 bg-white w-full md:w-8/12 rounded p-2">
           <div>
-            <img src={img} alt="product" />
+            <img src={selectedImg || img} alt="product" className=" duration-500" />
+
+            <div className="flex items-center justify-center mt-2">
+              {galleryImg?.map((gImg, index) => (
+                <img
+                  src={gImg}
+                  alt="gallery img"
+                  className="w-16 h-16 cursor-pointer mr-2 overflow-hidden hover:scale-[1.07] hover:duration-500"
+                  key={index * Math.random()}
+                  onMouseOver={() => changeGalleryImg(gImg)}
+                />
+              ))}
+            </div>
           </div>
 
           <div>
@@ -158,11 +174,11 @@ const ProductDetails = ({ handleCheckoutInfo }) => {
                 </button>
               </div>
             </div>
-                {/* -----------  Add to cart & buy now button -------- */}
+            {/* -----------  Add to cart & buy now button -------- */}
             <div className=" flex items-center space-x-5 mt-5">
               <button
                 className="py-2 px-4 bg-blue-500 rounded text-white"
-                onClick={()=> sentDataToCheckout('addToCart')}
+                onClick={() => sentDataToCheckout("addToCart")}
               >
                 <i className="fa-solid fa-cart-plus mr-2"></i>
                 Add to Cart
@@ -170,7 +186,7 @@ const ProductDetails = ({ handleCheckoutInfo }) => {
 
               <button
                 className="py-2 px-4 bg-orange-500 rounded text-white"
-                onClick={()=> sentDataToCheckout('buyNow')}
+                onClick={() => sentDataToCheckout("buyNow")}
               >
                 <i className="fa-solid fa-bag-shopping mr-2"></i>
                 Buy Now
@@ -204,7 +220,9 @@ const ProductDetails = ({ handleCheckoutInfo }) => {
             <i className="fa-solid fa-money-bill-wave text-gray-500"></i>
             <div className="flex flex-col ml-5">
               <span>Cash on Delivery </span>
-              <span className="text-sm text-gray-500">{cashOnDelivery ? 'Available' : 'Not Available'}</span>
+              <span className="text-sm text-gray-500">
+                {cashOnDelivery ? "Available" : "Not Available"}
+              </span>
             </div>
           </div>
 
