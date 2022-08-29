@@ -83,7 +83,6 @@ const AddNewSliders = () => {
 
           <InputBox
             value={{
-              required: true,
               label: "Path",
               type: "text",
               placeholder: "/t-shirt (space not allow)",

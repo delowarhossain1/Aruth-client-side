@@ -11,7 +11,6 @@ const CategoryProduct = () => {
     ));
     
     
-
     return (
         <section className='py-5'>
             {id}
