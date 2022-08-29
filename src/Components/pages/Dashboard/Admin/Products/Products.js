@@ -3,7 +3,6 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { useNavigate } from "react-router-dom";
 import Loading from "../../../../shared/Loading/Loading";
 import auth from './../../../../../firebase.init';
-import ProductCart from './../../../../shared/Cart/ProductCart';
 
 const Products = () => {
     const [user, loading] = useAuthState(auth);
@@ -48,6 +47,7 @@ const Products = () => {
                 <th>IMG</th>
                 <th>Name</th>
                 <th>Price</th>
+                <th>Category</th>
                 <th>Coupon</th>
                 <th>Action</th>
               </tr>
@@ -62,9 +62,10 @@ const Products = () => {
                             <img src={product?.img} alt="product" className="w-10" />
                         </td>
                         <td>
-                            {product?.name?.length > 20 ? product?.name.slice(0, 20) +'...' : product?.name}
+                            {product?.name?.length > 15 ? product?.name.slice(0, 15) +'...' : product?.name}
                         </td>
                         <td>${product?.price}</td>
+                        <td>{product?.categories}</td>
                         <td>{product?.couponCode ? 'Available' : 'Not Available'}</td>
                         <td>
                             <button className="bg-green-400 p-2 rounded" onClick={()=> navigate(`explore/${product?._id}`)}>Details</button>
