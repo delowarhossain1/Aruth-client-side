@@ -4,10 +4,11 @@ import auth from "./../../../../../firebase.init";
 import { useQuery } from "react-query";
 import Loading from "./../../../../shared/Loading/Loading";
 import DashboardTitle from "./../../DashboardTitle/DashboardTitle";
+import SelectOption from "../../../../shared/SelectOption/SelectOption";
 
 const Users = () => {
   const [user, loading] = useAuthState(auth);
-  const defaultProfileImg = 'https://i.ibb.co/10JxYVW/user.png';
+  const defaultProfileImg = "https://i.ibb.co/10JxYVW/user.png";
 
   const { data: allUsers, isLoading } = useQuery(["userInfo"], () =>
     fetch(`http://localhost:5000/users?email=${user?.email}`, {
@@ -55,7 +56,15 @@ const Users = () => {
                   </td>
                   <td>{user?.name}</td>
                   <td>{user?.email}</td>
-                  <td></td>
+                  <td>
+                    <SelectOption
+                      value={{
+                        width : '150px', 
+                        title: "Take action",
+                        options: [{ value: "admin", text: "Make admin" }, {value : 'moderator', text : 'Make moderator'}, {value : 'delete', text : 'Delete User'}],
+                      }}
+                    />
+                  </td>
                 </tr>
               ))}
             </tbody>
