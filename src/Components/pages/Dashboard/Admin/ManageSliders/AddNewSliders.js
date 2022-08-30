@@ -4,19 +4,20 @@ import auth from "../../../../../firebase.init";
 import { useNavigate } from "react-router-dom";
 import InputBox from "../../../../shared/InputBox/InputBox";
 import Loading from "../../../../shared/Loading/Loading";
-import useAlert from '../../../../../hooks/useAlert';
+import useAlert from "../../../../../hooks/useAlert";
+import DashboardTitle from "./../../DashboardTitle/DashboardTitle";
 
 const AddNewSliders = () => {
   const [user, loading] = useAuthState(auth);
   const [submitting, setSubmitting] = useState(false);
   const navigate = useNavigate();
-  const {successToast} = useAlert();
+  const { successToast } = useAlert();
 
   const handleSliderInfo = (event) => {
     event.preventDefault();
     setSubmitting(true);
-    const img = event.target.img.value || '';
-    const link = event.target.link.value || '/';
+    const img = event.target.img.value || "";
+    const link = event.target.link.value || "/";
     const sliderInfo = { img, link };
 
     const URL = `http://localhost:5000/insert-slider?email=${user?.email}`;
@@ -32,9 +33,9 @@ const AddNewSliders = () => {
       .then((res) => {
         setSubmitting(false);
 
-        if(res?.insertedId){
-            navigate('/dashboard/sliders');
-            successToast('The slider has been added.')
+        if (res?.insertedId) {
+          navigate("/dashboard/sliders");
+          successToast("The slider has been added.");
         }
       });
   };
@@ -47,10 +48,14 @@ const AddNewSliders = () => {
     <section>
       <div className="flex items-center justify-between">
         {/* Page title */}
-        <h2 className="dashboard-title flex-1 uppercase mb-5">
-          <i class="fa-solid fa-sliders mr-2"></i>
-          Add A New Slider
-        </h2>
+        <div className="flex-1">
+          <DashboardTitle
+            value={{
+              text: "Add A New Slider",
+              icon: "fa-solid fa-sliders",
+            }}
+          />
+        </div>
 
         {/* Add new button */}
         <button

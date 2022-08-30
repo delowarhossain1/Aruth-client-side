@@ -3,6 +3,7 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { useNavigate } from "react-router-dom";
 import Loading from "../../../../shared/Loading/Loading";
 import auth from './../../../../../firebase.init';
+import DashboardTitle from './../../DashboardTitle/DashboardTitle';
 
 const Products = () => {
     const [user, loading] = useAuthState(auth);
@@ -33,11 +34,9 @@ const Products = () => {
   return (
     <section>
       {/* Section title */}
-      <h2 className="dashboard-title">
-        <i className="fa-solid fa-store mr-2"></i> Products
-      </h2>
+      <DashboardTitle value={{text : 'Products', icon : 'fa-solid fa-store'}} />
 
-      <div>
+      <div className="mt-4">
         {/* Product table */}
         <div className="overflow-x-auto">
           <table className="table w-full text-center">

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import DashboardTitle from "../../DashboardTitle/DashboardTitle";
 import Date from "./Date";
 import PiChart from "./PiChart";
 import ResentProductCart from "./ResentProductCart";
@@ -10,7 +11,7 @@ const Report = () => {
     <div>
       {/* Title & date */}
       <div className="flex justify-between relative">
-        <h2 className="dashboard-title">Report</h2>
+        <DashboardTitle value={{text : 'Report', icon : 'fa-solid fa-chart-line'}} />
 
         <button
           className="p-2 bg-gray-100 rounded"

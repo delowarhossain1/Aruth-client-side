@@ -4,6 +4,7 @@ import Loading from "../../../../shared/Loading/Loading";
 import auth from "./../../../../../firebase.init";
 import { useNavigate } from "react-router-dom";
 import useAlert from "./../../../../../hooks/useAlert";
+import DashboardTitle from './../../DashboardTitle/DashboardTitle';
 
 const ManageCategories = () => {
   const navigate = useNavigate();
@@ -57,9 +58,12 @@ const ManageCategories = () => {
     <section>
       <div className="flex items-center justify-between">
         {/* Section title */}
-        <h2 className="dashboard-title">
-          <i className="fa-solid fa-dolly mr-2"></i> Categories
-        </h2>
+        <DashboardTitle
+            value={{
+              text: "Manage Categories",
+              icon: "fa-solid fa-dolly",
+            }}
+          />
 
         <button
           className="bg-[#5a76fd] p-2 rounded text-white"

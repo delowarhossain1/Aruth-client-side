@@ -5,6 +5,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import auth from "../../../../../firebase.init";
 import Loading from "../../../../shared/Loading/Loading";
 import useAlert from "../../../../../hooks/useAlert";
+import DashboardTitle from './../../DashboardTitle/DashboardTitle';
 
 const ManageSliders = () => {
   const navigate = useNavigate();
@@ -58,10 +59,12 @@ const ManageSliders = () => {
     <section>
       <div className="flex items-center justify-between">
         {/* Page title */}
-        <h2 className="dashboard-title flex-1 uppercase mb-5">
-          <i class="fa-solid fa-sliders mr-2"></i>
-          Manage Sliders
-        </h2>
+        <DashboardTitle
+            value={{
+              text: "Manage Sliders",
+              icon: "fa-solid fa-sliders",
+            }}
+          />
 
         {/* Add new button */}
         <button

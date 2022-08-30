@@ -4,6 +4,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import auth from "../../../../../firebase.init";
 import OrderCart from "./OrderCart";
 import useAlert from "./../../../../../hooks/useAlert";
+import DashboardTitle from "./../../DashboardTitle/DashboardTitle";
 
 const Orders = () => {
   const [user, loading] = useAuthState(auth);
@@ -11,7 +12,7 @@ const Orders = () => {
   const [reset, setReset] = useState(false);
   const [ordersInfo, setOrdersInfo] = useState([]);
   const [dataLoading, setDataLoading] = useState(true);
-  
+
   // get resent orders
   useEffect(() => {
     fetch(`http://localhost:5000/orders?email=${user?.email}`, {
@@ -21,7 +22,7 @@ const Orders = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        setOrdersInfo(data)
+        setOrdersInfo(data);
         setDataLoading(false);
       });
   }, [user, reset]);
@@ -40,11 +41,10 @@ const Orders = () => {
       })
         .then((res) => res.json())
         .then((info) => {
-          setOrdersInfo(info)
+          setOrdersInfo(info);
           setDataLoading(false);
         });
-    } 
-    else {
+    } else {
       successfulAlertWithAutoClose(
         "Please enter a valid order number without # (Hash)",
         "error"
@@ -59,9 +59,12 @@ const Orders = () => {
   return (
     <section>
       <div className="flex flex-col lg:flex-row items-center justify-between mb-5">
-        <h2 className="dashboard-title flex-1">
-          <i className="fa-solid fa-cart-shopping text-green-300"></i> Orders
-        </h2>
+        <div className="flex-1">
+          <DashboardTitle
+            value={{ text: "Orders", icon: "fa-solid fa-cart-shopping" }}
+          />
+        </div>
+
         {/* Search order by id */}
 
         <form
@@ -84,13 +87,13 @@ const Orders = () => {
         </form>
 
         <div className="flex-1 flex justify-around">
-          <button onClick={() => setReset(! reset)} className='p-2'>
+          <button onClick={() => setReset(!reset)} className="p-2">
             <i className="fa-solid fa-arrows-rotate text-xl"></i>
           </button>
 
           <select
             className="border border-orange-300 p-1 rounded outline-none"
-            defaultValue='all'
+            defaultValue="all"
           >
             <option value="all" selected>
               All

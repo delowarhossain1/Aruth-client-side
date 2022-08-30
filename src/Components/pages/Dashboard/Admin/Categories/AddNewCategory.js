@@ -6,6 +6,7 @@ import auth from "./../../../../../firebase.init";
 import useAlert from "./../../../../../hooks/useAlert";
 import { useState } from "react";
 import Loading from "../../../../shared/Loading/Loading";
+import DashboardTitle from './../../DashboardTitle/DashboardTitle';
 
 const AddNewCategory = () => {
   const navigate = useNavigate();
@@ -57,9 +58,12 @@ const AddNewCategory = () => {
     <section>
       <div className="flex items-center justify-between">
         {/* Section title */}
-        <h2 className="dashboard-title">
-          <i className="fa-solid fa-dolly mr-2"></i> Add A New Categories
-        </h2>
+        <DashboardTitle
+            value={{
+              text: "Add A New Categories",
+              icon: "fa-solid fa-dolly",
+            }}
+          />
 
         <button
           className="bg-[#fb5200] p-2 rounded text-white"

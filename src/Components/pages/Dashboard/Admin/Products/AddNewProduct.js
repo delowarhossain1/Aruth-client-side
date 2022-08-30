@@ -7,6 +7,7 @@ import SelectOption from "../../../../shared/SelectOption/SelectOption";
 import Loading from "../../../../shared/Loading/Loading";
 import { useNavigate } from "react-router-dom";
 import { useQuery } from "react-query";
+import DashboardTitle from "../../DashboardTitle/DashboardTitle";
 
 const AddNewProduct = () => {
   const [user, loading] = useAuthState(auth);
@@ -119,10 +120,7 @@ const AddNewProduct = () => {
   return (
     <section className="relative">
       {/* Page title */}
-      <h2 className="dashboard-title flex-1 uppercase mb-5">
-        <i className="fa-solid fa-square-plus mr-2"></i>
-        Add a new product
-      </h2>
+      <DashboardTitle value={{text : 'Add A New Product', icon : 'fa-solid fa-square-plus'}} />
 
       <form onSubmit={handleAddProductInfo} className="mt-8">
         {/* Upload button */}
