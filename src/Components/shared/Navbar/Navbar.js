@@ -1,23 +1,21 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import LinkWithLi from "../Link/LinkWithLi";
 import { Link } from "react-router-dom";
-import maleIcon from "../../../Images/icon/male.png";
-import femaleIcon from "../../../Images/icon/woman.png";
 import shoppingCart from "../../../Images/icon/shopping.png";
-import {signOut} from "firebase/auth";
+import { signOut } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
-import auth from './../../../firebase.init';
-import Loading from "../Loading/Loading";
-import Login from "../../pages/LoginAndRegister/Login";
+import auth from "./../../../firebase.init";
 
 const Navbar = () => {
-  const [user, loading] = useAuthState(auth);
+  const [user] = useAuthState(auth);
+  const defaultProfileImg = "https://i.ibb.co/10JxYVW/user.png";
 
-  const menu = <>
-    <LinkWithLi menu={{link : '/', text : 'Home'}} />
-    <LinkWithLi menu={{link : '/products', text : 'Products'}} />
-  </>
-
+  const menu = (
+    <>
+      <LinkWithLi menu={{ link: "/", text: "Home" }} />
+      <LinkWithLi menu={{ link: "/products", text: "Products" }} />
+    </>
+  );
 
   return (
     <nav className="bg-gray-100">
@@ -46,7 +44,7 @@ const Navbar = () => {
             >
               {menu}
               {/* if user is logged in, then login menu will be hidden */}
-              {!user && <LinkWithLi menu={{link : '/login', text: 'login'}} />}
+              {!user && <LinkWithLi menu={{ link: "/login", text: "login" }} />}
             </ul>
           </div>
 
@@ -56,51 +54,68 @@ const Navbar = () => {
         </div>
 
         <div className="navbar-end flex items-center">
-
           <div className="hidden lg:flex">
             <ul className="menu menu-horizontal p-0">
               {menu}
               {/* if user is logged in, then login menu will be hidden */}
 
-              {!user && <LinkWithLi menu={{link : '/login', text: 'login'}} />}
-              </ul>
+              {!user && <LinkWithLi menu={{ link: "/login", text: "login" }} />}
+            </ul>
           </div>
 
-            <div>
-                <Link to='/'>
-                    <div className="relative">
-                        <span className="badge badge-sm indicator-item absolute top-0 left-[12px]">0</span>
-                        <img src={shoppingCart} alt="shopping card" className="w-8" />
-                    </div>
-                </Link>
-            </div>
+          <div>
+            <Link to="/">
+              <div className="relative">
+                <span className="badge badge-sm indicator-item absolute top-0 left-[12px]">
+                  0
+                </span>
+                <img src={shoppingCart} alt="shopping card" className="w-8" />
+              </div>
+            </Link>
+          </div>
 
-          {user && <div className="ml-2">
-            <div className="dropdown dropdown-end ">
-              <label tabIndex="0" className="btn btn-ghost btn-circle avatar">
-                <div className="w-10 border-2 rounded-full">
-                  <img src={maleIcon} alt="profile"/>
-                </div>
-              </label>
-              <ul
-                tabIndex="0"
-                className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
-              >
-                <li>
-                  <Link to="/" className="justify-between">
-                    Profile
-                    <span className="badge">New</span>
-                  </Link>
-                </li>
-                <li>
-                  <Link to='/dashboard'>Dashboard</Link>
-                </li>
-                <li>
-                  <span onClick={()=> signOut(auth)}>Logout</span>
-                </li>
-              </ul>
+          {user && (
+            <div className="ml-2">
+              <div className="dropdown dropdown-end ">
+                <label tabIndex="0" className="btn btn-ghost btn-circle avatar">
+                  <div className="w-10 border-2 rounded-full">
+                    <img
+                      src={user?.photoURL || defaultProfileImg}
+                      alt="profile"
+                    />
+                  </div>
+                </label>
+                <ul
+                  tabIndex="0"
+                  className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
+                >
+                  <li>
+                    <Link to="/" className="justify-between">
+                      <span>
+                        <i class="fa-solid fa-user mr-2"></i>
+                        Profile
+                      </span>
+                      <span className="badge">New</span>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="/dashboard">
+                      <span>
+                        <i class="fa-solid fa-chart-line mr-1"></i> Dashboard
+                      </span>
+                    </Link>
+                  </li>
+                  <li>
+                    <span onClick={() => signOut(auth)}>
+                      <span>
+                        <i class="fa-solid fa-right-from-bracket mr-2"></i>Logout
+                      </span>
+                    </span>
+                  </li>
+                </ul>
+              </div>
             </div>
-          </div>}
+          )}
         </div>
       </div>
     </nav>
