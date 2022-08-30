@@ -154,7 +154,7 @@ const AddNewProduct = () => {
                   >
                     <img src={img} alt="gallery" className="w-12" />
                     <span>
-                      <i class="fa-solid fa-circle-xmark text-2xl cursor-pointer text-red-500" onClick={()=> deleteGalleryImg(index)}></i>
+                      <i className="fa-solid fa-circle-xmark text-2xl cursor-pointer text-red-500" onClick={()=> deleteGalleryImg(index)}></i>
                     </span>
                   </div>
                 ))}

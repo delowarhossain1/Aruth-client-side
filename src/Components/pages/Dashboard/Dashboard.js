@@ -75,7 +75,7 @@ const Dashboard = () => {
 
             <li className="dashboard-main-menu">
               <Link to="sliders" className="block">
-                <i class="fa-solid fa-sliders mr-2"></i>
+                <i className="fa-solid fa-sliders mr-2"></i>
                 Sliders
               </Link>
             </li>

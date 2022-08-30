@@ -62,7 +62,7 @@ const AddNewSliders = () => {
           className="bg-[#5a76fd] p-2 rounded text-white"
           onClick={() => navigate("/dashboard/sliders")}
         >
-          <i class="fa-solid fa-sliders mr-2"></i>
+          <i className="fa-solid fa-sliders mr-2"></i>
           Cancel
         </button>
       </div>
@@ -73,7 +73,7 @@ const AddNewSliders = () => {
           onSubmit={handleSliderInfo}
         >
           <h3 className="text-2xl text-center mb-4">
-            <i class="fa-solid fa-sliders mr-2"></i> New Slider
+            <i className="fa-solid fa-sliders mr-2"></i> New Slider
           </h3>
 
           <InputBox
@@ -96,7 +96,7 @@ const AddNewSliders = () => {
           />
 
           <button className="p-2 bg-[#5a76fd] text-xl w-full rounded text-white mt-3">
-            <i class="fa-solid fa-circle-plus mr-2" type="submit"></i>
+            <i className="fa-solid fa-circle-plus mr-2" type="submit"></i>
             Add
           </button>
         </form>

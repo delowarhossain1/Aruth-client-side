@@ -69,7 +69,7 @@ const AddNewCategory = () => {
           className="bg-[#fb5200] p-2 rounded text-white"
           onClick={() => navigate("/dashboard/categories/")}
         >
-          <i class="fa-solid fa-xmark mr-2"></i> Cancel
+          <i className="fa-solid fa-xmark mr-2"></i> Cancel
         </button>
       </div>
 

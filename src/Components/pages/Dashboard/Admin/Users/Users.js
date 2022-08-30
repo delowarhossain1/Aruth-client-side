@@ -40,6 +40,7 @@ const Users = () => {
                 <th>IMG</th>
                 <th>Name</th>
                 <th>Email</th>
+                <th>Role</th>
                 <th>Action</th>
               </tr>
             </thead>
@@ -56,6 +57,7 @@ const Users = () => {
                   </td>
                   <td>{user?.name}</td>
                   <td>{user?.email}</td>
+                  <td>{user?.role ? "Admin" : 'User'}</td>
                   <td>
                     <SelectOption
                       value={{

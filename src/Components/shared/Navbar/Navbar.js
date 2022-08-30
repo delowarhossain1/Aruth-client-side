@@ -92,7 +92,7 @@ const Navbar = () => {
                   <li>
                     <Link to="/" className="justify-between">
                       <span>
-                        <i class="fa-solid fa-user mr-2"></i>
+                        <i className="fa-solid fa-user mr-2"></i>
                         Profile
                       </span>
                       <span className="badge">New</span>
@@ -101,14 +101,14 @@ const Navbar = () => {
                   <li>
                     <Link to="/dashboard">
                       <span>
-                        <i class="fa-solid fa-chart-line mr-1"></i> Dashboard
+                        <i className="fa-solid fa-chart-line mr-1"></i> Dashboard
                       </span>
                     </Link>
                   </li>
                   <li>
                     <span onClick={() => signOut(auth)}>
                       <span>
-                        <i class="fa-solid fa-right-from-bracket mr-2"></i>Logout
+                        <i className="fa-solid fa-right-from-bracket mr-2"></i>Logout
                       </span>
                     </span>
                   </li>

@@ -71,14 +71,14 @@ const ManageSliders = () => {
           className="bg-[#5a76fd] p-2 rounded text-white"
           onClick={() => navigate("add-new")}
         >
-          <i class="fa-solid fa-sliders mr-2"></i>
+          <i className="fa-solid fa-sliders mr-2"></i>
           Add New
         </button>
       </div>
 
       <div className="mt-5">
-        <div class="overflow-x-auto">
-          <table class="table w-full">
+        <div className="overflow-x-auto">
+          <table className="table w-full">
             <thead>
               <tr>
                 <th>#No.</th>
