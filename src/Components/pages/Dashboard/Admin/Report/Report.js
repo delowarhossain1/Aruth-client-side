@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import DashboardTitle from "../../DashboardTitle/DashboardTitle";
+import DashboardTitle from "../../DashboardTitle";
 import Date from "./Date";
 import PiChart from "./PiChart";
 import ResentProductCart from "./ResentProductCart";

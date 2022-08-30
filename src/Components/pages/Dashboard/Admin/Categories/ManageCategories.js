@@ -4,7 +4,7 @@ import Loading from "../../../../shared/Loading/Loading";
 import auth from "./../../../../../firebase.init";
 import { useNavigate } from "react-router-dom";
 import useAlert from "./../../../../../hooks/useAlert";
-import DashboardTitle from './../../DashboardTitle/DashboardTitle';
+import DashboardTitle from '../../DashboardTitle';
 
 const ManageCategories = () => {
   const navigate = useNavigate();

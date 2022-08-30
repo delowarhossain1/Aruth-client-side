@@ -7,7 +7,7 @@ import SelectOption from "../../../../shared/SelectOption/SelectOption";
 import Loading from "../../../../shared/Loading/Loading";
 import { useNavigate } from "react-router-dom";
 import { useQuery } from "react-query";
-import DashboardTitle from "../../DashboardTitle/DashboardTitle";
+import DashboardTitle from "../../DashboardTitle";
 
 const AddNewProduct = () => {
   const [user, loading] = useAuthState(auth);

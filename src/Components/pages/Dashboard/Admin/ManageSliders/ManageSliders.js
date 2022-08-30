@@ -5,7 +5,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import auth from "../../../../../firebase.init";
 import Loading from "../../../../shared/Loading/Loading";
 import useAlert from "../../../../../hooks/useAlert";
-import DashboardTitle from './../../DashboardTitle/DashboardTitle';
+import DashboardTitle from '../../DashboardTitle';
 
 const ManageSliders = () => {
   const navigate = useNavigate();

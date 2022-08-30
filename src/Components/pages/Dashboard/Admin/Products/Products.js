@@ -3,7 +3,7 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { useNavigate } from "react-router-dom";
 import Loading from "../../../../shared/Loading/Loading";
 import auth from './../../../../../firebase.init';
-import DashboardTitle from './../../DashboardTitle/DashboardTitle';
+import DashboardTitle from '../../DashboardTitle';
 
 const Products = () => {
     const [user, loading] = useAuthState(auth);

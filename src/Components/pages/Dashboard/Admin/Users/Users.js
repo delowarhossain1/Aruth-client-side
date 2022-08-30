@@ -3,7 +3,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import auth from "./../../../../../firebase.init";
 import { useQuery } from "react-query";
 import Loading from "./../../../../shared/Loading/Loading";
-import DashboardTitle from "./../../DashboardTitle/DashboardTitle";
+import DashboardTitle from "../../DashboardTitle";
 import SelectOption from "../../../../shared/SelectOption/SelectOption";
 
 const Users = () => {

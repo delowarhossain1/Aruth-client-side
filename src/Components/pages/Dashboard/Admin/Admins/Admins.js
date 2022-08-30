@@ -1,5 +1,5 @@
 import React from "react";
-import DashboardTitle from "../../DashboardTitle/DashboardTitle";
+import DashboardTitle from "../../DashboardTitle";
 import { useQuery } from "react-query";
 import Loading from "../../../../shared/Loading/Loading";
 import { useAuthState } from "react-firebase-hooks/auth";

@@ -4,7 +4,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import auth from "../../../../../firebase.init";
 import OrderCart from "./OrderCart";
 import useAlert from "./../../../../../hooks/useAlert";
-import DashboardTitle from "./../../DashboardTitle/DashboardTitle";
+import DashboardTitle from "../../DashboardTitle";
 
 const Orders = () => {
   const [user, loading] = useAuthState(auth);

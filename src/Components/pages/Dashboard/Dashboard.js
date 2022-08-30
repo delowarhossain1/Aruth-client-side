@@ -4,10 +4,13 @@ import auth from "./../../../firebase.init";
 import { Link, Outlet } from "react-router-dom";
 import "./Dashboard.css";
 import Loading from "../../shared/Loading/Loading";
+import useAdmin from "./../../../hooks/useAdmin";
+import ActiveUser from "./ActiveUser";
+import DashboardMenu from "./DashboardMenu";
 
 const Dashboard = () => {
   const [user, loading] = useAuthState(auth);
-  const defaultProfileImg = 'https://i.ibb.co/10JxYVW/user.png';
+  const [isAdmin] = useAdmin(user);
 
   if (loading) {
     return <Loading />;
@@ -30,76 +33,72 @@ const Dashboard = () => {
         <div className="drawer-side shadow-lg rounded">
           <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
           <ul className="w-60 bg-base-100 text-base-content">
-            <div className="flex items-center flex-col gap-0 border-b-2 p-2 mb-2">
-              <img
-                src={user?.photoURL || defaultProfileImg}
-                alt="profile"
-                className=" w-14 h-14 bg-slate-200 p-1 rounded-full mb-1"
-              />
-              <div className="text-center ">
-                <h2 className="text-md">
-                  {user?.displayName?.length > 15
-                    ? user?.displayName?.slice(0, 15) + "..."
-                    : user?.displayName}
-                </h2>
-              </div>
-            </div>
+            {/* Active user */}
+            <ActiveUser />
 
-            <li className="dashboard-main-menu">
-              <Link to="/dashboard" className="block">
-                <i className="fa-solid fa-chart-line mr-2"></i>
-                Report
-              </Link>
-            </li>
+            <DashboardMenu
+              value={{
+                text: "Report",
+                icon: "fa-solid fa-chart-line",
+                link: "/dashboard",
+              }}
+            />
 
-            <li className="dashboard-main-menu">
-              <Link to="orders" className="block">
-                <i className="fa-solid fa-cart-shopping mr-2"></i>
-                Orders
-              </Link>
-            </li>
+            <DashboardMenu
+              value={{
+                text: "Orders",
+                icon: "fa-solid fa-cart-shopping",
+                link: "orders",
+              }}
+            />
 
-            <li className="dashboard-main-menu">
-              <Link to="products" className="block">
-                <i className="fa-solid fa-store mr-2"></i>
-                Products
-              </Link>
-            </li>
+            <DashboardMenu
+              value={{
+                text: "Products",
+                icon: "fa-solid fa-store",
+                link: "products",
+              }}
+            />
 
-            <li className="dashboard-main-menu">
-              <Link to="add-new-product" className="block">
-                <i className="fa-solid fa-square-plus mr-2"></i>
-                Add product
-              </Link>
-            </li>
+            <DashboardMenu
+              value={{
+                text: "Add Product",
+                icon: "fa-solid fa-square-plus",
+                link: "add-new-product",
+              }}
+            />
 
-            <li className="dashboard-main-menu">
-              <Link to="sliders" className="block">
-                <i className="fa-solid fa-sliders mr-2"></i>
-                Sliders
-              </Link>
-            </li>
-
-            <li className="dashboard-main-menu">
-              <Link to="categories" className="block">
-                <i className="fa-solid fa-dolly mr-2"></i>
-                Categories
-              </Link>
-            </li>
-
-            <li className="dashboard-main-menu">
-              <Link to="admins" className="block">
-                <i className="fa-solid fa-user-check mr-2"></i>
-                Admins
-              </Link>
-            </li>
-
-            <li className="dashboard-main-menu">
-              <Link to="users" className="block">
-                <i className="fa-solid fa-users mr-2"></i>
-                Users
-              </Link>
-            </li>
+            <DashboardMenu
+              value={{
+                text: "Sliders",
+                icon: "fa-solid fa-sliders",
+                link: "sliders",
+              }}
+            />
+            
+            <DashboardMenu
+              value={{
+                text: "Categories",
+                icon: "fa-solid fa-dolly",
+                link: "categories",
+              }}
+            />
+            
+            <DashboardMenu
+              value={{
+                text: "Admins",
+                icon: "fa-solid fa-user-check",
+                link: "admins",
+              }}
+            />
+            
+            <DashboardMenu
+              value={{
+                text: "Users",
+                icon: "fa-solid fa-users",
+                link: "users",
+              }}
+            />
           </ul>
         </div>
       </div>

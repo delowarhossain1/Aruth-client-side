@@ -6,7 +6,7 @@ import auth from "./../../../../../firebase.init";
 import useAlert from "./../../../../../hooks/useAlert";
 import { useState } from "react";
 import Loading from "../../../../shared/Loading/Loading";
-import DashboardTitle from './../../DashboardTitle/DashboardTitle';
+import DashboardTitle from '../../DashboardTitle';
 
 const AddNewCategory = () => {
   const navigate = useNavigate();

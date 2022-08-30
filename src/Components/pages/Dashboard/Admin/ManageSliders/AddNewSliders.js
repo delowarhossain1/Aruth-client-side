@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import InputBox from "../../../../shared/InputBox/InputBox";
 import Loading from "../../../../shared/Loading/Loading";
 import useAlert from "../../../../../hooks/useAlert";
-import DashboardTitle from "./../../DashboardTitle/DashboardTitle";
+import DashboardTitle from "../../DashboardTitle";
 
 const AddNewSliders = () => {
   const [user, loading] = useAuthState(auth);
