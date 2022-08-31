@@ -12,6 +12,84 @@ const Dashboard = () => {
   const [user, loading] = useAuthState(auth);
   const [isAdmin] = useAdmin(user);
 
+  const adminAccess = (
+    <>
+      <DashboardMenu
+        value={{
+          text: "Report",
+          icon: "fa-solid fa-chart-line",
+          link: "/dashboard",
+        }}
+      />
+
+      <DashboardMenu
+        value={{
+          text: "Orders",
+          icon: "fa-solid fa-cart-shopping",
+          link: "orders",
+        }}
+      />
+
+      <DashboardMenu
+        value={{
+          text: "Products",
+          icon: "fa-solid fa-store",
+          link: "products",
+        }}
+      />
+
+      <DashboardMenu
+        value={{
+          text: "Add Product",
+          icon: "fa-solid fa-square-plus",
+          link: "add-new-product",
+        }}
+      />
+
+      <DashboardMenu
+        value={{
+          text: "Sliders",
+          icon: "fa-solid fa-sliders",
+          link: "sliders",
+        }}
+      />
+
+      <DashboardMenu
+        value={{
+          text: "Categories",
+          icon: "fa-solid fa-dolly",
+          link: "categories",
+        }}
+      />
+
+      <DashboardMenu
+        value={{
+          text: "Admins",
+          icon: "fa-solid fa-user-check",
+          link: "admins",
+        }}
+      />
+
+      <DashboardMenu
+        value={{
+          text: "Users",
+          icon: "fa-solid fa-users",
+          link: "users",
+        }}
+      />
+    </>
+  );
+
+  const userAccess = <>
+       <DashboardMenu
+        value={{
+          text: "My Orders",
+          icon: "fa-solid fa-bag-shopping",
+          link: "/dashboard",
+        }}
+      />
+  </>
+
   if (loading) {
     return <Loading />;
   }
@@ -32,73 +110,14 @@ const Dashboard = () => {
         </div>
         <div className="drawer-side shadow-lg rounded">
           <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
+
+          {/* User Access */}
           <ul className="w-60 bg-base-100 text-base-content">
             {/* Active user */}
             <ActiveUser />
 
-            <DashboardMenu
-              value={{
-                text: "Report",
-                icon: "fa-solid fa-chart-line",
-                link: "/dashboard",
-              }}
-            />
+            {!isAdmin ?  userAccess :  adminAccess}
 
-            <DashboardMenu
-              value={{
-                text: "Orders",
-                icon: "fa-solid fa-cart-shopping",
-                link: "orders",
-              }}
-            />
-
-            <DashboardMenu
-              value={{
-                text: "Products",
-                icon: "fa-solid fa-store",
-                link: "products",
-              }}
-            />
-
-            <DashboardMenu
-              value={{
-                text: "Add Product",
-                icon: "fa-solid fa-square-plus",
-                link: "add-new-product",
-              }}
-            />
-
-            <DashboardMenu
-              value={{
-                text: "Sliders",
-                icon: "fa-solid fa-sliders",
-                link: "sliders",
-              }}
-            />
-            
-            <DashboardMenu
-              value={{
-                text: "Categories",
-                icon: "fa-solid fa-dolly",
-                link: "categories",
-              }}
-            />
-            
-            <DashboardMenu
-              value={{
-                text: "Admins",
-                icon: "fa-solid fa-user-check",
-                link: "admins",
-              }}
-            />
-            
-            <DashboardMenu
-              value={{
-                text: "Users",
-                icon: "fa-solid fa-users",
-                link: "users",
-              }}
-            />
           </ul>
         </div>
       </div>

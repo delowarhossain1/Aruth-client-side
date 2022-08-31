@@ -18,18 +18,24 @@ import RequiredAdmin from "./Components/shared/Required/RequiredAdmin";
 import OrderDetails from "./Components/pages/Dashboard/Admin/Orders/OrderDetails";
 import Products from "./Components/pages/Dashboard/Admin/Products/Products";
 import ProductExplore from "./Components/pages/Dashboard/Admin/Products/ProductExplore";
-import { ToastContainer } from 'react-toastify';
-import AddNewProduct from './Components/pages/Dashboard/Admin/Products/AddNewProduct';
+import { ToastContainer } from "react-toastify";
+import AddNewProduct from "./Components/pages/Dashboard/Admin/Products/AddNewProduct";
 import ManageCategories from "./Components/pages/Dashboard/Admin/Categories/ManageCategories";
-import Admins from './Components/pages/Dashboard/Admin/Admins/Admins';
-import Users from './Components/pages/Dashboard/Admin/Users/Users';
+import Admins from "./Components/pages/Dashboard/Admin/Admins/Admins";
+import Users from "./Components/pages/Dashboard/Admin/Users/Users";
 import AddNewCategory from "./Components/pages/Dashboard/Admin/Categories/AddNewCategory";
-import Slider from "./Components/pages/Home/Slider/Slider";
 import ManageSliders from "./Components/pages/Dashboard/Admin/ManageSliders/ManageSliders";
-import AddNewSliders from './Components/pages/Dashboard/Admin/ManageSliders/AddNewSliders';
-import CategoryProduct from './Components/pages/CategoryProduct/CategoryProduct';
+import AddNewSliders from "./Components/pages/Dashboard/Admin/ManageSliders/AddNewSliders";
+import CategoryProduct from "./Components/pages/CategoryProduct/CategoryProduct";
+import useAdmin from "./hooks/useAdmin";
+import { useAuthState } from "react-firebase-hooks/auth";
+import auth from "./firebase.init";
+import MyOrders from './Components/pages/Dashboard/User/MyOrders/MyOrders';
 
 function App() {
+  const [user] = useAuthState(auth);
+  const [isAdmin] = useAdmin(user);
+
   // proceed to pay (info)
   const [checkoutInfo, setCheckoutInfo] = useState([]);
 
@@ -37,7 +43,6 @@ function App() {
   const handleCheckoutInfo = (info) => {
     setCheckoutInfo(info);
   };
-  //
 
   return (
     <>
@@ -90,15 +95,23 @@ function App() {
                 </RequireAuth>
               }
             >
-              <Route
-                index
-                element={
-                  <RequiredAdmin>
-                    <Report />
-                  </RequiredAdmin>
-                }
-              />
+              {/* Index route */}
+              {!isAdmin ? (
+                <Route index element={<MyOrders />} />
+              ) : (
+                <Route
+                  index
+                  element={
+                    <RequiredAdmin>
+                      <Report />
+                    </RequiredAdmin>
+                  }
+                />
+              )}
 
+              {/* <Route path="/" element={} /> */}
+
+            {/* ______________________ Admin routes ___________ */}
               <Route
                 path="orders"
                 element={
@@ -215,8 +228,6 @@ function App() {
         draggable
         pauseOnHover
       />
-      {/* Same as */}
-      <ToastContainer />
     </>
   );
 }
