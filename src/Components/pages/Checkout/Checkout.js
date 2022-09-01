@@ -21,6 +21,7 @@ const Checkout = ({ checkoutInfo }) => {
   const onSubmit = (data) => {
 
     const orderSummery = {
+      productId : checkoutInfo?.productId,
       customer : user?.displayName,
       email : user?.email,
       mob : data.mob,
@@ -69,7 +70,6 @@ const Checkout = ({ checkoutInfo }) => {
         }
     });
   };
-
 
   //   If loading
   if (loading) {

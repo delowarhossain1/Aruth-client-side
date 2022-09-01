@@ -31,6 +31,8 @@ import useAdmin from "./hooks/useAdmin";
 import { useAuthState } from "react-firebase-hooks/auth";
 import auth from "./firebase.init";
 import MyOrders from './Components/pages/Dashboard/User/MyOrders/MyOrders';
+import MyOrderDetails from "./Components/pages/Dashboard/User/MyOrders/MyOrderDetails";
+import AddressBook from './Components/pages/Dashboard/User/MyProfile/AddressBook';
 
 function App() {
   const [user] = useAuthState(auth);
@@ -109,7 +111,8 @@ function App() {
                 />
               )}
 
-              {/* <Route path="/" element={} /> */}
+              <Route path="my-order-details/:id" element={<MyOrderDetails />} />
+              <Route path="my-address-book" element={<AddressBook />} />
 
             {/* ______________________ Admin routes ___________ */}
               <Route

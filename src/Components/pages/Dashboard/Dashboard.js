@@ -88,6 +88,13 @@ const Dashboard = () => {
           link: "/dashboard",
         }}
       />
+       <DashboardMenu
+        value={{
+          text: "Address Book",
+          icon: "fa-solid fa-address-book",
+          link: "my-address-book",
+        }}
+      />
   </>
 
   if (loading) {

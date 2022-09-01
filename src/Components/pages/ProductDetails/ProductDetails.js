@@ -26,6 +26,7 @@ const ProductDetails = ({ handleCheckoutInfo }) => {
   }, [id]);
 
   const {
+    _id,
     img,
     name,
     ratings,
@@ -96,6 +97,7 @@ const ProductDetails = ({ handleCheckoutInfo }) => {
   const sentDataToCheckout = (btn) => {
     // send data to (proceed to pay).
     handleCheckoutInfo({
+      productId : _id,
       img,
       name,
       quantity,

@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 
 const MyOrderCard = ({ order = {} }) => {
   const {
+    _id,
     productImg,
     productName,
     productQuantity,
@@ -19,7 +20,7 @@ const MyOrderCard = ({ order = {} }) => {
           <h4 className="text-md">Order #{orderNum}</h4>
           <h4 className="text-xs font-semibold">Placed on {date}</h4>
         </div>
-        <Link to="/">
+        <Link to={`my-order-details/${_id}`}>
           <button className="font-semibold text-blue-500">Details</button>
         </Link>
       </div>
@@ -39,7 +40,7 @@ const MyOrderCard = ({ order = {} }) => {
             <h3>Size : {size}</h3>
           </div>
 
-          <h5>{status}</h5>
+          <h5 className={`italic ${status === 'Cancel' ? 'text-red-500' : status === 'Delivered' ? "text-green-500" : ''}`}>{status}</h5>
         </div>
       </div>
     </div>

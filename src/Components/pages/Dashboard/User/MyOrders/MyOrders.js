@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import DashboardTitle from "./../../DashboardTitle";
 import MyOrderCard from "./MyOrderCard";
 import { useAuthState } from "react-firebase-hooks/auth";
@@ -32,6 +32,12 @@ const MyOrders = () => {
           <MyOrderCard key={order?._id} order={order} />
         ))}
       </div>
+
+      {myOrders.length === 0 && 
+        <div className="flex justify-center items-center h-[300px]">
+            <h2 className="text-lg text-gray-500">Orders Not available</h2>
+        </div>
+      }
 
     </section>
   );
