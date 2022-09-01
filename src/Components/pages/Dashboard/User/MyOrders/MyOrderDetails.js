@@ -6,32 +6,20 @@ import auth from "../../../../../firebase.init";
 import { useParams } from "react-router-dom";
 import Taka from "../../../../shared/Taka/Taka";
 import Loading from "../../../../shared/Loading/Loading";
+import useAlert from './../../../../../hooks/useAlert';
 const defaultProfileImg = 'https://i.ibb.co/10JxYVW/user.png';
 
 const MyOrderDetails = () => {
   const { id } = useParams();
+  const {successfulAlertWithAutoClose} = useAlert();
   const [user, loading] = useAuthState(auth);
   const [orderLoading, setOrderLoading] = useState(true);
   const [orderDetails, setOrderDetails] = useState({});
   const [makeIcon, setMakeIcon] = useState("");
   const [ratingCount, setRatingCount] = useState(2);
-
-  useEffect(() => {
-    const url = `http://localhost:5000/my-order-details/${id}?email=${user?.email}`;
-    fetch(url, {
-      headers: {
-        auth: `Bearer ${localStorage.getItem("accessToken")}`,
-      },
-    })
-      .then((res) => res.json())
-      .then((res) => {
-        setOrderDetails(res);
-        setOrderLoading(false);
-      });
-  }, [user, id]);
+  const [oldReview, setOldReview] = useState({});
 
   const {
-    _id,
     address,
     customer,
     date,
@@ -47,6 +35,36 @@ const MyOrderDetails = () => {
     productId
   } = orderDetails;
 
+  useEffect(() => {
+    const url = `http://localhost:5000/my-order-details/${id}?email=${user?.email}`;
+    fetch(url, {
+      headers: {
+        auth: `Bearer ${localStorage.getItem("accessToken")}`,
+      },
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        setOrderDetails(res);
+        setOrderLoading(false);
+      });
+  }, [user, id]);
+
+  // get previous review
+  useEffect(()=>{
+    if(orderNum){
+      const url = `http://localhost:5000/get-review-by-order-number/${orderNum}?email=${user?.email}`;
+
+      fetch(url, {
+        headers : {
+          auth : `Bearer ${localStorage.getItem('accessToken')}`
+        }
+      })
+      .then(res => res.json())
+      .then(res => setOldReview(res));
+    }
+  }, [orderNum, user])
+
+  // make product status icon
   useEffect(() => {
     if (status?.toLowerCase() === "pending") {
       setMakeIcon(<i class="fa-solid fa-spinner mr-2"></i>);
@@ -66,13 +84,14 @@ const MyOrderDetails = () => {
     const ratingInfo = {
       img : user?.photoURL || defaultProfileImg, 
       productId,
+      orderNum,
       email,
       name : user?.displayName,
       ratings : ratingCount,
       text : event.target.comment.value
     }
 
-    const url = `http://localhost:5000/add-review/${_id}?email=${user?.email}`;
+    const url = `http://localhost:5000/add-review/${orderNum}?email=${user?.email}`;
     fetch(url, {
       method : "PUT",
       headers : {
@@ -82,7 +101,11 @@ const MyOrderDetails = () => {
       body : JSON.stringify(ratingInfo)
     })
     .then(res => res.json())
-    .then(res => console.log(res));
+    .then(res => {
+        if(res?.upsertedCount || res?.modifiedCount){
+          successfulAlertWithAutoClose('Your review has been published.');
+        }
+    });
   }
 
   if(loading || orderLoading){
@@ -172,13 +195,14 @@ const MyOrderDetails = () => {
                   type="radio"
                   name="rating-4"
                   class="mask mask-star-2 bg-yellow-300"
-                  checked
+                  
                 />
                 <input
                   onClick={()=> setRatingCount(3)}
                   type="radio"
                   name="rating-4"
                   class="mask mask-star-2 bg-yellow-300"
+                  checked={true}
                 />
                 <input
                   onClick={()=> setRatingCount(4)}
@@ -205,6 +229,7 @@ const MyOrderDetails = () => {
                 placeholder="Your comment here"
                 className="min-w-full min-h-[120px] p-2 rounded border border-gray-300 outline-none"
                 autoFocus
+                required
               ></textarea>
 
               <button type="submit" className=" w-40 bg-yellow-400 p-2 rounded text-white mt-3">Add Review</button>

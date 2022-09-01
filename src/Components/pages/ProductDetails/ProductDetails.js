@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import RatingsStar from "../../shared/Ratings/RatingsStar";
 import CommentCart from "./CommentCart";
 import useAlert from "./../../../hooks/useAlert";
@@ -14,16 +14,7 @@ const ProductDetails = ({ handleCheckoutInfo }) => {
   const [couponBtnDisabled, setCouponBtnDisabled] = useState(false);
   const [product, setProduct] = useState({});
   const [selectedImg, setSelectedImg] = useState("");
-
-  useEffect(() => {
-    fetch(`http://localhost:5000/product-details/${id}`, {
-      headers: {
-        "content-type": "application/json",
-      },
-    })
-      .then((res) => res.json())
-      .then((data) => setProduct(data));
-  }, [id]);
+  const [comments, setComment] = useState([]);
 
   const {
     _id,
@@ -36,12 +27,30 @@ const ProductDetails = ({ handleCheckoutInfo }) => {
     size,
     availableQuantity,
     description,
-    comments,
     deliveryWithin,
     cashOnDelivery,
     couponCode,
     galleryImg,
   } = product;
+
+  // Load product information
+  useEffect(() => {
+    fetch(`http://localhost:5000/product-details/${id}`, {
+      headers: {
+        "content-type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => setProduct(data));
+  }, [id]);
+
+    // Load comment of this product
+    useEffect(()=>{
+      const url = `http://localhost:5000/product-reviews/${_id}`;
+      fetch(url)
+      .then(res => res.json())
+      .then(res => setComment(res));
+    }, [_id]);
 
   // update product quantity
   const updateProductQuantity = (btn) => {
@@ -300,7 +309,7 @@ const ProductDetails = ({ handleCheckoutInfo }) => {
         </div>
 
         <div>
-          {comments?.map((comment, index) => (
+          {comments?.map((comment) => (
             <CommentCart key={comment._id} comment={comment} />
           ))}
         </div>

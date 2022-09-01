@@ -2,13 +2,13 @@ import React from "react";
 import RatingsStar from "../../shared/Ratings/RatingsStar";
 
 const CommentCart = ({ comment }) => {
-  const { email, ratings, text } = comment;
+  const { email, ratings, text, img } = comment;
 
   return (
-    <div className="mb-5">
+    <div className="mb-7">
       <div className="flex items-center mb-2">
         <img
-          src="http://localhost:3000/static/media/male.697e97cdd2d0c4819b57.png"
+          src={img}
           alt="profile"
           className="w-10 h-10 rounded-full border p-1"
         />
