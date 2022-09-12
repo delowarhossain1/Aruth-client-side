@@ -37,7 +37,7 @@ const MyProfile = () => {
       }).then((res) => res.json())
   );
 
-  if (loading ) {
+  if (loading || isLoading) {
     return <Loading />;
   }
 
@@ -79,7 +79,7 @@ const MyProfile = () => {
       <div className="mt-12">
         <h4 className="text-xl text-gray-500 mb-3">Recent Orders</h4>
 
-        <div class="overflow-x-auto">
+        {myRecentOrders?.length > 0 && <div class="overflow-x-auto">
           <table class="table w-full">
             <thead>
               <tr>
@@ -106,7 +106,11 @@ const MyProfile = () => {
               ))}
             </tbody>
           </table>
-        </div>
+        </div>}
+
+        {
+          myRecentOrders?.length === 0 && <div className="text-lg text-gray-500 h-24 flex justify-center items-center">No Orders..</div>
+        }
       </div>
     </section>
   );

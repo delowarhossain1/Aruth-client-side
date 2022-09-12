@@ -87,16 +87,15 @@ const MyOrderDetails = () => {
 
     const ratingInfo = {
       productId,
-      orderNum,
       email,
       productImg,
       productName,
+      orderNum,
+      orderId : _id,
       name: user?.displayName,
       ratings: ratingCount,
       text: event.target.comment.value,
       img: user?.photoURL || defaultProfileImg,
-      reviewId : _id
-
     };
 
     const url = `http://localhost:5000/add-review/${orderNum}?email=${user?.email}`;

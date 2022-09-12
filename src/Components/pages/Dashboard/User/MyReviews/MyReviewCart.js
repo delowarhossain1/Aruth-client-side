@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 const MyReviewCart = ({ review, refetch }) => {
   const navigate = useNavigate();
   const [user, loading] = useAuthState(auth);
-  const { productImg, ratings, text, productName, reviewId, _id } = review;
+  const { productImg, ratings, text, productName, orderId, _id } = review;
   const { deleteModal } = useAlert();
 
   const handleReviewDelete = () => {
@@ -47,7 +47,7 @@ const MyReviewCart = ({ review, refetch }) => {
 
         <button
           className="bg-green-400 p-2 rounded text-white shadow"
-          onClick={() => navigate(`/dashboard/my-order-details/${reviewId}`)}
+          onClick={() => navigate(`/dashboard/my-order-details/${orderId}`)}
         >
           <i class="fa-solid fa-pen mr-1"></i> Edit
         </button>
