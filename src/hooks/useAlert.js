@@ -3,7 +3,7 @@ import { toast } from "react-toastify";
 
 const useAlert = () => {
   // Alert : 1
-  const simpleAlert = (info) => {
+  const simpleAlert = (info = {}) => {
     const { text = "Have a problem", symbol = "error", title = "error" } = info;
 
     Swal.fire(`${title}`, `${text}`, `${symbol}`);

@@ -80,6 +80,7 @@ const Dashboard = () => {
     </>
   );
 
+  // User Access links
   const userAccess = <>
        <DashboardMenu
         value={{
@@ -90,9 +91,9 @@ const Dashboard = () => {
       />
        <DashboardMenu
         value={{
-          text: "Address Book",
+          text: "My Reviews",
           icon: "fa-solid fa-address-book",
-          link: "my-address-book",
+          link: "my-reviews",
         }}
       />
   </>

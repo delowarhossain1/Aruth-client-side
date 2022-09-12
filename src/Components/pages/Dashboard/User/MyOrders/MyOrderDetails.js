@@ -34,6 +34,7 @@ const MyOrderDetails = () => {
     status,
     total,
     productId,
+    _id
   } = orderDetails;
 
   useEffect(() => {
@@ -85,13 +86,17 @@ const MyOrderDetails = () => {
     event.preventDefault();
 
     const ratingInfo = {
-      img: user?.photoURL || defaultProfileImg,
       productId,
       orderNum,
       email,
+      productImg,
+      productName,
       name: user?.displayName,
       ratings: ratingCount,
       text: event.target.comment.value,
+      img: user?.photoURL || defaultProfileImg,
+      reviewId : _id
+
     };
 
     const url = `http://localhost:5000/add-review/${orderNum}?email=${user?.email}`;

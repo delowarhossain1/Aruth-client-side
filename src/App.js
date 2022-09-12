@@ -32,7 +32,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import auth from "./firebase.init";
 import MyOrders from './Components/pages/Dashboard/User/MyOrders/MyOrders';
 import MyOrderDetails from "./Components/pages/Dashboard/User/MyOrders/MyOrderDetails";
-import AddressBook from './Components/pages/Dashboard/User/MyProfile/AddressBook';
+import MyReviews from "./Components/pages/Dashboard/User/MyProfile/MyReviews";
 
 function App() {
   const [user] = useAuthState(auth);
@@ -112,7 +112,7 @@ function App() {
               )}
 
               <Route path="my-order-details/:id" element={<MyOrderDetails />} />
-              <Route path="my-address-book" element={<AddressBook />} />
+              <Route path="my-reviews" element={<MyReviews />} />
 
             {/* ______________________ Admin routes ___________ */}
               <Route
