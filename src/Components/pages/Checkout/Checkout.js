@@ -40,6 +40,9 @@ const Checkout = ({ checkoutInfo }) => {
       orderNum : 10000,
     }
 
+    // Update user address and mobile number
+    updateUserAddress(data.address);
+
     // Place order
     fetch(`http://localhost:5000/place-order?email=${user?.email}`, {
       method : 'POST',
@@ -58,7 +61,6 @@ const Checkout = ({ checkoutInfo }) => {
             text : 'Your order has been completed.',
             title : 'Successful'
           });
-
           navigate('/products')
         }
         else{
@@ -70,6 +72,22 @@ const Checkout = ({ checkoutInfo }) => {
         }
     });
   };
+
+
+  // Update address 
+  const updateUserAddress = (address) => {
+    const URL = `http://localhost:5000/update-address?email=${user?.email}`;
+    console.log(address, 11);
+
+    fetch(URL, {
+      method : 'PUT',
+      headers : {
+        auth : `Bearer ${localStorage.getItem('accessToken')}`
+      },
+      body : JSON.stringify({address})
+    })
+  }
+
 
   //   If loading
   if (loading) {

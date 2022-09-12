@@ -96,6 +96,13 @@ const Dashboard = () => {
           link: "my-reviews",
         }}
       />
+       <DashboardMenu
+        value={{
+          text: "My Profile",
+          icon: "fa-regular fa-address-card",
+          link: "my-profile",
+        }}
+      />
   </>
 
   if (loading) {

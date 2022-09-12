@@ -32,7 +32,8 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import auth from "./firebase.init";
 import MyOrders from './Components/pages/Dashboard/User/MyOrders/MyOrders';
 import MyOrderDetails from "./Components/pages/Dashboard/User/MyOrders/MyOrderDetails";
-import MyReviews from "./Components/pages/Dashboard/User/MyProfile/MyReviews";
+import MyReviews from "./Components/pages/Dashboard/User/MyReviews/MyReviews";
+import MyProfile from './Components/pages/Dashboard/User/MyProfile/MyProfile';
 
 function App() {
   const [user] = useAuthState(auth);
@@ -113,6 +114,7 @@ function App() {
 
               <Route path="my-order-details/:id" element={<MyOrderDetails />} />
               <Route path="my-reviews" element={<MyReviews />} />
+              <Route path="my-profile" element={<MyProfile />} />
 
             {/* ______________________ Admin routes ___________ */}
               <Route
