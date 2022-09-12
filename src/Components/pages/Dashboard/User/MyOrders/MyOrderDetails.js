@@ -6,18 +6,19 @@ import auth from "../../../../../firebase.init";
 import { useParams } from "react-router-dom";
 import Taka from "../../../../shared/Taka/Taka";
 import Loading from "../../../../shared/Loading/Loading";
-import useAlert from './../../../../../hooks/useAlert';
-const defaultProfileImg = 'https://i.ibb.co/10JxYVW/user.png';
+import useAlert from "./../../../../../hooks/useAlert";
+const defaultProfileImg = "https://i.ibb.co/10JxYVW/user.png";
 
 const MyOrderDetails = () => {
   const { id } = useParams();
-  const {successfulAlertWithAutoClose} = useAlert();
+  const { successfulAlertWithAutoClose } = useAlert();
   const [user, loading] = useAuthState(auth);
   const [orderLoading, setOrderLoading] = useState(true);
   const [orderDetails, setOrderDetails] = useState({});
   const [makeIcon, setMakeIcon] = useState("");
   const [ratingCount, setRatingCount] = useState(2);
   const [oldReview, setOldReview] = useState({});
+  const [newReviewText, setNewReviewText] = useState("");
 
   const {
     address,
@@ -32,7 +33,7 @@ const MyOrderDetails = () => {
     size,
     status,
     total,
-    productId
+    productId,
   } = orderDetails;
 
   useEffect(() => {
@@ -50,19 +51,21 @@ const MyOrderDetails = () => {
   }, [user, id]);
 
   // get previous review
-  useEffect(()=>{
-    if(orderNum){
+  useEffect(() => {
+    if (orderNum) {
       const url = `http://localhost:5000/get-review-by-order-number/${orderNum}?email=${user?.email}`;
 
       fetch(url, {
-        headers : {
-          auth : `Bearer ${localStorage.getItem('accessToken')}`
-        }
+        headers: {
+          auth: `Bearer ${localStorage.getItem("accessToken")}`,
+        },
       })
-      .then(res => res.json())
-      .then(res => setOldReview(res));
+        .then((res) => res.json())
+        .then((res) => {
+          setOldReview(res);
+        });
     }
-  }, [orderNum, user])
+  }, [orderNum, user]);
 
   // make product status icon
   useEffect(() => {
@@ -78,38 +81,49 @@ const MyOrderDetails = () => {
   }, [status, orderDetails]);
 
   // Handle ratings
-  const handleRatings = (event) =>{
+  const handleRatings = (event) => {
     event.preventDefault();
 
     const ratingInfo = {
-      img : user?.photoURL || defaultProfileImg, 
+      img: user?.photoURL || defaultProfileImg,
       productId,
       orderNum,
       email,
-      name : user?.displayName,
-      ratings : ratingCount,
-      text : event.target.comment.value
-    }
+      name: user?.displayName,
+      ratings: ratingCount,
+      text: event.target.comment.value,
+    };
 
     const url = `http://localhost:5000/add-review/${orderNum}?email=${user?.email}`;
     fetch(url, {
-      method : "PUT",
-      headers : {
-        'content-type' : 'application/json',
-        auth : `Bearer ${localStorage.getItem('accessToken')}`
+      method: "PUT",
+      headers: {
+        "content-type": "application/json",
+        auth: `Bearer ${localStorage.getItem("accessToken")}`,
       },
-      body : JSON.stringify(ratingInfo)
+      body: JSON.stringify(ratingInfo),
     })
-    .then(res => res.json())
-    .then(res => {
-        if(res?.upsertedCount || res?.modifiedCount){
-          successfulAlertWithAutoClose('Your review has been published.');
+      .then((res) => res.json())
+      .then((res) => {
+        if (res?.upsertedCount || res?.modifiedCount) {
+          successfulAlertWithAutoClose("Your review has been published.");
         }
-    });
-  }
+      });
+  };
 
-  if(loading || orderLoading){
-    return <Loading />
+  useEffect(() => {
+    const { text, ratings } = oldReview;
+
+    setNewReviewText(text || "");
+    setRatingCount(ratings || 2);
+  }, [oldReview]);
+
+  const handleReviewTextBox = (e) => {
+    setNewReviewText(e.target.value);
+  };
+
+  if (loading || orderLoading) {
+    return <Loading />;
   }
 
   return (
@@ -169,72 +183,85 @@ const MyOrderDetails = () => {
           </div>
 
           {/* Comment =========== */}
-          {status === 'Delivered' && 
-          <div className="bg-gray-50 p-3 rounded flex justify-center flex-col items-center">
-            <div className="flex justify-end mb-2 w-full">
-                <button className="bg-green-500 rounded py-1 px-2 text-white"> <i class="fa-solid fa-pen-to-square mr-2"></i>Edit</button>
-            </div>
+          {status === "Delivered" && (
+            <div className="bg-gray-50 p-3 rounded flex justify-center flex-col items-center">
 
-            <img
-              src={user?.photoURL || defaultProfileImg}
-              alt="profile img"
-              className=" w-20 h-20 rounded-full"
-            />
+              <img
+                src={user?.photoURL || defaultProfileImg}
+                alt="profile img"
+                className=" w-20 h-20 rounded-full"
+              />
 
-            {/* give ratings */}
-            <div className="flex items-center">
-              <div class="rating mt-3">
-                <input
-                  onClick={()=> setRatingCount(1)}
-                  type="radio"
-                  name="rating-4"
-                  class="mask mask-star-2 bg-yellow-300"
-                />
-                <input
-                  onClick={()=> setRatingCount(2)}
-                  type="radio"
-                  name="rating-4"
-                  class="mask mask-star-2 bg-yellow-300"
-                  
-                />
-                <input
-                  onClick={()=> setRatingCount(3)}
-                  type="radio"
-                  name="rating-4"
-                  class="mask mask-star-2 bg-yellow-300"
-                  checked={true}
-                />
-                <input
-                  onClick={()=> setRatingCount(4)}
-                  type="radio"
-                  name="rating-4"
-                  class="mask mask-star-2 bg-yellow-300"
-                />
-                <input
-                  onClick={()=> setRatingCount(5)}
-                  type="radio"
-                  name="rating-4"
-                  class="mask mask-star-2 bg-yellow-300"
-                />
+              {/* give ratings */}
+              <div className="flex items-center">
+                <div class="rating mt-3">
+                  <input
+                    onClick={() => setRatingCount(1)}
+                    type="radio"
+                    name="rating-4"
+                    class="mask mask-star-2 bg-yellow-300"
+                    checked={ratingCount === 1}
+                  />
+                  <input
+                    onClick={() => setRatingCount(2)}
+                    type="radio"
+                    name="rating-4"
+                    class="mask mask-star-2 bg-yellow-300"
+                    checked={ratingCount === 2}
+                  />
+                  <input
+                    onClick={() => setRatingCount(3)}
+                    type="radio"
+                    name="rating-4"
+                    class="mask mask-star-2 bg-yellow-300"
+                    checked={ratingCount === 3}
+                  />
+                  <input
+                    onClick={() => setRatingCount(4)}
+                    type="radio"
+                    name="rating-4"
+                    class="mask mask-star-2 bg-yellow-300"
+                    checked={ratingCount === 4}
+                  />
+                  <input
+                    onClick={() => setRatingCount(5)}
+                    type="radio"
+                    name="rating-4"
+                    class="mask mask-star-2 bg-yellow-300"
+                    checked={ratingCount === 5}
+                  />
+                </div>
+
+                <span className="mt-3 ml-2">( {ratingCount} star )</span>
               </div>
 
-              <span className="mt-3 ml-2">( {ratingCount} star )</span>
+              <h5 className="text-xs mt-2">
+                Please double click on the star to add the ratings
+              </h5>
+
+              <form
+                className="mt-3 w-full text-center"
+                onSubmit={handleRatings}
+              >
+                <textarea
+                  value={newReviewText}
+                  onChange={handleReviewTextBox}
+                  name="comment"
+                  placeholder="Your comment here"
+                  className="min-w-full min-h-[120px] p-2 rounded border border-gray-300 outline-none"
+                  autoFocus
+                  required
+                ></textarea>
+
+                <button
+                  type="submit"
+                  className=" w-40 bg-yellow-400 p-2 rounded text-white mt-3"
+                >
+                  Add Review
+                </button>
+              </form>
             </div>
-
-            <h5 className="text-xs mt-2">Please double click on the star to add the ratings</h5>
-
-            <form className="mt-3 w-full text-center" onSubmit={handleRatings}>
-              <textarea
-                name="comment"
-                placeholder="Your comment here"
-                className="min-w-full min-h-[120px] p-2 rounded border border-gray-300 outline-none"
-                autoFocus
-                required
-              ></textarea>
-
-              <button type="submit" className=" w-40 bg-yellow-400 p-2 rounded text-white mt-3">Add Review</button>
-            </form>
-          </div>}
+          )}
         </div>
 
         <div className="flex-1 bg-gray-50 rounded p-3">
