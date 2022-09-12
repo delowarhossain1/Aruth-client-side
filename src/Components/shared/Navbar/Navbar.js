@@ -90,12 +90,19 @@ const Navbar = () => {
                   className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
                 >
                   <li>
-                    <Link to="/" className="justify-between">
+                    <Link to="/dashboard/my-profile" className="justify-between">
                       <span>
                         <i className="fa-solid fa-user mr-2"></i>
                         Profile
                       </span>
                       <span className="badge">New</span>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="/dashboard/my-reviews">
+                      <span>
+                        <i className="fa-solid fa-address-book mr-1"></i> My Reviews
+                      </span>
                     </Link>
                   </li>
                   <li>
