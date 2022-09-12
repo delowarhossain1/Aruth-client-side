@@ -41,7 +41,7 @@ const Checkout = ({ checkoutInfo }) => {
     }
 
     // Update user address and mobile number
-    updateUserAddress(data.address);
+    updateUserAddress(data.address, data.mob);
 
     // Place order
     fetch(`http://localhost:5000/place-order?email=${user?.email}`, {
@@ -75,17 +75,18 @@ const Checkout = ({ checkoutInfo }) => {
 
 
   // Update address 
-  const updateUserAddress = (address) => {
+  const updateUserAddress = (address, mob) => {
     const URL = `http://localhost:5000/update-address?email=${user?.email}`;
-    console.log(address, 11);
 
     fetch(URL, {
       method : 'PUT',
       headers : {
+        'content-type' : 'application/json',
         auth : `Bearer ${localStorage.getItem('accessToken')}`
       },
-      body : JSON.stringify({address})
+      body : JSON.stringify({address, mob})
     })
+    .then(res => res.json())
   }
 
 
