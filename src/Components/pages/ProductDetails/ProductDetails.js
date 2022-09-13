@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import RatingsStar from "../../shared/Ratings/RatingsStar";
 import CommentCart from "./CommentCart";
 import useAlert from "./../../../hooks/useAlert";
+import useAddToCard from './../../../hooks/useAddToCard';
 
 const ProductDetails = ({ handleCheckoutInfo }) => {
   const { id } = useParams();
@@ -15,6 +16,7 @@ const ProductDetails = ({ handleCheckoutInfo }) => {
   const [product, setProduct] = useState({});
   const [selectedImg, setSelectedImg] = useState("");
   const [comments, setComment] = useState([]);
+  const {storeDataInLocalStorage} = useAddToCard();
 
   const {
     _id,
@@ -22,7 +24,6 @@ const ProductDetails = ({ handleCheckoutInfo }) => {
     name,
     ratings,
     price,
-    discount,
     brand,
     size,
     availableQuantity,
@@ -102,10 +103,10 @@ const ProductDetails = ({ handleCheckoutInfo }) => {
   const couponDiscount = quantity * couponAmount;
   const total = subTotal - couponDiscount;
 
-  // final data for (proceed to pay);
+
+  // final data for (proceed to pay); ----------------------
   const sentDataToCheckout = (btn) => {
-    // send data to (proceed to pay).
-    handleCheckoutInfo({
+    const checkoutData = {
       productId : _id,
       img,
       name,
@@ -113,12 +114,15 @@ const ProductDetails = ({ handleCheckoutInfo }) => {
       total,
       cashOnDelivery,
       size: selectedSize || "Not selected",
-    });
+    }
+
+    // send data to (proceed to pay).
+    handleCheckoutInfo(checkoutData);
 
     if (btn === "buyNow") {
       navigate("/checkout");
     } else if (btn === "addToCart") {
-      navigate("/addToCart");
+      storeDataInLocalStorage(checkoutData);
     }
   };
 
