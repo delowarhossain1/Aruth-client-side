@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import loginPic from "../../../Images/login.jpg";
+import React from "react";
 import { useForm } from "react-hook-form";
 import "./inputBox.css";
 import { Link, useLocation, useNavigate } from "react-router-dom";
@@ -13,7 +12,6 @@ const Login = () => {
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm();
   const [signInWithEmailAndPassword, user, loading, loginError] =
@@ -46,7 +44,7 @@ const Login = () => {
       <div className="w-2/3 mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 items-center justify-center shadow-lg rounded-md p-4 bg-white">
           <div>
-            <img src={loginPic} alt="login pic" className="" />
+            <img src='https://i.ibb.co/3RZm0KV/login.jpg' alt="login pic" className="" />
             <ContinueWithSocialMedia />
           </div>
 

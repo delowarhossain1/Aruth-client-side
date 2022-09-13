@@ -18,9 +18,9 @@ const Footer = () => {
                     <h2 className='text-xl mb-3 uppercase'>HELP</h2>
 
                     <ul>
-                        <li>Mob : 0170000000</li>
-                        <li>Email : aruth@gmail.com</li>
-                        <li>Address : chattagong, Bangladesh</li>
+                        <li>Mob : 01581-817667</li>
+                        <li>Email : support@aruot.com</li>
+                        <li>Address : Chattogram, Bangladesh</li>
                     </ul>
                 </div>
 
@@ -32,7 +32,7 @@ const Footer = () => {
                             <Link to='/' className='hover:text-slate-500'>Privacy Policy</Link>
                         </li>
                         <li>
-                            <Link to='/' className='hover:text-slate-500'>Terms of Use</Link>
+                            <Link to='/terms-and-conditions' className='hover:text-slate-500'>Terms of Use</Link>
                         </li>
                         <li>
                             <Link to='/' className='hover:text-slate-500'>Returns</Link>
@@ -44,9 +44,9 @@ const Footer = () => {
                     <h2 className='text-xl mb-3 uppercase'> SOCIAL Media</h2>
 
                     <div className='flex items-center space-x-5'>
-                        <Link to='/'>
+                        <a href='https://facebook.com/aaruot?_rdc=1&_rdr' target='_blank' rel="noreferrer">
                             <i className="fa-brands fa-facebook-f text-2xl hover:text-[#4267B2]"></i>
-                        </Link>
+                        </a>
 
                         <Link to='/'>
                             <i className="fa-brands fa-twitter text-2xl hover:text-[#1DA1F2]"></i>

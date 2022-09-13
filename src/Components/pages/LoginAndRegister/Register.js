@@ -1,8 +1,10 @@
 import React, { useState } from "react";
-import signupImage from "../../../Images/signup.png";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
-import { useCreateUserWithEmailAndPassword, useUpdateProfile } from "react-firebase-hooks/auth";
+import {
+  useCreateUserWithEmailAndPassword,
+  useUpdateProfile,
+} from "react-firebase-hooks/auth";
 import auth from "../../../firebase.init";
 import Loading from "../../shared/Loading/Loading";
 import useAccessToken from "./../../../hooks/useAccessToken";
@@ -14,12 +16,11 @@ const Register = () => {
     formState: { errors },
   } = useForm();
   const [createUserWithEmailAndPassword, user, loading, registerError] =
-  useCreateUserWithEmailAndPassword(auth);
+    useCreateUserWithEmailAndPassword(auth);
   const [updateProfile, updating] = useUpdateProfile(auth);
   const navigate = useNavigate();
   const [incorrectConfirmPassword, setIncorrectConfirmPassword] = useState("");
   const [accessToken] = useAccessToken(user);
-
 
   const onSubmit = async (data) => {
     const password = data?.password;
@@ -29,16 +30,15 @@ const Register = () => {
 
     if (password === confirmPassword) {
       await createUserWithEmailAndPassword(email, password);
-      await updateProfile({displayName : name});
-
+      await updateProfile({ displayName: name });
     } else {
       setIncorrectConfirmPassword("Password & confirm password not match.");
     }
   };
 
   // if access token available
-  if(accessToken){
-    navigate('/');
+  if (accessToken) {
+    navigate("/");
   }
 
   if (loading || accessToken || updating) {
@@ -49,7 +49,11 @@ const Register = () => {
     <section className="py-12 flex items-center justify-center">
       <div className="grid grid-cols-1 md:grid-cols-2 items-center gap-5 bg-white rounded shadow-md">
         <div className="w-full max-w-md">
-          <img src={signupImage} alt="" />
+          <img
+            src="https://i.ibb.co/3RZm0KV/login.jpg
+https://i.ibb.co/fQqV7Dm/signup.png"
+            alt="register img"
+          />
         </div>
 
         <div className="w-full max-w-md p-5">
@@ -69,11 +73,13 @@ const Register = () => {
             </button>
           </div>
 
-        {/* Register error */}
-          {registerError && <p className=" mt-3 text-red-500 text-xl bg-slate-100 rounded-xl p-1 flex items-center justify-center">
-            <i className="fa-solid fa-circle-xmark mr-2"></i>
-            {registerError.code}
-          </p>}
+          {/* Register error */}
+          {registerError && (
+            <p className=" mt-3 text-red-500 text-xl bg-slate-100 rounded-xl p-1 flex items-center justify-center">
+              <i className="fa-solid fa-circle-xmark mr-2"></i>
+              {registerError.code}
+            </p>
+          )}
 
           {/* Register form */}
 
