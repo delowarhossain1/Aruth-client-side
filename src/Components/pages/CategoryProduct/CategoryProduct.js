@@ -20,7 +20,7 @@ const CategoryProduct = () => {
   return (
     <section className="py-5">
       <h2 className="mb-5 text-3xl">{id}</h2>
-      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5">
+      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-5">
         {products?.map((product) => (
           <ProductCart product={product} key={product?._id} />
         ))}
