@@ -6,6 +6,7 @@ import Loading from "../../../../shared/Loading/Loading";
 import DashboardTitle from "../../DashboardTitle";
 import { useQuery } from "react-query";
 import { useNavigate } from 'react-router-dom';
+import Taka from '../../../../shared/Taka/Taka';
 
 const MyProfile = () => {
     const navigate = useNavigate();
@@ -98,7 +99,9 @@ const MyProfile = () => {
                   <td>
                     <img src={order?.productImg} alt="product" className=" w-10" />
                   </td>
-                  <td>{order?.total}</td>
+                  <td>
+                     <span className="flex items-center text-xl"><Taka className="w-4 mr-1" /> {order?.total}</span>
+                  </td>
                   <td>
                     <button className="text-blue-400" onClick={()=> navigate(`/dashboard/my-order-details/${order?._id}`)}>Details</button>
                   </td>
@@ -107,7 +110,7 @@ const MyProfile = () => {
             </tbody>
           </table>
         </div>}
-
+              {/* If no orders available */}
         {
           myRecentOrders?.length === 0 && <div className="text-lg text-gray-500 h-24 flex justify-center items-center">No Orders..</div>
         }
