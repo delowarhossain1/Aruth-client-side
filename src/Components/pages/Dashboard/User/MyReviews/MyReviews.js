@@ -37,6 +37,7 @@ const MyReviews = () => {
         ))}
       </div>
 
+      {/*  If no reviews available */}
       {
         reviews?.length === 0 && <div className="text-lg text-gray-500 h-80 flex justify-center items-center">No Reviews..</div>
       }
