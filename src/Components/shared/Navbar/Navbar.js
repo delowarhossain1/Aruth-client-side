@@ -6,12 +6,14 @@ import { signOut } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
 import auth from "./../../../firebase.init";
 import useAddToCard from "./../../../hooks/useAddToCard";
+import useAdmin from "../../../hooks/useAdmin";
+const defaultProfileImg = "https://i.ibb.co/10JxYVW/user.png";
 
 const Navbar = () => {
   const [user] = useAuthState(auth);
   const { getItemsInLocalStorage } = useAddToCard();
   const [totalAddToCardItems, setTotalAddToCardItems] = useState(0);
-  const defaultProfileImg = "https://i.ibb.co/10JxYVW/user.png";
+  const [isAdmin] = useAdmin(user);
 
   useEffect(() => {
     const storedItems = getItemsInLocalStorage();
@@ -73,7 +75,7 @@ const Navbar = () => {
             </ul>
           </div>
 
-          <div>
+          {! isAdmin && <div>
             <Link to="/add-to-card">
               <div className="relative">
                 <span className="badge badge-sm indicator-item absolute top-0 left-[12px]">
@@ -82,7 +84,7 @@ const Navbar = () => {
                 <img src={shoppingCart} alt="shopping card" className="w-8" />
               </div>
             </Link>
-          </div>
+          </div>}
 
           {user && (
             <div className="ml-2">
@@ -99,34 +101,39 @@ const Navbar = () => {
                   tabIndex="0"
                   className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
                 >
-                  <li>
-                    <Link
-                      to="/dashboard/my-profile"
-                      className="justify-between"
-                    >
-                      <span>
-                        <i className="fa-solid fa-user mr-2"></i>
-                        Profile
-                      </span>
-                      <span className="badge">New</span>
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to="/dashboard/my-reviews">
-                      <span>
-                        <i className="fa-solid fa-address-book mr-1"></i> My
-                        Reviews
-                      </span>
-                    </Link>
-                  </li>
+                  {! isAdmin && <>
+                    <li>
+                      <Link
+                        to="/dashboard/my-profile"
+                        className="justify-between"
+                      >
+                        <span>
+                          <i className="fa-solid fa-user mr-2"></i>
+                          Profile
+                        </span>
+                        <span className="badge">New</span>
+                      </Link>
+                    </li>
+
+                    <li>
+                      <Link to="/dashboard/my-reviews">
+                        <span>
+                          <i className="fa-solid fa-address-book mr-1"></i> My
+                          Reviews
+                        </span>
+                      </Link>
+                    </li>
+                  </>}
+
                   <li>
                     <Link to="/dashboard">
                       <span>
-                        <i className="fa-solid fa-chart-line mr-1"></i>{" "}
+                        <i className="fa-solid fa-chart-line mr-1"></i>
                         Dashboard
                       </span>
                     </Link>
                   </li>
+
                   <li>
                     <span onClick={() => signOut(auth)}>
                       <span>
