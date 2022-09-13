@@ -103,7 +103,7 @@ const AddNewCategory = () => {
           />
 
           <button className="p-2 bg-[#5a76fd] text-xl w-full rounded text-white mt-3">
-            <i class="fa-solid fa-circle-plus mr-2" type="submit"></i>
+            <i className="fa-solid fa-circle-plus mr-2" type="submit"></i>
             Add
           </button>
         </form>

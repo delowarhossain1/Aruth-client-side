@@ -59,9 +59,10 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/products" element={<GetAllProducts />} />
-            <Route path="/add-to-card" element={<AddToCard />} />
             <Route path="/categories" element={<AllCategories />} />
             <Route path="/category/:id" element={<CategoryProduct />} />
+            <Route path="/add-to-card" element={<AddToCard handleCheckoutInfo={handleCheckoutInfo}/>} />
+
             <Route
               path="/product-details/:id"
               element={
@@ -77,7 +78,6 @@ function App() {
                 <RequireAuth>
                   <Checkout
                     checkoutInfo={checkoutInfo}
-                    proceedToPayInfo={handleCheckoutInfo}
                   />
                 </RequireAuth>
               }

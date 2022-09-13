@@ -80,8 +80,8 @@ const MyProfile = () => {
       <div className="mt-12">
         <h4 className="text-xl text-gray-500 mb-3">Recent Orders</h4>
 
-        {myRecentOrders?.length > 0 && <div class="overflow-x-auto">
-          <table class="table w-full">
+        {myRecentOrders?.length > 0 && <div className="overflow-x-auto">
+          <table className="table w-full">
             <thead>
               <tr>
                 <th>Order #</th>

@@ -4,7 +4,7 @@ import AddToCardItem from "./AddToCardItem";
 import { useEffect } from "react";
 import useAddToCard from "./../../../hooks/useAddToCard";
 
-const AddToCard = () => {
+const AddToCard = ({handleCheckoutInfo}) => {
   const { getItemsInLocalStorage } = useAddToCard();
   const [products, setProducts] = useState([]);
   const [isReload, setIsReload] = useState(false);
@@ -25,6 +25,7 @@ const AddToCard = () => {
               product={product}
               reloadFun={setIsReload}
               reloadValue = {isReload}
+              handleCheckoutInfo={handleCheckoutInfo}
             />
           ))}
         </div>

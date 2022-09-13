@@ -1,16 +1,25 @@
 import React from 'react';
 import Taka from '../../shared/Taka/Taka';
 import useAddToCard from './../../../hooks/useAddToCard';
+import { useNavigate } from 'react-router-dom';
 
-const AddToCardItem = ({product, reloadFun, reloadValue}) => {
+const AddToCardItem = ({product, reloadFun, reloadValue, handleCheckoutInfo}) => {
     const {img, name, quantity, total, size, productId} = product;
     const {deleteLocalStorageItem} = useAddToCard();
+    const navigate = useNavigate();
 
+    // Handle delete card item
     const handleDeleteItem = (id) => {
         deleteLocalStorageItem(id);
-
         // Reload 
-        reloadFun(!reloadValue);
+        // reloadFun(!reloadValue);
+    }
+
+    // Send info to proceed
+    const handleProceed = () => {
+        handleCheckoutInfo(product);
+        // Proceed to pay;
+        navigate('/checkout')
     }
 
     return (
@@ -27,7 +36,9 @@ const AddToCardItem = ({product, reloadFun, reloadValue}) => {
             </div>
 
             <div className='col-span-2 flex justify-end'>
-                <button className='bg-gray-100 rounded-full w-10 h-10'><i class="fa-solid fa-trash-can" onClick={()=> handleDeleteItem(productId)}></i></button>
+                <button className='bg-red-500 rounded-full w-10 h-10 mr-2' onClick={()=> handleDeleteItem(productId)}><i className="fa-solid fa-trash-can text-white"></i></button>
+
+                <button className='bg-[#303640] rounded-full w-10 h-10' onClick={handleProceed}><i className="fa-brands fa-amazon-pay text-xl text-white"></i></button>
             </div>
         </div>
     );

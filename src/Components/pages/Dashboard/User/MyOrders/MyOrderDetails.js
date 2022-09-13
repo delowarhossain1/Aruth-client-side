@@ -71,13 +71,13 @@ const MyOrderDetails = () => {
   // make product status icon
   useEffect(() => {
     if (status?.toLowerCase() === "pending") {
-      setMakeIcon(<i class="fa-solid fa-spinner mr-2"></i>);
+      setMakeIcon(<i className="fa-solid fa-spinner mr-2"></i>);
     } else if (status?.toLowerCase() === "shipped") {
-      setMakeIcon(<i class="fa-solid fa-truck-fast"></i>);
+      setMakeIcon(<i className="fa-solid fa-truck-fast"></i>);
     } else if (status?.toLowerCase() === "delivered") {
-      setMakeIcon(<i class="fa-solid fa-check"></i>);
+      setMakeIcon(<i className="fa-solid fa-check"></i>);
     } else if (status?.toLowerCase() === "cancel") {
-      setMakeIcon(<i class="fa-solid fa-face-sad-tear"></i>);
+      setMakeIcon(<i className="fa-solid fa-face-sad-tear"></i>);
     }
   }, [status, orderDetails]);
 
@@ -198,40 +198,40 @@ const MyOrderDetails = () => {
 
               {/* give ratings */}
               <div className="flex items-center">
-                <div class="rating mt-3">
+                <div className="rating mt-3">
                   <input
                     onClick={() => setRatingCount(1)}
                     type="radio"
                     name="rating-4"
-                    class="mask mask-star-2 bg-yellow-300"
+                    className="mask mask-star-2 bg-yellow-300"
                     checked={ratingCount === 1}
                   />
                   <input
                     onClick={() => setRatingCount(2)}
                     type="radio"
                     name="rating-4"
-                    class="mask mask-star-2 bg-yellow-300"
+                    className="mask mask-star-2 bg-yellow-300"
                     checked={ratingCount === 2}
                   />
                   <input
                     onClick={() => setRatingCount(3)}
                     type="radio"
                     name="rating-4"
-                    class="mask mask-star-2 bg-yellow-300"
+                    className="mask mask-star-2 bg-yellow-300"
                     checked={ratingCount === 3}
                   />
                   <input
                     onClick={() => setRatingCount(4)}
                     type="radio"
                     name="rating-4"
-                    class="mask mask-star-2 bg-yellow-300"
+                    className="mask mask-star-2 bg-yellow-300"
                     checked={ratingCount === 4}
                   />
                   <input
                     onClick={() => setRatingCount(5)}
                     type="radio"
                     name="rating-4"
-                    class="mask mask-star-2 bg-yellow-300"
+                    className="mask mask-star-2 bg-yellow-300"
                     checked={ratingCount === 5}
                   />
                 </div>

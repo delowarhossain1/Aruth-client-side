@@ -31,7 +31,7 @@ const Categories = () => {
 
       <div className="flex justify-center mt-8">
         <button onClick={()=> navigate('/categories')} className="text-xl text-blue-600 flex items-center border-b  hover:border-blue-600 hover:border-b border-transparent duration-100">
-          <span>More</span> <i class="fa-solid fa-angles-right ml-1"></i>
+          <span>More</span> <i className="fa-solid fa-angles-right ml-1"></i>
         </button>
       </div>
     </section>

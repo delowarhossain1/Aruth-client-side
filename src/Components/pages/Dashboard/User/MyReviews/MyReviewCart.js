@@ -42,14 +42,14 @@ const MyReviewCart = ({ review, refetch }) => {
           className="bg-red-400 p-2 rounded text-white shadow mr-5"
           onClick={handleReviewDelete}
         >
-          <i class="fa-solid fa-trash-can mr-1"></i>Delete
+          <i className="fa-solid fa-trash-can mr-1"></i>Delete
         </button>
 
         <button
           className="bg-green-400 p-2 rounded text-white shadow"
           onClick={() => navigate(`/dashboard/my-order-details/${orderId}`)}
         >
-          <i class="fa-solid fa-pen mr-1"></i> Edit
+          <i className="fa-solid fa-pen mr-1"></i> Edit
         </button>
       </div>
 
