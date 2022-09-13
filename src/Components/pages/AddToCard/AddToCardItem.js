@@ -1,5 +1,4 @@
 import React from 'react';
-import { useState } from 'react';
 import Taka from '../../shared/Taka/Taka';
 import useAddToCard from './../../../hooks/useAddToCard';
 

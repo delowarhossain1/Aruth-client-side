@@ -33,7 +33,7 @@ const MyOrders = () => {
         ))}
       </div>
 
-      {myOrders.length === 0 && 
+      {myOrders?.length === 0 && 
         <div className="flex justify-center items-center h-[300px]">
             <h2 className="text-lg text-gray-500">Orders Not available</h2>
         </div>
