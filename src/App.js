@@ -35,6 +35,7 @@ import MyOrderDetails from "./Components/pages/Dashboard/User/MyOrders/MyOrderDe
 import MyReviews from "./Components/pages/Dashboard/User/MyReviews/MyReviews";
 import MyProfile from './Components/pages/Dashboard/User/MyProfile/MyProfile';
 import AddToCard from './Components/pages/AddToCard/AddToCard';
+import AllCategories from './Components/pages/Home/Categories/AllCategories';
 
 function App() {
   const [user] = useAuthState(auth);
@@ -59,6 +60,7 @@ function App() {
             <Route path="/register" element={<Register />} />
             <Route path="/products" element={<GetAllProducts />} />
             <Route path="/add-to-card" element={<AddToCard />} />
+            <Route path="/categories" element={<AllCategories />} />
             <Route path="/category/:id" element={<CategoryProduct />} />
             <Route
               path="/product-details/:id"
