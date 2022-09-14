@@ -39,6 +39,7 @@ import AllCategories from './Components/pages/Home/Categories/AllCategories';
 import TermsAndConditions from './Components/pages/Documents/TermsAndConditions';
 import ReturnPolicy from './Components/pages/Documents/ReturnPolicy';
 import ForgetPassword from './Components/pages/LoginAndRegister/ForgetPassword';
+import PrivacyPolicy from './Components/pages/Documents/PrivacyPolicy';
 
 function App() {
   const [user] = useAuthState(auth);
@@ -67,6 +68,7 @@ function App() {
             <Route path="/category/:id" element={<CategoryProduct />} />
             <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
             <Route path="/return-policy" element={<ReturnPolicy />} />
+            <Route path="/privacy-policy" element={<PrivacyPolicy />} />
 
             <Route path="/add-to-card" element={<AddToCard handleCheckoutInfo={handleCheckoutInfo}/>} />
 
