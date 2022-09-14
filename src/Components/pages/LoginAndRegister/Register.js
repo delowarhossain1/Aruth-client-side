@@ -41,12 +41,13 @@ const Register = () => {
     navigate("/");
   }
 
-  if (loading || accessToken || updating) {
+  if (loading || updating) {
     return <Loading />;
   }
 
   return (
-    <section className="py-12 lg:flex items-center justify-center">
+    <section className="py-12 lg:flex flex-col items-center justify-center">
+
       <div className="grid grid-cols-1 lg:grid-cols-2 items-center gap-5 bg-white rounded shadow-md">
 
         <div className="w-full">
@@ -75,13 +76,8 @@ https://i.ibb.co/fQqV7Dm/signup.png"
             </button>
           </div>
 
-          {/* Register error */}
-          {registerError && (
-            <p className=" mt-3 text-red-500 text-xl bg-slate-100 rounded-xl p-1 flex items-center justify-center">
-              <i className="fa-solid fa-circle-xmark mr-2"></i>
-              {registerError.code}
-            </p>
-          )}
+         {/* Display error */}
+      {registerError && <h2 className="mt-3 text-center text-md text-red-500"><i class="fa-solid fa-triangle-exclamation mr-2"></i> {registerError.code === 'auth/email-already-in-use' && 'You have created an account using this email. Please try another email.'}</h2>}
 
           {/* Register form */}
 

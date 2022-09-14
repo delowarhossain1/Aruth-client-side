@@ -38,6 +38,7 @@ import AddToCard from './Components/pages/AddToCard/AddToCard';
 import AllCategories from './Components/pages/Home/Categories/AllCategories';
 import TermsAndConditions from './Components/pages/Documents/TermsAndConditions';
 import ReturnPolicy from './Components/pages/Documents/ReturnPolicy';
+import ForgetPassword from './Components/pages/LoginAndRegister/ForgetPassword';
 
 function App() {
   const [user] = useAuthState(auth);
@@ -60,6 +61,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
+            <Route path="/forget-password" element={<ForgetPassword />} />
             <Route path="/products" element={<GetAllProducts />} />
             <Route path="/categories" element={<AllCategories />} />
             <Route path="/category/:id" element={<CategoryProduct />} />

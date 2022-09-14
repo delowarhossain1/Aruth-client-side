@@ -38,6 +38,21 @@ const useAlert = () => {
     });
   };
 
+  // Alert : 4
+  function simpleAlertWithConfirmBtn(info = {}, cb){
+    const {text= 'Are you sure?', confirmBtn = 'Ok'} = info;
+
+    Swal.fire({
+      title: `${text}`,
+      showCancelButton: true,
+      confirmButtonText: `${confirmBtn}`,
+    }).then((result) => {
+
+      if (result.isConfirmed) {
+        cb();
+      } 
+    })
+  }
 
   /*--------------------------- Input box ---------------------------------*/ 
 const inputBox1 = async({type= 'text', label="Input", placeholder ='Type here...'}) => {
@@ -70,8 +85,9 @@ const inputBox1 = async({type= 'text', label="Input", placeholder ='Type here...
   }
 
   return {
-    simpleAlert,
     successfulAlertWithAutoClose,
+    simpleAlertWithConfirmBtn,
+    simpleAlert,
     deleteModal,
     successToast,
     inputBox1,

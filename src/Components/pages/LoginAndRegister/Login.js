@@ -147,7 +147,7 @@ const Login = () => {
             <p className="mt-2 text-center">
               Forget
               <strong>
-                <Link to="/register"> password?</Link>
+                <Link to="/forget-password"> password?</Link>
               </strong>
             </p>
 
