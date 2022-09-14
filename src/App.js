@@ -37,6 +37,7 @@ import MyProfile from './Components/pages/Dashboard/User/MyProfile/MyProfile';
 import AddToCard from './Components/pages/AddToCard/AddToCard';
 import AllCategories from './Components/pages/Home/Categories/AllCategories';
 import TermsAndConditions from './Components/pages/Documents/TermsAndConditions';
+import ReturnPolicy from './Components/pages/Documents/ReturnPolicy';
 
 function App() {
   const [user] = useAuthState(auth);
@@ -63,6 +64,7 @@ function App() {
             <Route path="/categories" element={<AllCategories />} />
             <Route path="/category/:id" element={<CategoryProduct />} />
             <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
+            <Route path="/return-policy" element={<ReturnPolicy />} />
 
             <Route path="/add-to-card" element={<AddToCard handleCheckoutInfo={handleCheckoutInfo}/>} />
 

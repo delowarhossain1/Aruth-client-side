@@ -41,7 +41,7 @@ const Login = () => {
 
   return (
     <section className="py-10">
-      <div className="w-2/3 mx-auto">
+      <div className="w-full lg:w-2/3 mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 items-center justify-center shadow-lg rounded-md p-4 bg-white">
           <div>
             <img src='https://i.ibb.co/3RZm0KV/login.jpg' alt="login pic" className="" />

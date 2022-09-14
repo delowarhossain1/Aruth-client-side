@@ -1,5 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import Taka from "../Taka/Taka";
 import RatingsStar from "./../Ratings/RatingsStar";
 
 const ProductCart = ({ product }) => {
@@ -11,18 +12,22 @@ const ProductCart = ({ product }) => {
 
   return (
     <div
-      className="bg-white cursor-pointer shadow rounded hover:shadow-lg"
+      className="bg-white cursor-pointer shadow rounded hover:shadow-lg flex flex-col justify-between"
       onClick={() => navigate(`/product-details/${_id}`)}
     >
-      <img src={img} alt="product" />
+      <div>
+        <img src={img} alt="product" className=" w-full mb-2" />
 
-      <div className="p-2 my-3">
-        <h2 className="text-lg">
-          {productName?.length > 35
-            ? productName?.slice(0, 35) + "..."
+        <h2 className="text-md px-2">
+          {productName?.length > 25
+            ? productName?.slice(0, 25) + "..."
             : productName}
         </h2>
-        <h3 className="text-2xl my-1">${price}</h3>
+      </div>
+
+      <div className="px-2 mb-3">
+        
+        <h3 className="text-xl my-1 flex items-center text-orange-500"><Taka /> {price}</h3>
         <h4 className="text-sm text-gray-400 mb-2">
           <strike>${discount}</strike> - 65%
         </h4>

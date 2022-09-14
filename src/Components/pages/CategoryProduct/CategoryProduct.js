@@ -19,8 +19,9 @@ const CategoryProduct = () => {
 
   return (
     <section className="py-5">
-      <h2 className="mb-5 text-3xl">{id}</h2>
-      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-5">
+      <h2 className="mb-5 text-2xl text-gray-500">{id} <i class="fa-solid fa-chevron-right text-xl"></i></h2>
+
+      <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-2">
         {products?.map((product) => (
           <ProductCart product={product} key={product?._id} />
         ))}

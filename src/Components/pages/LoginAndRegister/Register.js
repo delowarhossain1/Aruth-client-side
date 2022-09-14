@@ -46,17 +46,19 @@ const Register = () => {
   }
 
   return (
-    <section className="py-12 flex items-center justify-center">
-      <div className="grid grid-cols-1 md:grid-cols-2 items-center gap-5 bg-white rounded shadow-md">
-        <div className="w-full max-w-md">
+    <section className="py-12 lg:flex items-center justify-center">
+      <div className="grid grid-cols-1 lg:grid-cols-2 items-center gap-5 bg-white rounded shadow-md">
+
+        <div className="w-full">
           <img
             src="https://i.ibb.co/3RZm0KV/login.jpg
 https://i.ibb.co/fQqV7Dm/signup.png"
             alt="register img"
+            className="w-full lg:max-w-md"
           />
         </div>
 
-        <div className="w-full max-w-md p-5">
+        <div className="w-full lg:max-w-md p-5">
           <h2 className="text-2xl font-bold text-center">Register</h2>
 
           <div className="flex items-center space-x-3 mt-8 justify-center w-full">

@@ -11,7 +11,7 @@ const Footer = () => {
                 <div>
                     <h2 className='text-xl mb-3 uppercase'>About us</h2>
 
-                    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Natus odit, nisi numquam pariatur doloremque deleniti est placeat impedit, distinctio voluptas officia itaque error temporibus quis excepturi delectus tenetur praesentium cumque.</p>
+                    <p className=' text-justify'>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Natus odit, nisi numquam pariatur doloremque deleniti est placeat impedit, distinctio voluptas officia itaque error temporibus quis excepturi delectus tenetur praesentium cumque.</p>
                 </div>
 
                 <div>
@@ -32,10 +32,10 @@ const Footer = () => {
                             <Link to='/' className='hover:text-slate-500'>Privacy Policy</Link>
                         </li>
                         <li>
-                            <Link to='/terms-and-conditions' className='hover:text-slate-500'>Terms of Use</Link>
+                            <Link to='/terms-and-conditions' className='hover:text-slate-500'>Terms & Condition</Link>
                         </li>
                         <li>
-                            <Link to='/' className='hover:text-slate-500'>Returns</Link>
+                            <Link to='/return-policy' className='hover:text-slate-500'>Returns</Link>
                         </li>
                     </ul>
                 </div>

@@ -10,9 +10,9 @@ const AllCategories = () => {
 
   return (
     <section className="py-5">
-      <h2 className="text-2xl text-gray-500">Our Categories</h2>
+      <h2 className="text-2xl text-gray-500">Our categories <i class="fa-solid fa-chevron-right text-xl"></i></h2>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 md:gap-4 lg:gap-5 mt-6">
         {categories?.map((category) => (
           <CategoriesCart key={category._id} category={category} />
         ))}

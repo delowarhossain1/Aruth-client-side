@@ -22,13 +22,13 @@ const Categories = () => {
       <h2 className="section-heading">Categories</h2>
 
       <div className="flex align-center justify-center">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-4 lg:gap-8">
           {categories?.map((category) => (
             <CategoriesCart key={category._id} category={category} />
           ))}
         </div>
       </div>
-
+{/* ------------------- More button ----------------- */}
       <div className="flex justify-center mt-8">
         <button onClick={()=> navigate('/categories')} className="text-xl text-blue-600 flex items-center border-b  hover:border-blue-600 hover:border-b border-transparent duration-100">
           <span>More</span> <i className="fa-solid fa-angles-right ml-1"></i>

@@ -3,7 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import RatingsStar from "../../shared/Ratings/RatingsStar";
 import CommentCart from "./CommentCart";
 import useAlert from "./../../../hooks/useAlert";
-import useAddToCard from './../../../hooks/useAddToCard';
+import useAddToCard from "./../../../hooks/useAddToCard";
 
 const ProductDetails = ({ handleCheckoutInfo }) => {
   const { id } = useParams();
@@ -16,7 +16,7 @@ const ProductDetails = ({ handleCheckoutInfo }) => {
   const [product, setProduct] = useState({});
   const [selectedImg, setSelectedImg] = useState("");
   const [comments, setComment] = useState([]);
-  const {storeDataInLocalStorage} = useAddToCard();
+  const { storeDataInLocalStorage } = useAddToCard();
 
   const {
     _id,
@@ -45,13 +45,13 @@ const ProductDetails = ({ handleCheckoutInfo }) => {
       .then((data) => setProduct(data));
   }, [id]);
 
-    // Load comment of this product
-    useEffect(()=>{
-      const url = `http://localhost:5000/product-reviews/${_id}`;
-      fetch(url)
-      .then(res => res.json())
-      .then(res => setComment(res));
-    }, [_id]);
+  // Load comment of this product
+  useEffect(() => {
+    const url = `http://localhost:5000/product-reviews/${_id}`;
+    fetch(url)
+      .then((res) => res.json())
+      .then((res) => setComment(res));
+  }, [_id]);
 
   // update product quantity
   const updateProductQuantity = (btn) => {
@@ -103,18 +103,17 @@ const ProductDetails = ({ handleCheckoutInfo }) => {
   const couponDiscount = quantity * couponAmount;
   const total = subTotal - couponDiscount;
 
-
   // final data for (proceed to pay); ----------------------
   const sentDataToCheckout = (btn) => {
     const checkoutData = {
-      productId : _id,
+      productId: _id,
       img,
       name,
       quantity,
       total,
       cashOnDelivery,
       size: selectedSize || "Not selected",
-    }
+    };
 
     // send data to (proceed to pay).
     handleCheckoutInfo(checkoutData);
@@ -128,159 +127,167 @@ const ProductDetails = ({ handleCheckoutInfo }) => {
 
   // Change gallery img
   const changeGalleryImg = (url) => {
-    setSelectedImg(url)
+    setSelectedImg(url);
   };
 
   return (
     <section>
-      <div className="py-5 flex flex-col lg:flex-row space-x-0 lg:space-x-5 space-y-5 lg:space-y-0">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 bg-white w-full md:w-8/12 rounded p-2">
-          <div>
-            <img src={selectedImg || img} alt="product" className=" duration-500" />
+      <div className="py-5 grid grid-cols-1 lg:grid-cols-12 items-center gap-5">
+        <div className="col-span-12 lg:col-span-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 bg-white w-full rounded p-2">
+            <div>
+              <img
+                src={selectedImg || img}
+                alt="product"
+                className=" duration-500"
+              />
 
-            <div className="flex items-center justify-center mt-2">
-              {galleryImg?.map((gImg, index) => (
-                <img
-                  src={gImg}
-                  alt="gallery img"
-                  className="w-16 h-16 cursor-pointer mr-2 overflow-hidden hover:scale-[1.07] hover:duration-500"
-                  key={index * Math.random()}
-                  onMouseOver={() => changeGalleryImg(gImg)}
-                />
-              ))}
-            </div>
-          </div>
-
-          <div>
-            <h2 className="text-xl font-semibold mb-2">{name}</h2>
-            <RatingsStar star={ratings} />
-            <h2 className="my-3 text-5xl text-orange-500">${price}</h2>
-            <h4 className="mt-2">Brand : {brand}</h4>
-            <h4 className="mt-2">Available : {availableQuantity} pice</h4>
-
-            {/* Product size ------------------- */}
-            <div className="flex items-center mt-3">
-              <span className="mr-3 font-semibold text-lg">Size</span>
-              {size?.map((s, i) => (
-                <span
-                  key={i * Math.random()}
-                  className="p-1 border border-orange-500 rounded flex justify-center items-center cursor-pointer mr-3"
-                  onClick={() => setSelectedSize(s)}
-                >
-                  {s}
-                </span>
-              ))}
-            </div>
-
-            {/* Update product order quantity -----------*/}
-
-            <div className="mt-5 flex items-center">
-              <span className="mr-5">Quantity </span>
-              <div className="flex items-center space-x-3">
-                <button
-                  onClick={() => updateProductQuantity("minus")}
-                  disabled={productQuantity === 1}
-                >
-                  <i className="fa-solid fa-minus text-xl cursor-pointer"></i>
-                </button>
-                <span className="text-xl p-2">{productQuantity}</span>
-                <button onClick={() => updateProductQuantity("plus")}>
-                  <i className="fa-solid fa-plus text-xl cursor-pointer"></i>
-                </button>
+              <div className="flex items-center justify-center mt-2">
+                {galleryImg?.map((gImg, index) => (
+                  <img
+                    src={gImg}
+                    alt="gallery img"
+                    className="w-16 h-16 cursor-pointer mr-2 overflow-hidden hover:scale-[1.07] hover:duration-500"
+                    key={index * Math.random()}
+                    onMouseOver={() => changeGalleryImg(gImg)}
+                  />
+                ))}
               </div>
             </div>
-            {/* -----------  Add to cart & buy now button -------- */}
-            <div className=" flex items-center space-x-5 mt-5">
-              <button
-                className="py-2 px-4 bg-blue-500 rounded text-white"
-                onClick={() => sentDataToCheckout("addToCart")}
-              >
-                <i className="fa-solid fa-cart-plus mr-2"></i>
-                Add to Cart
-              </button>
 
-              <button
-                className="py-2 px-4 bg-orange-500 rounded text-white"
-                onClick={() => sentDataToCheckout("buyNow")}
-              >
-                <i className="fa-solid fa-bag-shopping mr-2"></i>
-                Buy Now
-              </button>
+            <div>
+              <h2 className="text-xl font-semibold mb-2">{name}</h2>
+              <RatingsStar star={ratings} />
+              <h2 className="my-3 text-5xl text-orange-500">${price}</h2>
+              <h4 className="mt-2">Brand : {brand}</h4>
+              <h4 className="mt-2">Available : {availableQuantity} pice</h4>
+
+              {/* Product size ------------------- */}
+              <div className="flex items-center mt-3">
+                <span className="mr-3 font-semibold text-lg">Size</span>
+                {size?.map((s, i) => (
+                  <span
+                    key={i * Math.random()}
+                    className="p-1 border border-orange-500 rounded flex justify-center items-center cursor-pointer mr-3"
+                    onClick={() => setSelectedSize(s)}
+                  >
+                    {s}
+                  </span>
+                ))}
+              </div>
+
+              {/* Update product order quantity -----------*/}
+
+              <div className="mt-5 flex items-center">
+                <span className="mr-5">Quantity </span>
+                <div className="flex items-center space-x-3">
+                  <button
+                    onClick={() => updateProductQuantity("minus")}
+                    disabled={productQuantity === 1}
+                  >
+                    <i className="fa-solid fa-minus text-xl cursor-pointer"></i>
+                  </button>
+                  <span className="text-xl p-2">{productQuantity}</span>
+                  <button onClick={() => updateProductQuantity("plus")}>
+                    <i className="fa-solid fa-plus text-xl cursor-pointer"></i>
+                  </button>
+                </div>
+              </div>
+              {/* -----------  Add to cart & buy now button -------- */}
+              <div className=" flex items-center space-x-5 mt-5 justify-center lg:justify-start">
+                <button
+                  className="py-2 px-4 bg-blue-500 rounded text-white"
+                  onClick={() => sentDataToCheckout("addToCart")}
+                >
+                  <i className="fa-solid fa-cart-plus mr-2"></i>
+                  Add to Cart
+                </button>
+
+                <button
+                  className="py-2 px-4 bg-orange-500 rounded text-white"
+                  onClick={() => sentDataToCheckout("buyNow")}
+                >
+                  <i className="fa-solid fa-bag-shopping mr-2"></i>
+                  Buy Now
+                </button>
+              </div>
             </div>
           </div>
         </div>
 
         {/* Orders summery ======================*/}
 
-        <div className="w-full md:w-4/12 p-3 bg-white shadow-md rounded">
-          <h4 className="text-xl mb-3 text-center">Summery</h4>
+        <div className="lg:col-span-4 col-span-12">
+          <div className="w-full lg:w-full md:w-7/12 mx-auto p-3 bg-white shadow-md rounded">
+            <h4 className="text-xl mb-3 text-center">Summery</h4>
 
-          <div className="flex items-center justify-between mb-3">
-            <div className="flex items-center">
-              <i className="fa-solid fa-truck text-gray-500"></i>
+            <div className="flex items-center justify-between mb-3">
+              <div className="flex items-center">
+                <i className="fa-solid fa-truck text-gray-500"></i>
+                <div className="flex flex-col ml-5">
+                  <span>Standard Delivery</span>
+                  <span className="text-sm text-gray-500">
+                    {deliveryWithin?.days} day(s)
+                  </span>
+                </div>
+              </div>
+
+              <h4 className="text-lg text-orange-500">
+                ${deliveryWithin?.charge}
+              </h4>
+            </div>
+
+            <div className="flex items-center mb-3">
+              <i className="fa-solid fa-money-bill-wave text-gray-500"></i>
               <div className="flex flex-col ml-5">
-                <span>Standard Delivery</span>
+                <span>Cash on Delivery </span>
                 <span className="text-sm text-gray-500">
-                  {deliveryWithin?.days} day(s)
+                  {cashOnDelivery ? "Available" : "Not Available"}
                 </span>
               </div>
             </div>
 
-            <h4 className="text-lg text-orange-500">
-              ${deliveryWithin?.charge}
-            </h4>
-          </div>
-
-          <div className="flex items-center mb-3">
-            <i className="fa-solid fa-money-bill-wave text-gray-500"></i>
-            <div className="flex flex-col ml-5">
-              <span>Cash on Delivery </span>
-              <span className="text-sm text-gray-500">
-                {cashOnDelivery ? "Available" : "Not Available"}
-              </span>
+            <div className="flex items-center">
+              <i className="fa-solid fa-shield text-gray-500"></i>
+              <h2 className="ml-5">Warranty not available</h2>
             </div>
+
+            <div className="border-t my-3 border-gray-200"></div>
+
+            <div>
+              {size && (
+                <h2 className="mb-1 text-md font-bold">
+                  Size : {selectedSize || size[0]}
+                </h2>
+              )}
+              <h2 className="mb-1 text-md">Price : ${price}</h2>
+              <h2 className="mb-1 text-md">Quantity : {quantity} pice</h2>
+              <h2 className="mb-1 text-md">Shipping : ${shippingCharge}</h2>
+              <h2 className="mb-1 text-md">Sub Total : ${subTotal}</h2>
+              <h2 className="mb-1 text-md">Discount : ${couponDiscount}</h2>
+              <h2 className="mb-1 text-md">Total : ${total}</h2>
+            </div>
+
+            {/* Coupon code */}
+            <form className="mt-4 relative" onSubmit={handleCouponCode}>
+              <input
+                type="text"
+                name="couponCode"
+                placeholder="COUPON CODE"
+                className="w-full border-2 p-2 border-gray-200 outline-0 rounded-full"
+              />
+
+              <button
+                className={`w-28 bg-orange-500 text-white p-2 absolute top-0 right-0 uppercase border-2 border-orange-500 rounded-full hover:bg-orange-400 duration-200 ${
+                  couponBtnDisabled && " cursor-not-allowed"
+                }`}
+                disabled={couponBtnDisabled}
+              >
+                <i className="fa-solid fa-gift mr-2"></i>
+                Get off
+              </button>
+            </form>
           </div>
-
-          <div className="flex items-center">
-            <i className="fa-solid fa-shield text-gray-500"></i>
-            <h2 className="ml-5">Warranty not available</h2>
-          </div>
-
-          <div className="border-t my-3 border-gray-200"></div>
-
-          <div>
-            {size && (
-              <h2 className="mb-1 text-md font-bold">
-                Size : {selectedSize || size[0]}
-              </h2>
-            )}
-            <h2 className="mb-1 text-md">Price : ${price}</h2>
-            <h2 className="mb-1 text-md">Quantity : {quantity} pice</h2>
-            <h2 className="mb-1 text-md">Shipping : ${shippingCharge}</h2>
-            <h2 className="mb-1 text-md">Sub Total : ${subTotal}</h2>
-            <h2 className="mb-1 text-md">Discount : ${couponDiscount}</h2>
-            <h2 className="mb-1 text-md">Total : ${total}</h2>
-          </div>
-
-          {/* Coupon code */}
-          <form className="mt-4 relative" onSubmit={handleCouponCode}>
-            <input
-              type="text"
-              name="couponCode"
-              placeholder="COUPON CODE"
-              className="w-full border-2 p-2 border-gray-200 outline-0 rounded-full"
-            />
-
-            <button
-              className={`w-28 bg-orange-500 text-white p-2 absolute top-0 right-0 uppercase border-2 border-orange-500 rounded-full hover:bg-orange-400 duration-200 ${
-                couponBtnDisabled && " cursor-not-allowed"
-              }`}
-              disabled={couponBtnDisabled}
-            >
-              <i className="fa-solid fa-gift mr-2"></i>
-              Get off
-            </button>
-          </form>
         </div>
       </div>
 

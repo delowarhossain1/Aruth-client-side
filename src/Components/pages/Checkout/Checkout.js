@@ -6,6 +6,7 @@ import Loading from "../../shared/Loading/Loading";
 import CheckoutProductCart from "./CheckoutProductCart";
 import { useNavigate } from 'react-router-dom';
 import useAlert from './../../../hooks/useAlert';
+import Taka from "../../shared/Taka/Taka";
 
 const Checkout = ({ checkoutInfo }) => {
   const [user, loading] = useAuthState(auth);
@@ -96,10 +97,10 @@ const Checkout = ({ checkoutInfo }) => {
   }
 
   return (
-    <section className="p-5 bg-white shadow rounded">
+    <section className="py-2 lg:py-5 bg-white shadow rounded">
       <h1 className="text-2xl font-bold mb-8 text-center">Checkout</h1>
 
-      <div className="flex flex-col lg:flex-row space-x-0 lg:space-x-10 space-y-10 lg:space-y-0">
+      <div className="flex flex-col-reverse lg:flex-row space-x-0 lg:space-x-10 space-y-10 lg:space-y-0 p-2 lg:px-5">
         <form onSubmit={handleSubmit(onSubmit)} className="flex-1">
           <h4 className="mb-3 text-lg font-semibold">Shipping details</h4>
 
@@ -226,10 +227,10 @@ const Checkout = ({ checkoutInfo }) => {
               <CheckoutProductCart item={checkoutInfo} />
           </div>
 
-          <div className="mt-10 bg-gray-200 p-2 rounded shadow-md">
+          <div className="mt-5 lg:mt-10 bg-gray-200 p-2 rounded shadow-md mb-5 lg:mb-0">
             <h2 className="text-xl mb-2">Summary </h2>
             <h3 className="text-md mb-1">Quantity : {checkoutInfo?.quantity}</h3>
-            <h3 className="text-md mb-1">Total : ${checkoutInfo?.total}</h3>
+            <h3 className="text-md mb-1 flex items-center">Total : <Taka className="w-4 mx-1" /> <span>{checkoutInfo?.total}</span></h3>
             <h5 className="text-xs">( Shipping fee & discount included )</h5>
           </div>
         </div>
