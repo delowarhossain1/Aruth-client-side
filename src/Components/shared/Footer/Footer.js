@@ -60,7 +60,7 @@ const Footer = () => {
             </div>
 
             <div className='pt-5 text-center'>
-                <p className='uppercase'>&copy;COPYRIGHT {date.getFullYear()} Aruth, ALL RIGHTS RESERVED</p>
+                <p className='uppercase'>&copy;COPYRIGHT {date.getFullYear()} Aruot, ALL RIGHTS RESERVED</p>
             </div>
         </footer>
     );

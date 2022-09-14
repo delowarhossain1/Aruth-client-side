@@ -4,6 +4,7 @@ import RatingsStar from "../../shared/Ratings/RatingsStar";
 import CommentCart from "./CommentCart";
 import useAlert from "./../../../hooks/useAlert";
 import useAddToCard from "./../../../hooks/useAddToCard";
+import ProductCart from "../../shared/Cart/ProductCart";
 
 const ProductDetails = ({ handleCheckoutInfo }) => {
   const { id } = useParams();
@@ -17,6 +18,7 @@ const ProductDetails = ({ handleCheckoutInfo }) => {
   const [selectedImg, setSelectedImg] = useState("");
   const [comments, setComment] = useState([]);
   const { storeDataInLocalStorage } = useAddToCard();
+  const [recommendedProducts, setRecommendedProducts] = useState([]);
 
   const {
     _id,
@@ -32,8 +34,9 @@ const ProductDetails = ({ handleCheckoutInfo }) => {
     cashOnDelivery,
     couponCode,
     galleryImg,
+    categories,
   } = product;
-
+  console.log(product);
   // Load product information
   useEffect(() => {
     fetch(`http://localhost:5000/product-details/${id}`, {
@@ -52,6 +55,15 @@ const ProductDetails = ({ handleCheckoutInfo }) => {
       .then((res) => res.json())
       .then((res) => setComment(res));
   }, [_id]);
+
+  // Load recommended product
+  useEffect(() => {
+    const URL = `http://localhost:5000/recommended-products/${categories}`;
+
+    fetch(URL)
+      .then((res) => res.json())
+      .then((res) => setRecommendedProducts(res));
+  }, [product, categories]);
 
   // update product quantity
   const updateProductQuantity = (btn) => {
@@ -305,7 +317,17 @@ const ProductDetails = ({ handleCheckoutInfo }) => {
         <p className="text-sm">{description?.text}</p>
       </div>
 
-      <div className="p-3 bg-white">
+      {/* Recommended product */}
+      <div className="p-3 bg-white py-5">
+        <h2 className="mb-4 text-2xl">From The Same Category</h2>
+        <div className=" grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-2">
+          {recommendedProducts?.map((product) => (
+            <ProductCart key={product?._id} product={product} />
+          ))}
+        </div>
+      </div>
+
+      <div className="p-3 bg-white mt-5">
         <h2 className="lg:text-xl">Ratings & Reviews of {name}</h2>
 
         <div className="mb-10">

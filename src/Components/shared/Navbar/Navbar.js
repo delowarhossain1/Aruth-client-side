@@ -26,6 +26,9 @@ const Navbar = () => {
     <>
       <LinkWithLi menu={{ link: "/", text: "Home" }} />
       <LinkWithLi menu={{ link: "/products", text: "Products" }} />
+      {/* <li>
+        <Link to='/' className="flex items-center"><i class="fa-solid fa-house-chimney"></i> <span>Home</span></Link>
+      </li> */}
     </>
   );
 
@@ -69,6 +72,7 @@ const Navbar = () => {
           <div className="hidden lg:flex">
             <ul className="menu menu-horizontal p-0">
               {menu}
+
               {/* if user is logged in, then login menu will be hidden */}
 
               {!user && <LinkWithLi menu={{ link: "/login", text: "login" }} />}
