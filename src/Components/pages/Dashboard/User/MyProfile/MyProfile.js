@@ -49,10 +49,10 @@ const MyProfile = () => {
       />
 
       <div className="flex flex-col lg:flex-row space-x-0 lg:space-x-5 mt-5">
-        <div className="bg-gray-50 flex-1 p-2 rounded shadow">
+        <div className="bg-gray-50 flex-1 p-2 rounded shadow mb-3 lg:mb-0">
           <h5 className="text-lg font-semibold mb-2">
-            Personal Profile |{" "}
-            <span className="text-blue-400 cursor-pointer">Edit</span>
+            Personal Profile |
+            <span className="text-blue-400 cursor-pointer ml-1">Edit</span>
           </h5>
 
           <img

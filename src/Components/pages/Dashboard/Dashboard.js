@@ -116,9 +116,9 @@ const Dashboard = () => {
         <div className="drawer-content bg-[#ffffff] ml-0 lg:ml-5 p-3 rounded shadow-lg">
           <label
             htmlFor="my-drawer-2"
-            className="btn btn-primary drawer-button lg:hidden"
+            className="drawer-button lg:hidden"
           >
-            Open drawer
+            <i class="fa-solid fa-bars text-2xl mb-5 cursor-pointer"></i>
           </label>
 
           <Outlet />

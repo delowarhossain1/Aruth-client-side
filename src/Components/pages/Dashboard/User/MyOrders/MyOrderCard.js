@@ -26,7 +26,7 @@ const MyOrderCard = ({ order = {} }) => {
       </div>
 
       <div className="mt-3 grid grid-cols-1 md:grid-cols-7 gap-3">
-        <div className="flex col-span-4">
+        <div className="flex col-span-4 mb-3 md:mb-0">
           <img src={productImg} alt="product" className=" w-20 mr-2 rounded" />
           <h3>
             {productName?.length > 70

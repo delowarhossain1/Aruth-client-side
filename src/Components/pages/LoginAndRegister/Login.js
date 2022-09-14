@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import "./inputBox.css";
 import { Link, useLocation, useNavigate } from "react-router-dom";
@@ -7,6 +7,7 @@ import { useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
 import auth from "./../../../firebase.init";
 import useAccessToken from "./../../../hooks/useAccessToken";
 import Loading from "../../shared/Loading/Loading";
+
 
 const Login = () => {
   const {
@@ -17,6 +18,7 @@ const Login = () => {
   const [signInWithEmailAndPassword, user, loading, loginError] =
     useSignInWithEmailAndPassword(auth);
   const [accessToken] = useAccessToken(user);
+  const [displayError, setDisplayError] = useState('');
 
   const onSubmit = (data) => {
     const email = data?.email;
@@ -30,6 +32,32 @@ const Login = () => {
   const navigate = useNavigate();
   let from = location.state?.from?.pathname || "/";
 
+  // Set error
+  useEffect(()=>{
+    setAllErrors(loginError?.code);
+  }, [loginError])
+
+
+  // Error list 
+  function setAllErrors(error){
+      switch(error){
+        case 'auth/wrong-password' : 
+          setDisplayError('Wrong email & password. Please try again');
+          break;
+
+        case 'auth/user-not-found' : 
+          setDisplayError('You do not have account. Please create an account.');
+          break;
+
+        case 'auth/account-exists-with-different-credential':
+          setDisplayError('You have already used this email.');
+          break;
+
+        default : 
+
+      }
+  }
+
   if (accessToken) {
     navigate(from);
   }
@@ -42,10 +70,14 @@ const Login = () => {
   return (
     <section className="py-10">
       <div className="w-full lg:w-2/3 mx-auto">
+
+          {loginError && <h2 className="bg-white text-center text-md text-red-500 p-2 mb-2 rounded"><i class="fa-solid fa-triangle-exclamation mr-2"></i> {displayError}</h2>}
+
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 items-center justify-center shadow-lg rounded-md p-4 bg-white">
           <div>
             <img src='https://i.ibb.co/3RZm0KV/login.jpg' alt="login pic" className="" />
-            <ContinueWithSocialMedia />
+
+            <ContinueWithSocialMedia setAllErrors={setAllErrors}/>
           </div>
 
           <div className="text-center">
