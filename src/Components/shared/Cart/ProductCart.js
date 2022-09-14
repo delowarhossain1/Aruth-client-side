@@ -9,6 +9,8 @@ const ProductCart = ({ product }) => {
 
   // Product name;
   const productName = name?.length > 250 ? name.slice(0, 20) + "......" : name;
+  const calculatePrice = price + price / discount;
+  const mainPrice = Math.round(calculatePrice);
 
   return (
     <div
@@ -18,21 +20,27 @@ const ProductCart = ({ product }) => {
       <div>
         <img src={img} alt="product" className=" w-full mb-2" />
 
-        <h2 className="text-md px-2">
+        <h2 className="text-md px-2 mb-2">
           {productName?.length > 25
             ? productName?.slice(0, 25) + "..."
             : productName}
         </h2>
       </div>
 
-      <div className="px-2 mb-3">
-        
-        <h3 className="text-xl my-1 flex items-center text-orange-500"><Taka /> {price}</h3>
-        <h4 className="text-sm text-gray-400 mb-2">
-          <strike>${discount}</strike> - 65%
-        </h4>
+      <div>
+        <div className="px-2 mb-3">
+          <h3 className="text-xl my-2 flex items-center text-orange-500">
+            <Taka /> {price}
+          </h3>
 
-        <RatingsStar star={ratings} />
+          <RatingsStar star={ratings} />
+        </div>
+
+        <div>
+          <button className="py-1 bg-orange-500 w-full text-white">
+            View Details
+          </button>
+        </div>
       </div>
     </div>
   );
