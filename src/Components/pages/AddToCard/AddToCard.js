@@ -3,6 +3,7 @@ import { useState } from "react";
 import AddToCardItem from "./AddToCardItem";
 import { useEffect } from "react";
 import useAddToCard from "./../../../hooks/useAddToCard";
+import PageTitle from "../../shared/PageTitle/PageTitle";
 
 const AddToCard = ({handleCheckoutInfo}) => {
   const { getItemsInLocalStorage } = useAddToCard();
@@ -16,6 +17,8 @@ const AddToCard = ({handleCheckoutInfo}) => {
 
   return (
     <section className="py-5">
+      <PageTitle text="Your selected items" />
+
       <h2 className="mb-4 text-xl text-gray-500">Your Selected Item(s) </h2>
       <div className="grid grid-cols-1 lg:grid-cols-10 gap-5">
         <div className="p-3 rounded col-span-7">

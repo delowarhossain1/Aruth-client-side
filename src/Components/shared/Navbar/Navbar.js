@@ -7,6 +7,8 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import auth from "./../../../firebase.init";
 import useAddToCard from "./../../../hooks/useAddToCard";
 import useAdmin from "../../../hooks/useAdmin";
+import logo from "../../../Images/Aruot-logo.png";
+
 const defaultProfileImg = "https://i.ibb.co/10JxYVW/user.png";
 
 const Navbar = () => {
@@ -15,6 +17,7 @@ const Navbar = () => {
   const [totalAddToCardItems, setTotalAddToCardItems] = useState(0);
   const [isAdmin] = useAdmin(user);
 
+  // Set total add to card items
   useEffect(() => {
     const storedItems = getItemsInLocalStorage();
     const totalItems = storedItems?.reduce((sum, a) => a?.quantity + sum, 0);
@@ -24,13 +27,28 @@ const Navbar = () => {
 
   const menu = (
     <>
-       <LinkWithLi menu={{ link: "/", text: "Home" }} />
-        <LinkWithLi menu={{ link: "/products", text: "Products" }} />
+        <li>
+          <Link to='/'>
+            <div className="flex items-center text-gray-500"><i class="fa-solid fa-house-chimney m-2"></i> <span >Home</span></div>
+          </Link>
+        </li>
+
+        <li>
+          <Link to='/products'>
+            <div className="flex items-center text-gray-500"><i class="fa-solid fa-box-open mr-2 "></i> <span>Products</span></div>
+          </Link>
+        </li>
+
+        {! user && <li>
+          <Link to='/login'>
+            <div className="flex items-center text-gray-500"><i class="fa-solid fa-right-to-bracket mr-2 "></i><span>Login</span></div>
+          </Link>
+        </li>}
     </>
   );
 
   return (
-    <nav className="bg-gray-100">
+    <nav className=" sticky top-0 bg-gray-100 z-50">
       <div className="navbar w-[95%] mx-auto">
         <div className="navbar-start">
           <div className="dropdown">
@@ -55,13 +73,12 @@ const Navbar = () => {
               className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
             >
               {menu}
-              {/* if user is logged in, then login menu will be hidden */}
-              {!user && <LinkWithLi menu={{ link: "/login", text: "login" }} />}
+
             </ul>
           </div>
 
           <Link to="/" className="text-xl uppercase">
-            Aruot
+              <img src={logo} alt="aruot" className=" w-24" />
           </Link>
         </div>
 
@@ -70,9 +87,6 @@ const Navbar = () => {
             <ul className="menu menu-horizontal p-0">
               {menu}
 
-              {/* if user is logged in, then login menu will be hidden */}
-
-              {!user && <LinkWithLi menu={{ link: "/login", text: "login" }} />}
             </ul>
           </div>
 

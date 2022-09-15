@@ -4,6 +4,7 @@ import Loading from "../../shared/Loading/Loading";
 import auth from './../../../firebase.init';
 import useAlert from './../../../hooks/useAlert';
 import { useNavigate } from 'react-router-dom';
+import PageTitle from './../../shared/PageTitle/PageTitle';
 
 const ForgetPassword = () => {
     const [sendPasswordResetEmail, sending, error] = useSendPasswordResetEmail(auth);
@@ -28,6 +29,7 @@ const ForgetPassword = () => {
 
   return (
     <section className="py-12 flex justify-center items-center">
+      <PageTitle text='Forget password' />
       <div className="bg-white shadow-md rounded p-3 w-full md:max-w-sm text-center">
         <i class="fa-solid fa-lock text-5xl text-blue-500"></i>
         <h4 className="text-2xl mt-3 text-gray-500">Forget Password?</h4>

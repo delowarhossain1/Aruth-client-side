@@ -7,6 +7,7 @@ import { useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
 import auth from "./../../../firebase.init";
 import useAccessToken from "./../../../hooks/useAccessToken";
 import Loading from "../../shared/Loading/Loading";
+import PageTitle from "../../shared/PageTitle/PageTitle";
 
 
 const Login = () => {
@@ -69,6 +70,8 @@ const Login = () => {
 
   return (
     <section className="py-10">
+      <PageTitle text='Login to your account.' />
+
       <div className="w-full lg:w-2/3 mx-auto">
 
           {loginError && <h2 className="bg-white text-center text-md text-red-500 p-2 mb-2 rounded"><i class="fa-solid fa-triangle-exclamation mr-2"></i> {displayError}</h2>}

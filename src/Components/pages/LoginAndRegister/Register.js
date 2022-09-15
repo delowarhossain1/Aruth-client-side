@@ -8,6 +8,7 @@ import {
 import auth from "../../../firebase.init";
 import Loading from "../../shared/Loading/Loading";
 import useAccessToken from "./../../../hooks/useAccessToken";
+import PageTitle from "../../shared/PageTitle/PageTitle";
 
 const Register = () => {
   const {
@@ -47,6 +48,7 @@ const Register = () => {
 
   return (
     <section className="py-12 lg:flex flex-col items-center justify-center">
+      <PageTitle text='Register' />
 
       <div className="grid grid-cols-1 lg:grid-cols-2 items-center gap-5 bg-white rounded shadow-md">
 
