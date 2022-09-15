@@ -4,14 +4,14 @@
     margin-bottom: 35px;
     font-size: 25px;
     text-transform: uppercase;
-    color : gray;
+    color : #0A0A0A;
 }
 
 .section-heading::after{
     content: '';
     width: 60px;
     height: 2px;
-    background-color: gray;
+    background-color: #0A0A0A;
     position: absolute;
     bottom: -6px;
     left: 50%;

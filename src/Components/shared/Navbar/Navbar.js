@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import LinkWithLi from "../Link/LinkWithLi";
 import { Link } from "react-router-dom";
 import shoppingCart from "../../../Images/icon/shopping.png";
 import { signOut } from "firebase/auth";
@@ -29,19 +28,19 @@ const Navbar = () => {
     <>
         <li>
           <Link to='/'>
-            <div className="flex items-center text-gray-500"><i class="fa-solid fa-house-chimney m-2"></i> <span >Home</span></div>
+            <div className="flex items-center text-primary"><i class="fa-solid fa-house-chimney m-2"></i> <span >Home</span></div>
           </Link>
         </li>
 
         <li>
           <Link to='/products'>
-            <div className="flex items-center text-gray-500"><i class="fa-solid fa-box-open mr-2 "></i> <span>Products</span></div>
+            <div className="flex items-center text-primary"><i class="fa-solid fa-box-open mr-2 "></i> <span>Products</span></div>
           </Link>
         </li>
 
         {! user && <li>
           <Link to='/login'>
-            <div className="flex items-center text-gray-500"><i class="fa-solid fa-right-to-bracket mr-2 "></i><span>Login</span></div>
+            <div className="flex items-center text-primary"><i class="fa-solid fa-right-to-bracket mr-2 "></i><span>Login</span></div>
           </Link>
         </li>}
     </>

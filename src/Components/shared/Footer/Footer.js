@@ -5,7 +5,7 @@ const Footer = () => {
     const date = new Date();
     
     return (
-        <footer className='bg-[#1B1C20] py-6 text-white text-sm'>
+        <footer className='bg-primary py-6 text-white text-sm'>
             <div className=' w-[95%] mx-auto grid gap-5 md:gap-10 grid-cols-1 md:grid-cols-2 lg:grid-cols-4'>
 
                 <div>
