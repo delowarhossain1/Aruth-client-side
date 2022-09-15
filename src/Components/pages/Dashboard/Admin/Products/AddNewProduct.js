@@ -1,4 +1,4 @@
-import React, {useState, useRef } from "react";
+import React, { useState, useRef } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import auth from "./../../../../../firebase.init";
 import useAlert from "./../../../../../hooks/useAlert";
@@ -37,7 +37,6 @@ const AddNewProduct = () => {
     const brand = t.brand.value || "No brand";
     const price = t.price.value || 1;
     const availableQuantity = t.available.value || 1;
-    const discount = t.discount.value || 0;
     const deliveryCharge = t.deliveryCharge.value || 0;
     const deliveryTime = t.deliveryTime.value || "1-2";
     const size = t.size.value || "";
@@ -47,18 +46,17 @@ const AddNewProduct = () => {
     const aboutProduct = t.aboutProduct.value || "";
     const category = t.category.value || categoriesTitle[0]?.text;
     const cashOnDelivery = t.cashOnDelivery.value || false;
-    const type = t.type.value || false;
+    const type = t.type.value || "regular";
 
     const productInfo = {
       img,
       name,
       brand,
+      type,
       ratings: 0,
       categories: category,
-      discount: Number(discount),
       price: Number(price),
-      popular: type === "true",
-      galleryImg : [img, ...galleryImg],
+      galleryImg: [img, ...galleryImg],
       size: size.length ? size.split(", ") : [],
       cashOnDelivery: cashOnDelivery === "true",
       availableQuantity: Number(availableQuantity),
@@ -74,7 +72,6 @@ const AddNewProduct = () => {
         list: list?.length ? list.split(",") : [],
         text: aboutProduct,
       },
-      comments: [],
     };
 
     //  database action
@@ -105,13 +102,16 @@ const AddNewProduct = () => {
       const allURL = [...galleryImg, galleryImgURL];
       setGalleryImg(allURL);
     }
+
+    // Set empty sting
+    imgRef.current.value = "";
   };
 
-  // Delete gallery image 
+  // Delete gallery image
   const deleteGalleryImg = (index) => {
-    const rest = galleryImg?.filter((g, i) => i !== index) ;
+    const rest = galleryImg?.filter((g, i) => i !== index);
     setGalleryImg(rest);
-  }
+  };
 
   if (loading || isLoading) {
     return <Loading />;
@@ -120,7 +120,9 @@ const AddNewProduct = () => {
   return (
     <section className="relative">
       {/* Page title */}
-      <DashboardTitle value={{text : 'Add A New Product', icon : 'fa-solid fa-square-plus'}} />
+      <DashboardTitle
+        value={{ text: "Add A New Product", icon: "fa-solid fa-square-plus" }}
+      />
 
       <form onSubmit={handleAddProductInfo} className="mt-8">
         {/* Upload button */}
@@ -154,7 +156,10 @@ const AddNewProduct = () => {
                   >
                     <img src={img} alt="gallery" className="w-12" />
                     <span>
-                      <i className="fa-solid fa-circle-xmark text-2xl cursor-pointer text-red-500" onClick={()=> deleteGalleryImg(index)}></i>
+                      <i
+                        className="fa-solid fa-circle-xmark text-2xl cursor-pointer text-red-500"
+                        onClick={() => deleteGalleryImg(index)}
+                      ></i>
                     </span>
                   </div>
                 ))}
@@ -225,9 +230,10 @@ const AddNewProduct = () => {
 
               <InputBox
                 value={{
-                  name: "discount",
-                  placeholder: "Enter The Discount Amount",
-                  label: "Discount Amount",
+                  name: "size",
+                  label: "Size",
+                  placeholder: "M, L, XL, XXL",
+                  type: "text",
                 }}
               />
             </div>
@@ -249,18 +255,6 @@ const AddNewProduct = () => {
                   placeholder: "Enter The Daily Time",
                   label: "Delivery Time",
                   required: true,
-                }}
-              />
-            </div>
-
-            <div className="flex items-center space-x-3">
-              <InputBox
-                value={{
-                  name: "size",
-                  label: "Size",
-                  placeholder: "M, L, XL, XXL",
-                  required: true,
-                  type: "text",
                 }}
               />
             </div>
@@ -298,8 +292,9 @@ const AddNewProduct = () => {
               title: "Type",
               name: "type",
               options: [
-                { value: true, text: "Popular Product" },
-                { value: false, text: "Regular Product" },
+                { value: "regular", text: "Regular Product" },
+                { value: "popular", text: "Popular Product" },
+                { value: "justForYou", text: "Just for you" },
               ],
             }}
           />
@@ -308,8 +303,8 @@ const AddNewProduct = () => {
               title: "Cash on delivery",
               name: "cashOnDelivery",
               options: [
-                { value: true, text: "Available" },
                 { value: false, text: "Not Available" },
+                { value: true, text: "Available" },
               ],
             }}
           />
@@ -320,8 +315,8 @@ const AddNewProduct = () => {
               title: "Coupon",
               name: "coupon",
               options: [
-                { value: true, text: "Available" },
                 { value: false, text: "Not Available" },
+                { value: true, text: "Available" },
               ],
             }}
           />

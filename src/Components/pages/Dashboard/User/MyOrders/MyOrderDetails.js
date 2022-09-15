@@ -259,7 +259,7 @@ const MyOrderDetails = () => {
 
                 <button
                   type="submit"
-                  className=" w-40 bg-yellow-400 p-2 rounded text-white mt-3"
+                  className=" w-40 bg-primary p-2 rounded text-white mt-3 hover:bg-black duration-150"
                 >
                   Add Review
                 </button>

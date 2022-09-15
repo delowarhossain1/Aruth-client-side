@@ -39,14 +39,14 @@ const MyReviewCart = ({ review, refetch }) => {
     <div className="bg-gray-50 p-2 rounded shadow mb-4">
       <div className="flex justify-end mb-3">
         <button
-          className="bg-red-400 p-2 rounded text-white shadow mr-5"
+          className="bg-secondary hover:bg-red-700 p-2 rounded text-white shadow mr-5"
           onClick={handleReviewDelete}
         >
           <i className="fa-solid fa-trash-can mr-1"></i>Delete
         </button>
 
         <button
-          className="bg-green-400 p-2 rounded text-white shadow"
+          className="bg-primary hover:bg-black p-2 rounded text-white shadow"
           onClick={() => navigate(`/dashboard/my-order-details/${orderId}`)}
         >
           <i className="fa-solid fa-pen mr-1"></i> Edit

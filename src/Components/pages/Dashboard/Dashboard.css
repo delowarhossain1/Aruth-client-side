@@ -4,9 +4,9 @@
     cursor: pointer;
     transition: background .2s;
     margin-bottom: 6px;
-    color: rgb(125, 119, 119);
+    color: #1c1d21;
 }
 .dashboard-main-menu:hover{
-    background-color: #5A76FD;
+    background-color: #1C1D21;
     color: white;
 }

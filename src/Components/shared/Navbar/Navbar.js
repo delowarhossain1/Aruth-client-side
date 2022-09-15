@@ -69,7 +69,7 @@ const Navbar = () => {
             </label>
             <ul
               tabIndex="0"
-              className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
+              className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52 flex items-center"
             >
               {menu}
 
@@ -93,7 +93,7 @@ const Navbar = () => {
             <Link to="/add-to-card">
               <div className="relative">
                 <span className="badge badge-sm indicator-item absolute top-0 left-[12px]">
-                  {totalAddToCardItems}
+                  {totalAddToCardItems || 0}
                 </span>
                 <img src={shoppingCart} alt="shopping card" className="w-8" />
               </div>

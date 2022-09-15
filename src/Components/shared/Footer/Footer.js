@@ -29,13 +29,13 @@ const Footer = () => {
 
                     <ul>
                         <li>
-                            <Link to='/privacy-policy' className='hover:text-slate-500'>Privacy Policy</Link>
+                            <a href='/privacy-policy' className='hover:text-slate-500'>Privacy Policy</a>
                         </li>
                         <li>
-                            <Link to='/terms-and-conditions' className='hover:text-slate-500'>Terms & Condition</Link>
+                            <a href='/terms-and-conditions' className='hover:text-slate-500'>Terms & Condition</a>
                         </li>
                         <li>
-                            <Link to='/return-policy' className='hover:text-slate-500'>Returns</Link>
+                            <a href='/return-policy' className='hover:text-slate-500'>Returns</a>
                         </li>
                     </ul>
                 </div>

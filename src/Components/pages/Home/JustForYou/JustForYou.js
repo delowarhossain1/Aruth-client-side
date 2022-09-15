@@ -1,14 +1,18 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import ProductCart from '../../../shared/Cart/ProductCart';
+import { useQuery } from 'react-query';
+import Loading from '../../../shared/Loading/Loading';
 
 const JustForYou = () => {
-    const [products, setProducts] = useState([]);
 
-    useEffect(()=>{
-        fetch('data/products.json')
+    const {data:products, isLoading } = useQuery(['just-for-you-product'], ()=>(
+        fetch(`http://localhost:5000/just-for-you`)
         .then(res => res.json())
-        .then(data => setProducts(data));
-    }, [])
+    ));
+
+    if(isLoading){
+        return <Loading />
+    }
 
     return (
         <section className='py-5'>

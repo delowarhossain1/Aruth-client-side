@@ -40,6 +40,7 @@ import TermsAndConditions from './Components/pages/Documents/TermsAndConditions'
 import ReturnPolicy from './Components/pages/Documents/ReturnPolicy';
 import ForgetPassword from './Components/pages/LoginAndRegister/ForgetPassword';
 import PrivacyPolicy from './Components/pages/Documents/PrivacyPolicy';
+import ChatBox from "./Components/shared/ChatBox/ChatBox";
 
 function App() {
   const [user] = useAuthState(auth);
@@ -235,6 +236,7 @@ function App() {
       <Footer />
 
       {/* React-Toastify  */}
+
       <ToastContainer
         position="top-right"
         autoClose={5000}

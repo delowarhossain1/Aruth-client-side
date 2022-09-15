@@ -219,7 +219,7 @@ const ProductDetails = ({ handleCheckoutInfo }) => {
                 </button>
 
                 <button
-                  className="py-2 px-4 bg-orange-500 rounded text-white"
+                  className="py-2 px-4 bg-primary hover:bg-black rounded text-white"
                   onClick={() => sentDataToCheckout("buyNow")}
                 >
                   <i className="fa-solid fa-bag-shopping mr-2"></i>
@@ -238,7 +238,7 @@ const ProductDetails = ({ handleCheckoutInfo }) => {
 
             <div className="flex items-center justify-between mb-3">
               <div className="flex items-center">
-                <i className="fa-solid fa-truck text-gray-500"></i>
+                <i className="fa-solid fa-truck text-primary"></i>
                 <div className="flex flex-col ml-5">
                   <span>Standard Delivery</span>
                   <span className="text-sm text-gray-500">
@@ -253,17 +253,17 @@ const ProductDetails = ({ handleCheckoutInfo }) => {
             </div>
 
             <div className="flex items-center mb-3">
-              <i className="fa-solid fa-money-bill-wave text-gray-500"></i>
+              <i className="fa-solid fa-money-bill-wave text-primary"></i>
               <div className="flex flex-col ml-5">
                 <span>Cash on Delivery </span>
-                <span className="text-sm text-gray-500">
+                <span className="text-sm text-primary">
                   {cashOnDelivery ? "Available" : "Not Available"}
                 </span>
               </div>
             </div>
 
             <div className="flex items-center">
-              <i className="fa-solid fa-shield text-gray-500"></i>
+              <i className="fa-solid fa-shield text-primary"></i>
               <h2 className="ml-5">Warranty not available</h2>
             </div>
 
@@ -293,7 +293,7 @@ const ProductDetails = ({ handleCheckoutInfo }) => {
               />
 
               <button
-                className={`w-28 bg-orange-500 text-white p-2 absolute top-0 right-0 uppercase border-2 border-orange-500 rounded-full hover:bg-orange-400 duration-200 ${
+                className={`w-28 bg-primary text-white p-2 absolute top-0 right-0 uppercase border-2 border-primary rounded-full hover:bg-black duration-200 ${
                   couponBtnDisabled && " cursor-not-allowed"
                 }`}
                 disabled={couponBtnDisabled}

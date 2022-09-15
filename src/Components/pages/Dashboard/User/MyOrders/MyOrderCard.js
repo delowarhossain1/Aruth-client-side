@@ -21,7 +21,7 @@ const MyOrderCard = ({ order = {} }) => {
           <h4 className="text-xs font-semibold">Placed on {date}</h4>
         </div>
         <Link to={`my-order-details/${_id}`}>
-          <button className="font-semibold text-blue-500">Details</button>
+          <button className="font-semibold text-blue-500 hover:text-primary">Details</button>
         </Link>
       </div>
 
