@@ -1,8 +1,11 @@
 import React from "react";
+import PageTitle from './../../shared/PageTitle/PageTitle';
 
 const TermsAndConditions = () => {
   return (
     <section className="py-5">
+      <PageTitle text='Terms & Conditions' />
+
       <h3 className="text-2xl mb-2 font-bold">TERMS AND CONDITIONS</h3>
       <h4>Last updated September 15, 2022</h4>
 

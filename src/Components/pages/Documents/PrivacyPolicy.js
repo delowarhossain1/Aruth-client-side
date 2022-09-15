@@ -1,8 +1,11 @@
 import React from 'react';
+import PageTitle from '../../shared/PageTitle/PageTitle';
 
 const PrivacyPolicy = () => {
     return (
         <section className='py-5'>
+            <PageTitle text='Privacy Policy' />
+
             <h3 className='text-xl font-semibold mb-2'>1. WHAT INFORMATION DO WE COLLECT?</h3>
             <h3 className='text-xl mb-2'>Personal information you disclose to us</h3>
             <p className='text-gray-500'>In Short: We collect personal information that you provide to us.</p><br />

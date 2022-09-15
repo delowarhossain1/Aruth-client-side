@@ -5,6 +5,7 @@ import CommentCart from "./CommentCart";
 import useAlert from "./../../../hooks/useAlert";
 import useAddToCard from "./../../../hooks/useAddToCard";
 import ProductCart from "../../shared/Cart/ProductCart";
+import PageTitle from "../../shared/PageTitle/PageTitle";
 
 const ProductDetails = ({ handleCheckoutInfo }) => {
   const { id } = useParams();
@@ -36,7 +37,7 @@ const ProductDetails = ({ handleCheckoutInfo }) => {
     galleryImg,
     categories,
   } = product;
-  console.log(product);
+
   // Load product information
   useEffect(() => {
     fetch(`http://localhost:5000/product-details/${id}`, {
@@ -144,6 +145,8 @@ const ProductDetails = ({ handleCheckoutInfo }) => {
 
   return (
     <section>
+      <PageTitle text={name?.length > 20 ? name?.slice(0, 20)+'..' : name} />
+
       <div className="py-5 grid grid-cols-1 lg:grid-cols-12 items-center gap-5">
         <div className="col-span-12 lg:col-span-8">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 bg-white w-full rounded p-2">

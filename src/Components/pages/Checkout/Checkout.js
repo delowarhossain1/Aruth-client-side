@@ -7,6 +7,7 @@ import CheckoutProductCart from "./CheckoutProductCart";
 import { useNavigate } from 'react-router-dom';
 import useAlert from './../../../hooks/useAlert';
 import Taka from "../../shared/Taka/Taka";
+import PageTitle from './../../shared/PageTitle/PageTitle';
 
 const Checkout = ({ checkoutInfo }) => {
   const [user, loading] = useAuthState(auth);
@@ -98,6 +99,8 @@ const Checkout = ({ checkoutInfo }) => {
 
   return (
     <section className="py-2 lg:py-5 bg-white shadow rounded">
+      <PageTitle text='Checkout' />
+
       <h1 className="text-2xl font-bold mb-8 text-center">Checkout</h1>
 
       <div className="flex flex-col-reverse lg:flex-row space-x-0 lg:space-x-10 space-y-10 lg:space-y-0 p-2 lg:px-5">

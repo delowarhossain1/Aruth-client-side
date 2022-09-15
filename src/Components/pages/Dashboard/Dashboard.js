@@ -7,6 +7,7 @@ import Loading from "../../shared/Loading/Loading";
 import useAdmin from "./../../../hooks/useAdmin";
 import ActiveUser from "./ActiveUser";
 import DashboardMenu from "./DashboardMenu";
+import PageTitle from './../../shared/PageTitle/PageTitle';
 
 const Dashboard = () => {
   const [user, loading] = useAuthState(auth);
@@ -111,6 +112,8 @@ const Dashboard = () => {
 
   return (
     <section className="py-6">
+      <PageTitle text='Dashboard' />
+
       <div className="drawer drawer-mobile">
         <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
         <div className="drawer-content bg-[#ffffff] ml-0 lg:ml-5 p-3 rounded shadow-lg">

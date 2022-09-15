@@ -25,10 +25,12 @@ const AddNewCategory = () => {
     const t = event.target;
     const img = t.img.value;
     const text = t.text.value;
+    const type = t.type.value;
 
     const category = {
       img,
       text,
+      type,
       link: `/category/${text}`
     };
 
@@ -101,6 +103,13 @@ const AddNewCategory = () => {
               name: "text",
             }}
           />
+
+          <label htmlFor="" className="text-gray-500">Type</label>
+          <select className="w-full p-2 rounded border border-black outline-none" name='type'>
+            <option disabled value='select'>Select</option>
+            <option value="home">Home page</option>
+            <option value="regular">Regular</option>
+          </select>
 
           <button className="p-2 bg-[#5a76fd] text-xl w-full rounded text-white mt-3">
             <i className="fa-solid fa-circle-plus mr-2" type="submit"></i>

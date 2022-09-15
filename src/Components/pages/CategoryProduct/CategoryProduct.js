@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { useQuery } from "react-query";
 import Loading from "../../shared/Loading/Loading";
 import ProductCart from "./../../shared/Cart/ProductCart";
+import PageTitle from "../../shared/PageTitle/PageTitle";
 
 const CategoryProduct = () => {
   const { id } = useParams();
@@ -19,6 +20,8 @@ const CategoryProduct = () => {
 
   return (
     <section className="py-5">
+      <PageTitle text={id ? id : 'Our products'} />
+
       <h2 className="mb-5 text-2xl text-gray-500">{id} <i class="fa-solid fa-chevron-right text-xl"></i></h2>
 
       <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-2">

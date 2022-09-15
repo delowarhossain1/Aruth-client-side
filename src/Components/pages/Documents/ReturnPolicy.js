@@ -1,8 +1,11 @@
 import React from 'react';
+import PageTitle from './../../shared/PageTitle/PageTitle';
 
 const ReturnPolicy = () => {
     return (
         <section className='py-5'>
+            <PageTitle text='Return Policy' />
+
             <h3 className='text-2xl font-semi-bold'>RETURN POLICY</h3>
             <h5 className='mt-2'>Last updated September 01, 2022</h5>
 

@@ -24,11 +24,8 @@ const Navbar = () => {
 
   const menu = (
     <>
-      <LinkWithLi menu={{ link: "/", text: "Home" }} />
-      <LinkWithLi menu={{ link: "/products", text: "Products" }} />
-      {/* <li>
-        <Link to='/' className="flex items-center"><i class="fa-solid fa-house-chimney"></i> <span>Home</span></Link>
-      </li> */}
+       <LinkWithLi menu={{ link: "/", text: "Home" }} />
+        <LinkWithLi menu={{ link: "/products", text: "Products" }} />
     </>
   );
 
