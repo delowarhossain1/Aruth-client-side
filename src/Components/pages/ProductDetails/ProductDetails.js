@@ -6,6 +6,7 @@ import useAlert from "./../../../hooks/useAlert";
 import useAddToCard from "./../../../hooks/useAddToCard";
 import ProductCart from "../../shared/Cart/ProductCart";
 import PageTitle from "../../shared/PageTitle/PageTitle";
+import Taka from "../../shared/Taka/Taka";
 
 const ProductDetails = ({ handleCheckoutInfo }) => {
   const { id } = useParams();
@@ -173,7 +174,7 @@ const ProductDetails = ({ handleCheckoutInfo }) => {
             <div>
               <h2 className="text-xl font-semibold mb-2">{name}</h2>
               <RatingsStar star={ratings} />
-              <h2 className="my-3 text-5xl text-orange-500">${price}</h2>
+              <h2 className="my-3 text-4xl text-primary flex items-center"><Taka className="w-8"/> {price}</h2>
               <h4 className="mt-2">Brand : {brand}</h4>
               <h4 className="mt-2">Available : {availableQuantity} pice</h4>
 
@@ -247,8 +248,8 @@ const ProductDetails = ({ handleCheckoutInfo }) => {
                 </div>
               </div>
 
-              <h4 className="text-lg text-orange-500">
-                ${deliveryWithin?.charge}
+              <h4 className="text-lg text-primary flex items-center">
+                <Taka className="w-4 mr-1"/>{deliveryWithin?.charge}
               </h4>
             </div>
 
@@ -275,12 +276,12 @@ const ProductDetails = ({ handleCheckoutInfo }) => {
                   Size : {selectedSize || size[0]}
                 </h2>
               )}
-              <h2 className="mb-1 text-md">Price : ${price}</h2>
+              <h2 className="mb-1 text-md flex items-center">Price : <Taka className="w-3 m-1"/> {price}</h2>
               <h2 className="mb-1 text-md">Quantity : {quantity} pice</h2>
-              <h2 className="mb-1 text-md">Shipping : ${shippingCharge}</h2>
-              <h2 className="mb-1 text-md">Sub Total : ${subTotal}</h2>
-              <h2 className="mb-1 text-md">Discount : ${couponDiscount}</h2>
-              <h2 className="mb-1 text-md">Total : ${total}</h2>
+              <h2 className="mb-1 text-md flex items-center">Shipping : <Taka className="w-3 m-1"/>{shippingCharge}</h2>
+              <h2 className="mb-1 text-md flex items-center">Sub Total : <Taka className="w-3 m-1"/>{subTotal}</h2>
+              <h2 className="mb-1 text-md flex items-center">Discount : <Taka className="w-3 m-1"/>{couponDiscount}</h2>
+              <h2 className="mb-1 text-md flex items-center">Total : <Taka className="w-3 m-1"/>{total}</h2>
             </div>
 
             {/* Coupon code */}
@@ -321,14 +322,14 @@ const ProductDetails = ({ handleCheckoutInfo }) => {
       </div>
 
       {/* Recommended product */}
-      <div className="p-3 bg-white py-5">
+      {recommendedProducts?.length > 0 && <div className="p-3 bg-white py-5">
         <h2 className="mb-4 text-2xl">From The Same Category</h2>
         <div className=" grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-2">
           {recommendedProducts?.map((product) => (
             <ProductCart key={product?._id} product={product} />
           ))}
         </div>
-      </div>
+      </div>}
 
       <div className="p-3 bg-white mt-5">
         <h2 className="lg:text-xl">Ratings & Reviews of {name}</h2>
