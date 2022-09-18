@@ -11,7 +11,7 @@ const Users = () => {
   const defaultProfileImg = "https://i.ibb.co/10JxYVW/user.png";
 
   const { data: allUsers, isLoading } = useQuery(["userInfo"], () =>
-    fetch(`http://localhost:5000/users?email=${user?.email}`, {
+    fetch(`https://afternoon-cove-39130.herokuapp.com/users?email=${user?.email}`, {
       headers: {
         auth: `Bearer ${localStorage.getItem("accessToken")}`,
       },

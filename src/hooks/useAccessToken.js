@@ -8,7 +8,7 @@ const useAccessToken = (user) => {
     const email = user?.user?.email;
 
     // Get access token;
-    const url = `http://localhost:5000/access-token?email=${email}`;
+    const url = `https://afternoon-cove-39130.herokuapp.com/access-token?email=${email}`;
     fetch(url)
       .then((res) => res.json())
       .then((token) => {
@@ -25,7 +25,7 @@ const useAccessToken = (user) => {
     const email = user?.user?.email;
     const img = user?.user?.photoURL || 'https://i.ibb.co/10JxYVW/user.png';
 
-    const url = `http://localhost:5000/register?email=${email}`;
+    const url = `https://afternoon-cove-39130.herokuapp.com/register?email=${email}`;
     fetch(url, {
       method: "PUT",
       headers: {

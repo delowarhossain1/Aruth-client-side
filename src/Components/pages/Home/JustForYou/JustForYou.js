@@ -6,7 +6,7 @@ import Loading from '../../../shared/Loading/Loading';
 const JustForYou = () => {
 
     const {data:products, isLoading } = useQuery(['just-for-you-product'], ()=>(
-        fetch(`http://localhost:5000/just-for-you`)
+        fetch(`https://afternoon-cove-39130.herokuapp.com/just-for-you`)
         .then(res => res.json())
     ));
 

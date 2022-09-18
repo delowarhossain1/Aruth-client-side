@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 
 const Slider = () => {
   const { data: sliderImages, isLoading } = useQuery(["sliders"], () =>
-    fetch("http://localhost:5000/sliders").then((res) => res.json())
+    fetch("https://afternoon-cove-39130.herokuapp.com/sliders").then((res) => res.json())
   );
 
   if (isLoading) {

@@ -14,7 +14,7 @@ const MyProfile = () => {
   const [userInfo, setUserInfo] = useState({});
 
   useEffect(() => {
-    const URL = `http://localhost:5000/my-info?email=${user?.email}`;
+    const URL = `https://afternoon-cove-39130.herokuapp.com/my-info?email=${user?.email}`;
 
     if (user?.email) {
       fetch(URL, {
@@ -31,7 +31,7 @@ const MyProfile = () => {
   const { data: myRecentOrders, isLoading } = useQuery(
     ["My-recent-orders", user],
     () =>
-      fetch(`http://localhost:5000/my-recent-orders?email=${user?.email}`, {
+      fetch(`https://afternoon-cove-39130.herokuapp.com/my-recent-orders?email=${user?.email}`, {
         headers: {
           auth: `Bearer ${localStorage.getItem("accessToken")}`,
         },

@@ -17,7 +17,7 @@ const AddNewProduct = () => {
   const navigate = useNavigate();
   const imgRef = useRef("");
 
-  const URL = `http://localhost:5000/category-title?email=${user?.email}`;
+  const URL = `https://afternoon-cove-39130.herokuapp.com/category-title?email=${user?.email}`;
   const { data: categoriesTitle, isLoading } = useQuery(
     ["loadCategoryTitle", user],
     () =>
@@ -75,7 +75,7 @@ const AddNewProduct = () => {
     };
 
     //  database action
-    const URL = `http://localhost:5000/insert-product?email=${user?.email}`;
+    const URL = `https://afternoon-cove-39130.herokuapp.com/insert-product?email=${user?.email}`;
 
     fetch(URL, {
       method: "POST",

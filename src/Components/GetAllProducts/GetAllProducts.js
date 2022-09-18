@@ -7,7 +7,7 @@ import PageTitle from "../shared/PageTitle/PageTitle";
 const GetAllProducts = () => {
   // this data loaded by react query;
   const { data: allProducts, isLoading } = useQuery("allProduct", () =>
-    fetch("http://localhost:5000/all-products").then((res) => res.json())
+    fetch("https://afternoon-cove-39130.herokuapp.com/all-products").then((res) => res.json())
   );
 
   if (isLoading) {

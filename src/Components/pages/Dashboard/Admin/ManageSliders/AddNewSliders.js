@@ -20,7 +20,7 @@ const AddNewSliders = () => {
     const link = event.target.link.value || "/";
     const sliderInfo = { img, link };
 
-    const URL = `http://localhost:5000/insert-slider?email=${user?.email}`;
+    const URL = `https://afternoon-cove-39130.herokuapp.com/insert-slider?email=${user?.email}`;
     fetch(URL, {
       method: "POST",
       headers: {

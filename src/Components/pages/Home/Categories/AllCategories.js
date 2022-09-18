@@ -7,7 +7,7 @@ import Loading from "../../../shared/Loading/Loading";
 const AllCategories = () => {
 
   const { data: categories, isLoading } = useQuery(["our-categories"], () =>
-    fetch(`http://localhost:5000/categories`).then((res) => res.json())
+    fetch(`https://afternoon-cove-39130.herokuapp.com/categories`).then((res) => res.json())
   );
 
   if(isLoading){

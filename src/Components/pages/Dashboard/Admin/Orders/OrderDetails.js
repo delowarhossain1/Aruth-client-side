@@ -16,7 +16,7 @@ const OrderDetails = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch(`http://localhost:5000/order-details/${id}?email=${user?.email}`, {
+    fetch(`https://afternoon-cove-39130.herokuapp.com/order-details/${id}?email=${user?.email}`, {
       headers: {
         auth: `Bearer ${localStorage.getItem("accessToken")}`,
       },
@@ -50,7 +50,7 @@ const OrderDetails = () => {
 
   //   Update order status
   const updateOrderStatus = () => {
-    const URL = `http://localhost:5000/update-order-info/${id}?email=${user?.email}`;
+    const URL = `https://afternoon-cove-39130.herokuapp.com/update-order-info/${id}?email=${user?.email}`;
 
     if (newOrderStatus && newOrderStatus !== status) {
       fetch(URL, {
@@ -76,7 +76,7 @@ const OrderDetails = () => {
   //   Delete order
   const deleteOrder = () => {
     deleteModal(() =>{
-        const URL = `http://localhost:5000/order-delete/${id}?email=${user?.email}`;
+        const URL = `https://afternoon-cove-39130.herokuapp.com/order-delete/${id}?email=${user?.email}`;
         fetch(URL, {
             method : "DELETE",
             headers : {

@@ -10,7 +10,7 @@ const Categories = () => {
   const { data: categories, isLoading } = useQuery(
     ["category-list-display"],
     () =>
-      fetch("http://localhost:5000/latest-category").then((res) => res.json())
+      fetch("https://afternoon-cove-39130.herokuapp.com/latest-category").then((res) => res.json())
   );
 
   if (isLoading) {

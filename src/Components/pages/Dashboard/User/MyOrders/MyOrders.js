@@ -10,7 +10,7 @@ const MyOrders = () => {
   const [user, loading] = useAuthState(auth);
 
   const { data: myOrders, isLoading } = useQuery(["my-orders"], () =>
-    fetch(`http://localhost:5000/my-orders?email=${user?.email}`, {
+    fetch(`https://afternoon-cove-39130.herokuapp.com/my-orders?email=${user?.email}`, {
       headers: {
         auth: `Bearer ${localStorage.getItem("accessToken")}`,
       },

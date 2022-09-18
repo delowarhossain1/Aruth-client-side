@@ -6,7 +6,7 @@ import Loading from "../../../shared/Loading/Loading";
 const PopularProducts = () => {
   // popular product loaded by react query;
   const { data: products, isLoading } = useQuery("popularProducts", ()=>(
-    fetch("http://localhost:5000/popular-products")
+    fetch("https://afternoon-cove-39130.herokuapp.com/popular-products")
     .then(res => res.json())
   ));
 

@@ -1,490 +1,411 @@
-import React, { useState } from "react";
-import { useEffect } from "react";
-import { useParams } from "react-router-dom";
-import { useAuthState } from "react-firebase-hooks/auth";
-import auth from "./../../../../../firebase.init";
-import Loading from "../../../../shared/Loading/Loading";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import useAlert from "./../../../../../hooks/useAlert";
+import React, { useEffect, useRef, useState } from "react";
+// import InputBox from "../../../../shared/InputBox/InputBox";
+// import SelectOption from "../../../../shared/SelectOption/SelectOption";
+// import DashboardTitle from "./../../DashboardTitle";
+// import { useQuery } from "react-query";
+// import auth from "../../../../../firebase.init";
+// import { useAuthState } from "react-firebase-hooks/auth";
+// import Loading from "../../../../shared/Loading/Loading";
+// import { useParams } from 'react-router-dom';
 
 const ProductExplore = () => {
-  const { id } = useParams();
-  const { successToast } = useAlert();
-  const [user, loading] = useAuthState(auth);
-  const [isWantToEdit, setIsWantToEdit] = useState(true);
-  const [product, setProduct] = useState({});
+  // const {id} = useParams();
+  // const [user, loading] = useAuthState(auth);
+  // const imgRef = useRef("");
+  // const [isCouponAvailable, setIsCouponAvailable] = useState(false);
+  // const [galleryImg, setGalleryImg] = useState([]);
+  // const [name, setName] = useState("");
+  // const [img, setImg] = useState("");
+  // const [brand, setBrand] = useState("");
+  // const [type, setType] = useState("");
+  // const [category, setCategory] = useState("");
+  // const [price, setPrice] = useState(0);
+  // const [size, setSize] = useState("");
+  // const [cashOnDelivery, setCashOnDelivery] = useState(false);
+  // const [availableQuantity, setAvailableQuantity] = useState(0);
+  // const [deliveryTime, setDeliveryTime] = useState("1-2");
+  // const [deliveryCharge, setDeliveryCharge] = useState(0);
+  // const [couponCode, setCouponCode] = useState("");
+  // const [couponAmount, setCouponAmount] = useState(0);
+  // const [list, setList] = useState("");
+  // const [aboutProduct, setAboutProduct] = useState("");
 
-  useEffect(() => {
-    const URL = `http://localhost:5000/product-explore/${id}?email=${user?.email}`;
+  // // Load Category name
+  // const URL = `https://afternoon-cove-39130.herokuapp.com/category-title?email=${user?.email}`;
+  // const { data: categoriesTitle, isLoading } = useQuery(
+  //   ["loadCategoryTitles", user],
+  //   () =>
+  //     fetch(URL, {
+  //       headers: {
+  //         auth: `Bearer ${localStorage.getItem("accessToken")}`,
+  //       },
+  //     }).then((res) => res.json())
+  // );
 
-    fetch(URL, {
-      headers: {
-        auth: `Bearer ${localStorage.getItem("accessToken")}`,
-      },
-    })
-      .then((res) => res.json())
-      .then((data) => setProduct(data));
-  }, [id, user]);
+  // // load product info;
+  // const url = `https://afternoon-cove-39130.herokuapp.com/product-explore/${id}?email=${user?.email}`;
+  // const { data: currentInfo, isLoading: currentInfoLoading } = useQuery(
+  //   "product-explore",
+  //   () =>
+  //     fetch(url, {
+  //       headers: {
+  //         auth: `Bearer ${localStorage.getItem("accessToken")}`,
+  //       },
+  //     }).then((res) => res.json())
+  // );
 
-  const {
-    img,
-    name,
-    ratings,
-    price,
-    discount,
-    brand,
-    popular,
-    size,
-    availableQuantity,
-    totalSells,
-    categories,
-    deliveryWithin,
-    cashOnDelivery,
-    couponCode,
-    description,
-    comments,
-  } = product;
+  // useEffect(() => {
+  //   if (currentInfo) {
+  //     const { img, name, brand, type, categories, price, galleryImg, size, cashOnDelivery, availableQuantity, deliveryWithin, couponCode, description } = currentInfo;
 
-  // update product description
-  const updateProductDescription = (event) => {
-    const updatedText = event.target.value;
-    const { description, ...rest } = product;
-    const newDocument = { description: { text: updatedText }, ...rest };
-    setProduct(newDocument);
-  };
+  //     setName(name);
+  //     setImg(img);
+  //     setBrand(brand);
+  //     setType(type);
+  //     setCategory(categories);
+  //     setPrice(price);
+  //     setSize(size?.join(','));
+  //     setCashOnDelivery(cashOnDelivery);
+  //     setAvailableQuantity(availableQuantity);
+  //     setDeliveryTime(deliveryWithin?.days);
+  //     setDeliveryCharge(deliveryWithin?.charge);
+  //     setCouponCode(couponCode?.code);
+  //     setCouponAmount(couponCode?.amount);
+  //     setList(description?.list);
+  //     setAboutProduct(description?.text);
+  //     setGalleryImg(galleryImg);
+  //   }
+  // }, [currentInfo]);
 
-  // update product attribute list
-  const updateProductAttributeList = (event) => {
-    const updatedText = event.target.value;
-    const transformToArray = updatedText.split(",");
-    const { description, ...rest } = product;
-    const newAttributes = { description: { list: transformToArray }, ...rest };
-    setProduct(newAttributes);
-  };
+  // // Add gallery image
+  // const handleGalleryImg = () => {
+  //   const galleryImgURL = imgRef.current.value;
 
-  /* ___________________________________ Update product info _________________________*/
+  //   if (galleryImgURL && galleryImg.length <= 2) {
+  //     const allURL = [...galleryImg, galleryImgURL];
+  //     setGalleryImg(allURL);
+  //   }
 
-  const handleProductInfo = (event) => {
-    event.preventDefault();
-    const t = event.target;
+  //   // Set empty sting
+  //   imgRef.current.value = "";
+  // };
 
-    const updatedTitle = t.title.value || name;
-    const updatedIMG = t.img.value || img;
-    const updatedPrice = t.price.value || price;
-    const updatedAvailable = t.available.value || availableQuantity;
-    const updatedTotalSell = t.totalSell.value || totalSells;
-    const updatedDeliveryDays = t.deliveryDays.value || deliveryWithin?.days;
-    const updatedDeliveryCharge = t.deliveryCharge.value || deliveryWithin?.charge;
-    const updatedSize = t.size.value || size || "";
-    const updatedType = t.type.value || popular;
-    const updatedCashOnDelivery = t.cashOnDelivery.value || cashOnDelivery;
-    const updatedCategory = t.category.value || categories;
-    const updatedDiscount = t.discount.value || discount;
-    const updatedBrandName = t.brandName.value || brand;
-    const updatedCouponCode = t.couponCode.value || couponCode?.code;
-    const updatedCouponAmount = t.couponAmount.value || couponCode?.amount;
-    const updatedRatings = t.ratings.value || ratings;
-    const updatedList = t.list.value || description?.list || "";
-    const updatedDescription = t.list.value || description?.text || "";
+  // // Delete gallery image
+  // const deleteGalleryImg = (index) => {
+  //   const rest = galleryImg?.filter((g, i) => i !== index);
+  //   setGalleryImg(rest);
+  // };
 
-    // Data model
-    const updatedInfo = {
-      img: updatedIMG,
-      name: updatedTitle,
-      ratings: updatedRatings,
-      price: updatedPrice,
-      discount: updatedDiscount,
-      brand: updatedBrandName,
-      popular: (updatedType === 'true'),
-      size: Array.isArray(updatedSize) ? updatedSize : updatedSize.split(","),
-      availableQuantity: updatedAvailable,
-      totalSells: updatedTotalSell,
-      categories: updatedCategory,
-      deliveryWithin: {
-        days: updatedDeliveryDays,
-        charge: updatedDeliveryCharge,
-      },
-      cashOnDelivery: (updatedCashOnDelivery === 'true'),
-      couponCode: {
-        code: updatedCouponCode,
-        amount: updatedCouponAmount,
-      },
-      description: {
-        list: Array.isArray(updatedList) ? updatedList : updatedList.split(","),
-        text: updatedDescription,
-      },
-      comments,
-    };
+  // const handleUpdateProductInfo = (event) => {
+  //   event.preventDefault();
 
-    console.log(updatedInfo);
+  //   // Make object by this info
+  //   const productInfo = {
+  //     img,
+  //     name,
+  //     brand,
+  //     type,
+  //     ratings: 0,
+  //     categories: category,
+  //     price: Number(price),
+  //     galleryImg: [img, ...galleryImg],
+  //     size: size.length ? size.split(", ") : [],
+  //     cashOnDelivery: cashOnDelivery === "true",
+  //     availableQuantity: Number(availableQuantity),
+  //     deliveryWithin: {
+  //       days: deliveryTime,
+  //       charge: Number(deliveryCharge),
+  //     },
+  //     couponCode: {
+  //       code: couponCode,
+  //       amount: Number(couponAmount),
+  //     },
+  //     description: {
+  //       list: list?.length ? list.split(",") : [],
+  //       text: aboutProduct,
+  //     },
+  //   };
 
-    //  update the document in the database
-    const URL = `http://localhost:5000/update-product-info/${id}?email=${user?.email}`;
-    fetch(URL, {
-      method: "PATCH",
-      headers: {
-        "content-type": "application/json",
-        auth: `Bearer ${localStorage.getItem("accessToken")}`,
-      },
-      body: JSON.stringify(updatedInfo),
-    })
-      .then((res) => res.json())
-      .then((res) => {
-        if (res?.modifiedCount) {
-          successToast("Product information updated");
-          isWantToEdit(true);
-        }
-      });
-  };
+  //   console.log(productInfo);
+  // };  
 
-  if (loading) {
-    return <Loading />;
-  }
+  // // Loading status
+  // if (isLoading || loading || currentInfoLoading) {
+  //   return <Loading />;
+  // }
 
   return (
-    <section>
-      <form onSubmit={handleProductInfo}>
-        <div className="text-right">
-          {isWantToEdit && (
-            <button
-              className="bg-[#005aed] text-white rounded p-2"
-              onClick={() => setIsWantToEdit(!isWantToEdit)}
-              type="button"
-            >
-              <i className="fa-solid fa-pen-to-square mr-2"></i>
-              Edit
-            </button>
-          )}
+    // <section className="relative">
+    //   {/* Page title */}
+    //   <DashboardTitle
+    //     value={{ text: "Update Product info", icon: "fa-solid fa-square-plus" }}
+    //   />
 
-          {!isWantToEdit && (
-            <button
-              className="bg-[#fb5200] text-white rounded p-2 mr-2"
-              onClick={() => setIsWantToEdit(!isWantToEdit)}
-              type="button"
-            >
-              <i className="fa-solid fa-xmark mr-2"></i>
-              Cancel
-            </button>
-          )}
+    //   <form onSubmit={handleUpdateProductInfo} className="mt-8">
+    //     {/* Upload button */}
+    //     <button
+    //       className="bg-[#5A76FD] p-2 rounded absolute top-0 right-0 text-white"
+    //       type="submit"
+    //     >
+    //       <i className="fa-solid fa-cloud-arrow-up text-xl mr-2 text-white"></i>
+    //       Upload
+    //     </button>
 
-          {!isWantToEdit && (
-            <button
-              className="bg-[#005aed] text-white rounded p-2"
-              type="submit"
-            >
-              <i className="fa-solid fa-file-word mr-2"></i>
-              Update
-            </button>
-          )}
-        </div>
+    //     <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 mt-4">
+    //       <div className="col-span-5 rounded p-3 bg-gray-100 flex flex-col justify-between">
+    //         <div>
+    //           {/* Thumbnail */}
+    //           <InputBox
+    //             onChange={(e)=> setImg(e.target.value)}
+    //             value={{
+    //               v : img,
+    //               label: "Thumbnail",
+    //               name: "thumbnail",
+    //               placeholder: "Enter The URL https://www",
+    //               required: true,
+    //               type: "url",
+    //             }}
+    //           />
 
-        {/* update title ================ */}
-        <div className="bg-gray-100 p-2 rounded my-3">
-          <h2 className="text-md text-gray-500 mb-2">Title</h2>
-          <h3 className="text-xl text-gray-500 mb-2">
-            Product Details of - {name}
-          </h3>
+    //           <div className="mt-4">
+    //             {galleryImg?.map((img, index) => (
+    //               <div
+    //                 className="flex items-center justify-between bg-white p-1 rounded mb-2 shadow"
+    //                 key={index * Math.random()}
+    //               >
+    //                 <img src={img} alt="gallery" className="w-12" />
+    //                 <span>
+    //                   <i
+    //                     className="fa-solid fa-circle-xmark text-2xl cursor-pointer text-red-500"
+    //                     onClick={() => deleteGalleryImg(index)}
+    //                   ></i>
+    //                 </span>
+    //               </div>
+    //             ))}
+    //           </div>
+    //         </div>
 
-          <input
-            type="text"
-            placeholder="Change title..."
-            name="title"
-            className="input input-bordered border-black input-sm w-full max-w-md"
-            disabled={isWantToEdit}
-          />
-        </div>
+    //         <div className="relative">
+    //           <input
+    //             type="url"
+    //             placeholder="Enter The URL https://www"
+    //             ref={imgRef}
+    //             className=" border border-[#5A76FD] px-3 py-2 w-full rounded-full outline-none"
+    //             disabled={galleryImg?.length >= 3}
 
-        <div className="bg-gray-100 p-2 rounded mb-3">
-          {/* update image ================ */}
-          <h2 className="text-md text-gray-500 mb-3">Product</h2>
-          <div className="flex flex-col lg:flex-row">
-            <div className="flex-1">
-              <img src={img} alt="product" className="w-48" />
+    //           />
+    //           <button
+    //             className={`bg-[#5A76FD] p-2 rounded-full absolute top-0 right-0 border border-[#5A76FD] text-white ${
+    //               galleryImg?.length >= 3 && "cursor-not-allowed"
+    //             }`}
+    //             type="button"
+    //             onClick={handleGalleryImg}
+    //             disabled={galleryImg?.length >= 3}
+    //           >
+    //             Gallery IMG
+    //           </button>
+    //         </div>
+    //       </div>
 
-              <input
-                type="text"
-                name="img"
-                placeholder="Change image url..."
-                className="input input-bordered border-black input-sm w-full max-w-xs mt-2"
-                disabled={isWantToEdit}
-              />
-            </div>
+    //       <div className="col-span-7 bg-gray-100 rounded p-3">
+    //         <InputBox
+    //           onChange={(e)=> setName(e.target.value)}
+    //           value={{
+    //             v : name,
+    //             label: "Product title",
+    //             name: "title",
+    //             placeholder: "Enter The Product Title",
+    //             required: true,
+    //           }}
+    //         />
 
-            <div className="flex-1">
-              <div className="flex items-center justify-between mb-5">
-                <div>
-                  {/* update Price ================ */}
-                  <h2 className="text-xl text-center">Price</h2>
-                  <h3 className="text-center text-md text-gray-400">
-                    ${price}
-                  </h3>
+    //         <div className="flex items-center space-x-3">
+    //           <InputBox
+    //             onChange={(e)=> setBrand(e.target.value)}
+    //             value={{
+    //               v : brand,
+    //               name: "brand",
+    //               label: "Brand name",
+    //               placeholder: "Enter The Brand Name",
+    //             }}
+    //           />
 
-                  <input
-                    type="text"
-                    name="price"
-                    placeholder="Change price"
-                    className="input input-bordered border-black input-sm w-32 mt-2"
-                    disabled={isWantToEdit}
-                  />
-                </div>
+    //           <InputBox
+    //             onChange={(e)=> setPrice(e.target.value)}
+    //             value={{
+    //               v : price,
+    //               name: "price",
+    //               placeholder: "Enter The Product Price",
+    //               label: "Price",
+    //               type: "number",
+    //               required: true,
+    //             }}
+    //           />
+    //         </div>
 
-                <div>
-                  {/* update quantity ================ */}
-                  <h2 className="text-xl text-center">Available</h2>
-                  <h2 className="text-md text-center text-gray-400">
-                    {availableQuantity} piece
-                  </h2>
+    //         <div className="flex items-center space-x-3">
+    //           <InputBox
+    //             onChange={(e)=> setAvailableQuantity(e.target.value)}
+    //             value={{
+    //               v: availableQuantity,
+    //               name: "available",
+    //               label: "Available Quantity",
+    //               placeholder: "Enter The Available Quantity",
+    //               required: true,
+    //               type: "number",
+    //             }}
+    //           />
 
-                  <input
-                    type="text"
-                    name="available"
-                    placeholder="Change Quantity"
-                    className="input input-bordered border-black input-sm w-32 mt-2"
-                    disabled={isWantToEdit}
-                  />
-                </div>
+    //           <InputBox
+    //             onChange={(e)=> setSize(e.target.value)}
+    //             value={{
+    //               v : size,
+    //               name: "size",
+    //               label: "Size",
+    //               placeholder: "M, L, XL, XXL",
+    //               type: "text",
+    //             }}
+    //           />
+    //         </div>
 
-                <div>
-                  {/* update delivery date ================ */}
-                  <h2 className="text-xl text-center">Total sells</h2>
-                  <h2 className="text-md text-center text-gray-400">
-                    {totalSells} piece
-                  </h2>
+    //         <div className="flex items-center space-x-3">
+    //           <InputBox
+    //             onChange={(e)=> setDeliveryCharge(e.target.value)}
+    //             value={{
+    //               v : deliveryCharge,
+    //               name: "deliveryCharge",
+    //               label: "Delivery Charge",
+    //               placeholder: "Enter The Delivery Charge",
+    //               required: true,
+    //               type: "number",
+    //             }}
+    //           />
 
-                  <input
-                    type="text"
-                    name="totalSell"
-                    placeholder="Change sells"
-                    className="input input-bordered border-black input-sm w-32 mt-2"
-                    disabled
-                  />
-                </div>
-              </div>
+    //           <InputBox
+    //             onChange={(e)=> setDeliveryTime(e.target.value)}
+    //             value={{
+    //               v : deliveryTime,
+    //               name: "deliveryTime",
+    //               placeholder: "Enter The Daily Time",
+    //               label: "Delivery Time",
+    //               required: true,
+    //             }}
+    //           />
+    //         </div>
 
-              <div className="flex items-center justify-between">
-                <div>
-                  {/* update delivery date ================ */}
-                  <h2 className="text-xl text-center">Delivery within</h2>
-                  <h2 className="text-md text-center text-gray-400">
-                    {deliveryWithin?.days} days
-                  </h2>
+    //         {/* Coupon code available */}
+    //         {isCouponAvailable && (
+    //           <div className="flex items-center space-x-3">
+    //             <InputBox
+    //               onChange={(e)=> setCouponCode(e.target.value)}
+    //               value={{
+    //                 v : couponCode,
+    //                 name: "couponCode",
+    //                 label: "Coupon code",
+    //                 placeholder: "AR50",
+    //                 type: "text",
+    //                 required: true,
+    //               }}
+    //             />
 
-                  <input
-                    type="text"
-                    name="deliveryDays"
-                    placeholder="Change date"
-                    className="input input-bordered border-black input-sm w-32 mt-2"
-                    disabled={isWantToEdit}
-                  />
-                </div>
+    //             <InputBox
+    //               onChange={(e)=> setCouponAmount(e.target.value)}
+    //               value={{
+    //                 v : couponAmount,
+    //                 name: "couponAmount",
+    //                 placeholder: "$50",
+    //                 label: "Coupon Amount",
+    //                 required: true,
+    //               }}
+    //             />
+    //           </div>
+    //         )}
+    //       </div>
+    //     </div>
 
-                <div>
-                  {/* update delivery charge ================ */}
-                  <h2 className="text-xl text-center">Delivery charge</h2>
-                  <h2 className="text-md text-center text-gray-400">
-                    ${deliveryWithin?.charge}
-                  </h2>
+    //     {/* Select & option */}
+    //     <div className="bg-gray-100 p-3 rounded flex flex-col lg:flex-row justify-between items-center mt-3">
+    //       <SelectOption
+    //         onChange={(e)=> setType(e.target.value)}
+    //         value={{
+    //           title: "Type",
+    //           name: "type",
+    //           options: [
+    //             { value: "regular", text: "Regular Product" },
+    //             { value: "popular", text: "Popular Product" },
+    //             { value: "justForYou", text: "Just for you" },
+    //           ],
+    //         }}
+    //       />
+    //       <SelectOption
+    //         onChange={(e)=> setCashOnDelivery(e.target.value)}
+    //         value={{
+    //           title: "Cash on delivery",
+    //           name: "cashOnDelivery",
+    //           options: [
+    //             { value: false, text: "Not Available" },
+    //             { value: true, text: "Available" },
+    //           ],
+    //         }}
+    //       />
 
-                  <input
-                    type="text"
-                    name="deliveryCharge"
-                    placeholder="Change charge"
-                    className="input input-bordered border-black input-sm w-32 mt-2"
-                    disabled={isWantToEdit}
-                  />
-                </div>
+    //       <SelectOption
+    //         onChange={(e) => setIsCouponAvailable(e.target.value === "true")}
+    //         value={{
+    //           title: "Coupon",
+    //           name: "coupon",
+    //           options: [
+    //             { value: false, text: "Not Available" },
+    //             { value: true, text: "Available" },
+    //           ],
+    //         }}
+    //       />
 
-                <div>
-                  {/* update delivery date ================ */}
-                  <h2 className="text-xl text-center">Size</h2>
-                  <h2 className="text-md text-center text-gray-400">
-                    {size?.map((s) => s + " ")}
-                  </h2>
+    //       <SelectOption
+    //         onChange={(e)=> setCategory(e.target.value)}
+    //         value={{
+    //           name: "category",
+    //           title: "Category",
+    //           required: true,
+    //           styles: "disabled",
+    //           options: categoriesTitle,
+    //         }}
+    //       />
+    //     </div>
 
-                  <input
-                    type="text"
-                    name="size"
-                    placeholder="Change size"
-                    className="input input-bordered border-black input-sm w-32 mt-2"
-                    disabled={isWantToEdit}
-                  />
-                </div>
-              </div>
+    //     {/* Description */}
+    //     <div className="mt-3 rounded flex flex-col lg:flex-row space-x-0 lg:space-x-5 space-y-5 lg:space-y-0">
+    //       <div className="bg-gray-100 p-3 flex-1 rounded">
+    //         <label htmlFor="list" className="text-gray-400 text-lg">
+    //           Attribute List
+    //         </label>
+    //         <textarea
+    //           onChange={(e)=> setList(e.target.value)}
+    //           name="list"
+    //           value ={list}
+    //           className=" min-w-full min-h-[250px] rounded p-3 outline-none border border-black"
+    //           placeholder="High Quality T-shirt, Stylish Design,  Material: Cotton"
+    //           id="list"
+    //         ></textarea>
+    //       </div>
 
-              <div className="flex items-center justify-between mt-5">
-                <div>
-                  {/* update product type ================ */}
-                  <h2 className="text-xl text-center">Type</h2>
-                  <h2 className="text-md text-center text-gray-400">
-                    {popular ? "Popular" : "Regular"}
-                  </h2>
-
-                  <select
-                    className="select select-bordered mt-2 border-black select-sm w-full max-w-xs"
-                    disabled={isWantToEdit}
-                    name="type"
-                    defaultValue={popular}
-                  >
-                    <option value={false}>Regular</option>
-                    <option value={true}>Popular</option>
-                  </select>
-                </div>
-
-                <div>
-                  {/* update cash on delivery ================ */}
-                  <h2 className="text-xl text-center">Cash on Delivery</h2>
-                  <h3 className="text-md text-center text-gray-400">
-                    {cashOnDelivery ? "Available" : "Not Available"}
-                  </h3>
-
-                  <select
-                    className="select select-bordered mt-2 border-black select-sm w-full max-w-xs"
-                    disabled={isWantToEdit}
-                    name="cashOnDelivery"
-                    defaultValue={cashOnDelivery}
-                  >
-                    <option value={false}>Not Available</option>
-                    <option value={true}>Available</option>
-                  </select>
-                </div>
-
-                <div>
-                  {/* update cash on delivery ================ */}
-                  <h2 className="text-xl text-center">Category</h2>
-                  <h3 className="text-md text-center text-gray-400">
-                    {categories}
-                  </h3>
-                  <select
-                    className="select select-bordered mt-2 border-black select-sm w-full max-w-xs"
-                    disabled={isWantToEdit}
-                    name="category"
-                    defaultValue={categories}
-                  >
-                    <option value={false}>Not Available</option>
-                    <option value={true}>Available</option>
-                  </select>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div className="bg-gray-100 p-2 rounded mb-3">
-          <div className="flex flex-col lg:flex-row justify-between">
-            <div>
-              {/* update discount ================ */}
-              <h2 className="text-xl text-center">Discount</h2>
-              <h3 className="text-center text-md text-gray-400">${discount}</h3>
-
-              <input
-                type="text"
-                name="discount"
-                placeholder="Change discount"
-                className="input input-bordered border-black input-sm w-32 mt-2"
-                disabled={isWantToEdit}
-              />
-            </div>
-
-            <div>
-              {/* update discount ================ */}
-              <h2 className="text-xl text-center">Brand name</h2>
-              <h3 className="text-center text-md text-gray-400">{brand}</h3>
-
-              <input
-                type="text"
-                name="brandName"
-                placeholder="Change brand name"
-                className="input input-bordered border-black input-sm w-32 mt-2"
-                disabled={isWantToEdit}
-              />
-            </div>
-
-            <div>
-              {/* update coupon code ================ */}
-              <h2 className="text-xl text-center">Coupon code</h2>
-              <h3 className="text-center text-md text-gray-400">
-                {couponCode?.code ? couponCode?.code : "Not available"}
-              </h3>
-
-              <input
-                type="text"
-                name="couponCode"
-                placeholder="Change code"
-                className="input input-bordered border-black input-sm w-32 mt-2"
-                disabled={isWantToEdit}
-              />
-            </div>
-
-            <div>
-              {/* update coupon amount ================ */}
-              <h2 className="text-xl text-center">Coupon amount</h2>
-              <h3 className="text-center text-md text-gray-400">
-                {couponCode?.amount
-                  ? "$" + couponCode?.amount
-                  : "Not available"}
-              </h3>
-
-              <input
-                type="text"
-                name="couponAmount"
-                placeholder="Change amount"
-                className="input input-bordered border-black input-sm w-32 mt-2"
-                disabled={isWantToEdit}
-              />
-            </div>
-
-            <div>
-              {/* update ratings ================ */}
-              <h2 className="text-xl text-center">Ratings</h2>
-              <h3 className="text-center text-md text-gray-400">{ratings}</h3>
-
-              <input
-                type="text"
-                name="ratings"
-                placeholder="Change ratings"
-                className="input input-bordered border-black input-sm w-32 mt-2"
-                disabled
-              />
-            </div>
-          </div>
-        </div>
-
-        <div className="bg-gray-100 p-2 rounded mg-3 flex flex-col lg:flex-row space-x-0 lg:space-x-5 space-y-5 lg:space-y-0">
-          <div className="flex-1">
-            <h5 className="mb-2 text-gray-400">List</h5>
-            <textarea
-              name="list"
-              onChange={updateProductAttributeList}
-              value={description?.list}
-              disabled={isWantToEdit}
-              className="w-full min-w-full min-h-[200px] rounded border border-black outline-none p-3"
-              placeholder="Enter a list like - The best area, The best city,"
-            ></textarea>
-          </div>
-
-          <div className="flex-1">
-            <h5 className="mb-2 text-gray-400">Description</h5>
-            <textarea
-              name="description"
-              className="w-full min-w-full min-h-[200px] rounded border border-black outline-none p-3"
-              placeholder="Description here..."
-              onChange={updateProductDescription}
-              value={description?.text}
-              disabled={isWantToEdit}
-            ></textarea>
-          </div>
-        </div>
-      </form>
-
-      {/* All comments of this products */}
-
-      <div className="mt-5 bg-gray-100 p-3 rounded">
-        <h2 className="text-xl mb-3">Comments</h2>
-
-        <div></div>
-      </div>
-    </section>
+    //       <div className="bg-gray-100 p-3 flex-1 rounded">
+    //         <label htmlFor="description" className="text-gray-400 text-lg">
+    //           Description
+    //         </label>
+    //         <textarea
+    //           onChange={(e)=> setAboutProduct(e.target.value)}
+    //           name="aboutProduct"
+    //           id="description"
+    //           value={aboutProduct}
+    //           className=" min-w-full min-h-[250px] rounded p-3 outline-none border border-black"
+    //           placeholder="Write something about the product."
+    //         ></textarea>
+    //       </div>
+    //     </div>
+    //   </form>
+    // </section>
+    <></>
   );
 };
 

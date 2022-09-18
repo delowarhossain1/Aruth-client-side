@@ -46,7 +46,7 @@ const Checkout = ({ checkoutInfo }) => {
     updateUserAddress(data.address, data.mob);
 
     // Place order
-    fetch(`http://localhost:5000/place-order?email=${user?.email}`, {
+    fetch(`https://afternoon-cove-39130.herokuapp.com/place-order?email=${user?.email}`, {
       method : 'POST',
       headers : {
         'content-type' : 'application/json',
@@ -78,7 +78,7 @@ const Checkout = ({ checkoutInfo }) => {
 
   // Update address 
   const updateUserAddress = (address, mob) => {
-    const URL = `http://localhost:5000/update-address?email=${user?.email}`;
+    const URL = `https://afternoon-cove-39130.herokuapp.com/update-address?email=${user?.email}`;
 
     fetch(URL, {
       method : 'PUT',

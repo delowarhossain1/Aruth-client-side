@@ -9,7 +9,7 @@ import Loading from "../../../../shared/Loading/Loading";
 const MyReviews = () => {
   const [user, loading] = useAuthState(auth);
 
-  const URL = `http://localhost:5000/my-all-review?email=${user?.email}`;
+  const URL = `https://afternoon-cove-39130.herokuapp.com/my-all-review?email=${user?.email}`;
 
   const {
     data: reviews,
