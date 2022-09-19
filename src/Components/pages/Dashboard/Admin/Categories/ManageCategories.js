@@ -16,7 +16,7 @@ const ManageCategories = () => {
 
   useEffect(() => {
     if (user?.email) {
-      const URL = `https://afternoon-cove-39130.herokuapp.com/categories`;
+      const URL = `http://localhost:5000/categories`;
       fetch(URL, {
         headers: {
           auth: `Bearer ${localStorage.getItem("accessToken")}`,
@@ -36,7 +36,7 @@ const ManageCategories = () => {
 
   const handleCategoryDelete = (id) => {
     deleteModal(() => {
-      const URL = `https://afternoon-cove-39130.herokuapp.com/delete-category/${id}?email=${user?.email}`;
+      const URL = `http://localhost:5000/delete-category/${id}?email=${user?.email}`;
       fetch(URL, {
         method: "DELETE",
         headers: {

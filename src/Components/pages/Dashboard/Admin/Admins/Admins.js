@@ -10,7 +10,7 @@ const Admins = () => {
   const defaultProfileImg = "https://i.ibb.co/10JxYVW/user.png";
 
   const { data: admins, isLoading } = useQuery(["our-admins"], () =>
-    fetch(`https://afternoon-cove-39130.herokuapp.com/all-admins?email=${user?.email}`, {
+    fetch(`http://localhost:5000/all-admins?email=${user?.email}`, {
       headers: {
         auth: `Bearer ${localStorage.getItem("accessToken")}`,
       },

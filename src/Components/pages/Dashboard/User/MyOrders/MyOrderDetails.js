@@ -38,7 +38,7 @@ const MyOrderDetails = () => {
   } = orderDetails;
 
   useEffect(() => {
-    const url = `https://afternoon-cove-39130.herokuapp.com/my-order-details/${id}?email=${user?.email}`;
+    const url = `http://localhost:5000/my-order-details/${id}?email=${user?.email}`;
     fetch(url, {
       headers: {
         auth: `Bearer ${localStorage.getItem("accessToken")}`,
@@ -54,7 +54,7 @@ const MyOrderDetails = () => {
   // get previous review
   useEffect(() => {
     if (orderNum) {
-      const url = `https://afternoon-cove-39130.herokuapp.com/get-review-by-order-number/${orderNum}?email=${user?.email}`;
+      const url = `http://localhost:5000/get-review-by-order-number/${orderNum}?email=${user?.email}`;
 
       fetch(url, {
         headers: {
@@ -98,7 +98,7 @@ const MyOrderDetails = () => {
       img: user?.photoURL || defaultProfileImg,
     };
 
-    const url = `https://afternoon-cove-39130.herokuapp.com/add-review/${orderNum}?email=${user?.email}`;
+    const url = `http://localhost:5000/add-review/${orderNum}?email=${user?.email}`;
     fetch(url, {
       method: "PUT",
       headers: {

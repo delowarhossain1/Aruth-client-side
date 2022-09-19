@@ -31,7 +31,7 @@ const ForgetPassword = () => {
     <section className="py-12 flex justify-center items-center">
       <PageTitle text='Forget password' />
       <div className="bg-white shadow-md rounded p-3 w-full md:max-w-sm text-center">
-        <i class="fa-solid fa-lock text-5xl text-blue-500"></i>
+        <i className="fa-solid fa-lock text-5xl text-blue-500"></i>
         <h4 className="text-2xl mt-3 text-gray-500">Forget Password?</h4>
         <h4 className="mt-2 text-gray-400">
           You can reset your password here.
@@ -39,7 +39,7 @@ const ForgetPassword = () => {
 
         <form className="mt-5" onSubmit={handleResetPassword}>
           <div className="flex">
-            <span className="p-2 bg-gray-300 rounded-tl rounded-bl"><i class="fa-solid fa-envelope text-blue-500 px-1"></i></span>
+            <span className="p-2 bg-gray-300 rounded-tl rounded-bl"><i className="fa-solid fa-envelope text-blue-500 px-1"></i></span>
             <input
               type="email"
               name='email'

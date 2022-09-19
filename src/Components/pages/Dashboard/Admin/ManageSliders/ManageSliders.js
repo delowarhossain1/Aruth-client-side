@@ -16,7 +16,7 @@ const ManageSliders = () => {
   const [sliders, setSliders] = useState([]);
 
   useEffect(() => {
-    const URL = `https://afternoon-cove-39130.herokuapp.com/sliders`;
+    const URL = `http://localhost:5000/sliders`;
 
     fetch(URL, {
       headers: {
@@ -32,7 +32,7 @@ const ManageSliders = () => {
 
   //   Handle slider image delete
   const handleSliderDelete = (id) => {
-    const URL = `https://afternoon-cove-39130.herokuapp.com/delete-slider/${id}?email=${user?.email}`;
+    const URL = `http://localhost:5000/delete-slider/${id}?email=${user?.email}`;
 
     deleteModal(() => {
       fetch(URL, {

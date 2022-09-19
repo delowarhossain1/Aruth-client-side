@@ -35,7 +35,7 @@ const AddNewCategory = () => {
     };
 
     // store in db
-    const URL = `https://afternoon-cove-39130.herokuapp.com/create-category?email=${user?.email}`;
+    const URL = `http://localhost:5000/create-category?email=${user?.email}`;
 
     fetch(URL, {
       method: "POSt",

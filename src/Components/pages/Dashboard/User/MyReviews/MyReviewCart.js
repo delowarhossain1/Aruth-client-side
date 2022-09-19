@@ -14,7 +14,7 @@ const MyReviewCart = ({ review, refetch }) => {
 
   const handleReviewDelete = () => {
     deleteModal(() => {
-      const URL = `https://afternoon-cove-39130.herokuapp.com/delete-my-review?id=${_id}&email=${user?.email}`;
+      const URL = `http://localhost:5000/delete-my-review?id=${_id}&email=${user?.email}`;
 
       fetch(URL, {
         method: "DELETE",

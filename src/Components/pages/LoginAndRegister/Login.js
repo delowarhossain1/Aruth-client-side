@@ -74,7 +74,7 @@ const Login = () => {
 
       <div className="w-full lg:w-2/3 mx-auto">
 
-          {loginError && <h2 className="bg-white text-center text-md text-red-500 p-2 mb-2 rounded"><i class="fa-solid fa-triangle-exclamation mr-2"></i> {displayError}</h2>}
+          {loginError && <h2 className="bg-white text-center text-md text-red-500 p-2 mb-2 rounded"><i className="fa-solid fa-triangle-exclamation mr-2"></i> {displayError}</h2>}
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 items-center justify-center shadow-lg rounded-md p-4 bg-white">
           <div>

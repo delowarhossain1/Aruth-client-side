@@ -8,7 +8,7 @@ const useAdmin = (user) => {
         if(user){
             const email = user?.email;
 
-            fetch(`https://afternoon-cove-39130.herokuapp.com/is-admin/${email}`)
+            fetch(`http://localhost:5000/is-admin/${email}`)
             .then(res => res.json())
             .then(adminInfo =>{
                 setAdmin(adminInfo?.isAdmin);

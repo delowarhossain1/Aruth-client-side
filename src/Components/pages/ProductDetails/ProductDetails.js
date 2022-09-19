@@ -41,7 +41,7 @@ const ProductDetails = ({ handleCheckoutInfo }) => {
 
   // Load product information
   useEffect(() => {
-    fetch(`https://afternoon-cove-39130.herokuapp.com/product-details/${id}`, {
+    fetch(`http://localhost:5000/product-details/${id}`, {
       headers: {
         "content-type": "application/json",
       },
@@ -52,7 +52,7 @@ const ProductDetails = ({ handleCheckoutInfo }) => {
 
   // Load comment of this product
   useEffect(() => {
-    const url = `https://afternoon-cove-39130.herokuapp.com/product-reviews/${_id}`;
+    const url = `http://localhost:5000/product-reviews/${_id}`;
     fetch(url)
       .then((res) => res.json())
       .then((res) => setComment(res));
@@ -60,7 +60,7 @@ const ProductDetails = ({ handleCheckoutInfo }) => {
 
   // Load recommended product
   useEffect(() => {
-    const URL = `https://afternoon-cove-39130.herokuapp.com/recommended-products/${categories}`;
+    const URL = `http://localhost:5000/recommended-products/${categories}`;
 
     fetch(URL)
       .then((res) => res.json())

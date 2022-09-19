@@ -31,7 +31,7 @@ const ProductExplore = () => {
   // const [aboutProduct, setAboutProduct] = useState("");
 
   // // Load Category name
-  // const URL = `https://afternoon-cove-39130.herokuapp.com/category-title?email=${user?.email}`;
+  // const URL = `http://localhost:5000/category-title?email=${user?.email}`;
   // const { data: categoriesTitle, isLoading } = useQuery(
   //   ["loadCategoryTitles", user],
   //   () =>
@@ -43,7 +43,7 @@ const ProductExplore = () => {
   // );
 
   // // load product info;
-  // const url = `https://afternoon-cove-39130.herokuapp.com/product-explore/${id}?email=${user?.email}`;
+  // const url = `http://localhost:5000/product-explore/${id}?email=${user?.email}`;
   // const { data: currentInfo, isLoading: currentInfoLoading } = useQuery(
   //   "product-explore",
   //   () =>

@@ -121,7 +121,7 @@ const Dashboard = () => {
             htmlFor="my-drawer-2"
             className="drawer-button lg:hidden"
           >
-            <i class="fa-solid fa-bars text-2xl mb-5 cursor-pointer"></i>
+            <i className="fa-solid fa-bars text-2xl mb-5 cursor-pointer"></i>
           </label>
 
           <Outlet />

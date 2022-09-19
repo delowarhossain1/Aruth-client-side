@@ -15,7 +15,7 @@ const Orders = () => {
 
   // get resent orders
   useEffect(() => {
-    fetch(`https://afternoon-cove-39130.herokuapp.com/orders?email=${user?.email}`, {
+    fetch(`http://localhost:5000/orders?email=${user?.email}`, {
       headers: {
         auth: `Bearer ${localStorage.getItem("accessToken")}`,
       },
@@ -33,7 +33,7 @@ const Orders = () => {
     const orderNumber = event.target.orderNumber.value;
 
     if (orderNumber && !orderNumber.includes("#")) {
-      const URL = `https://afternoon-cove-39130.herokuapp.com/search-order/${orderNumber}?email=${user?.email}`;
+      const URL = `http://localhost:5000/search-order/${orderNumber}?email=${user?.email}`;
       fetch(URL, {
         headers: {
           auth: `Bearer ${localStorage.getItem("accessToken")}`,

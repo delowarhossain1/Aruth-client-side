@@ -12,7 +12,7 @@ const Products = () => {
     const [productLoading, setProductLoading] = useState(true);
 
     useEffect(()=>{
-        const URL = `https://afternoon-cove-39130.herokuapp.com/products?email=${user?.email}`;
+        const URL = `http://localhost:5000/products?email=${user?.email}`;
 
         fetch(URL, {
             headers : {

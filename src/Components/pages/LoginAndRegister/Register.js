@@ -79,7 +79,7 @@ https://i.ibb.co/fQqV7Dm/signup.png"
           </div>
 
          {/* Display error */}
-      {registerError && <h2 className="mt-3 text-center text-md text-red-500"><i class="fa-solid fa-triangle-exclamation mr-2"></i> {registerError.code === 'auth/email-already-in-use' && 'You have created an account using this email. Please try another email.'}</h2>}
+      {registerError && <h2 className="mt-3 text-center text-md text-red-500"><i className="fa-solid fa-triangle-exclamation mr-2"></i> {registerError.code === 'auth/email-already-in-use' && 'You have created an account using this email. Please try another email.'}</h2>}
 
           {/* Register form */}
 
